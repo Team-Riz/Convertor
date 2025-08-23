@@ -12,17 +12,17 @@
 <header>
     <h1><i class="fas fa-calculator"></i> All-in-One Converters</h1>
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search converters...">
-        <button onclick="searchConverter()"><i class="fas fa-search"></i> Search</button>
+        <input type="text" id="searchInput" placeholder="Search converter...">
+        <button onclick="searchConverter()">Search</button>
     </div>
 </header>
 
 <main>
     <div class="converters">
 
-        <!-- Length Converter -->
+        <!-- LENGTH -->
         <div class="converter" data-name="length">
-            <h3><i class="fas fa-ruler"></i> Length</h3>
+            <h3><i class="fas fa-ruler"></i> Length Converter</h3>
             <input type="number" id="lengthValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="lengthFrom">
@@ -44,12 +44,14 @@
                 </select>
             </div>
             <button onclick="convertLength()">Convert</button>
-            <div class="result" id="lengthResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="lengthFly"></span>
+            <div class="result" id="lengthResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Weight Converter -->
+        <!-- WEIGHT -->
         <div class="converter" data-name="weight">
-            <h3><i class="fas fa-weight-scale"></i> Weight</h3>
+            <h3><i class="fas fa-weight-scale"></i> Weight Converter</h3>
             <input type="number" id="weightValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="weightFrom">
@@ -67,12 +69,14 @@
                 </select>
             </div>
             <button onclick="convertWeight()">Convert</button>
-            <div class="result" id="weightResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="weightFly"></span>
+            <div class="result" id="weightResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Temperature Converter -->
+        <!-- TEMPERATURE -->
         <div class="converter" data-name="temperature">
-            <h3><i class="fas fa-thermometer-half"></i> Temperature</h3>
+            <h3><i class="fas fa-thermometer-half"></i> Temperature Converter</h3>
             <input type="number" id="tempValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="tempFrom">
@@ -88,12 +92,14 @@
                 </select>
             </div>
             <button onclick="convertTemperature()">Convert</button>
-            <div class="result" id="tempResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="tempFly"></span>
+            <div class="result" id="tempResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Volume Converter -->
+        <!-- VOLUME -->
         <div class="converter" data-name="volume">
-            <h3><i class="fas fa-cube"></i> Volume</h3>
+            <h3><i class="fas fa-cube"></i> Volume Converter</h3>
             <input type="number" id="volumeValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="volumeFrom">
@@ -111,12 +117,14 @@
                 </select>
             </div>
             <button onclick="convertVolume()">Convert</button>
-            <div class="result" id="volumeResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="volumeFly"></span>
+            <div class="result" id="volumeResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Speed Converter -->
+        <!-- SPEED -->
         <div class="converter" data-name="speed">
-            <h3><i class="fas fa-tachometer-alt"></i> Speed</h3>
+            <h3><i class="fas fa-tachometer-alt"></i> Speed Converter</h3>
             <input type="number" id="speedValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="speedFrom">
@@ -132,12 +140,14 @@
                 </select>
             </div>
             <button onclick="convertSpeed()">Convert</button>
-            <div class="result" id="speedResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="speedFly"></span>
+            <div class="result" id="speedResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Area Converter -->
+        <!-- AREA -->
         <div class="converter" data-name="area">
-            <h3><i class="fas fa-vector-square"></i> Area</h3>
+            <h3><i class="fas fa-vector-square"></i> Area Converter</h3>
             <input type="number" id="areaValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="areaFrom">
@@ -155,33 +165,37 @@
                 </select>
             </div>
             <button onclick="convertArea()">Convert</button>
-            <div class="result" id="areaResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="areaFly"></span>
+            <div class="result" id="areaResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Time Converter -->
+        <!-- TIME -->
         <div class="converter" data-name="time">
-            <h3><i class="fas fa-clock"></i> Time</h3>
+            <h3><i class="fas fa-clock"></i> Time Converter</h3>
             <input type="number" id="timeValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="timeFrom">
-                    <option value="second">Second</option>
-                    <option value="minute">Minute</option>
-                    <option value="hour">Hour</option>
+                    <option value="second">Seconds</option>
+                    <option value="minute">Minutes</option>
+                    <option value="hour">Hours</option>
                 </select>
                 <span>→</span>
                 <select id="timeTo">
-                    <option value="second">Second</option>
-                    <option value="minute">Minute</option>
-                    <option value="hour">Hour</option>
+                    <option value="second">Seconds</option>
+                    <option value="minute">Minutes</option>
+                    <option value="hour">Hours</option>
                 </select>
             </div>
             <button onclick="convertTime()">Convert</button>
-            <div class="result" id="timeResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="timeFly"></span>
+            <div class="result" id="timeResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
-        <!-- Currency Converter -->
+        <!-- CURRENCY -->
         <div class="converter" data-name="currency">
-            <h3><i class="fas fa-dollar-sign"></i> Currency</h3>
+            <h3><i class="fas fa-dollar-sign"></i> Currency Converter</h3>
             <input type="number" id="currencyValue" placeholder="Enter value">
             <div class="unit-select">
                 <select id="currencyFrom">
@@ -199,7 +213,9 @@
                 </select>
             </div>
             <button onclick="convertCurrency()">Convert</button>
-            <div class="result" id="currencyResult"><i class="fas fa-equals"></i> Result</div>
+            <span class="fly-icon" id="currencyFly"></span>
+            <div class="result" id="currencyResult"></div>
+            <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
 
     </div>

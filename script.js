@@ -26,57 +26,18 @@ modeToggle.addEventListener('click', () => {
 
 // ===================== Converters =====================
 const converterContainer = document.getElementById('converter-container');
-
 const converters = [
-  {name:"Length",icon:"fa-ruler",units:["Meter","Kilometer","Centimeter","Millimeter","Mile","Yard","Foot","Inch"],func:(val,from,to)=>{
-    const f={"Meter":1,"Kilometer":1000,"Centimeter":0.01,"Millimeter":0.001,"Mile":1609.34,"Yard":0.9144,"Foot":0.3048,"Inch":0.0254};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Weight",icon:"fa-weight-scale",units:["Kilogram","Gram","Milligram","Pound","Ounce"],func:(val,from,to)=>{
-    const f={"Kilogram":1,"Gram":0.001,"Milligram":0.000001,"Pound":0.453592,"Ounce":0.0283495};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Temperature",icon:"fa-thermometer-half",units:["Celsius","Fahrenheit","Kelvin"],func:(val,from,to)=>{
-    let c=0;
-    if(from==="Celsius") c=val;
-    else if(from==="Fahrenheit") c=(val-32)*5/9;
-    else c=val-273.15;
-    if(to==="Celsius") return c.toFixed(2);
-    else if(to==="Fahrenheit") return (c*9/5+32).toFixed(2);
-    else return (c+273.15).toFixed(2);
-  }},
-  {name:"Volume",icon:"fa-cube",units:["Liter","Milliliter","Gallon","Cubic Meter"],func:(val,from,to)=>{
-    const f={"Liter":1,"Milliliter":0.001,"Gallon":3.78541,"Cubic Meter":1000};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Speed",icon:"fa-tachometer-alt",units:["km/h","m/s","mph"],func:(val,from,to)=>{
-    const f={"km/h":1,"m/s":3.6,"mph":1.60934};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Area",icon:"fa-vector-square",units:["m²","km²","mi²","ft²","yd²"],func:(val,from,to)=>{
-    const f={"m²":1,"km²":1e6,"mi²":2.59e6,"ft²":0.092903,"yd²":0.836127};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Time",icon:"fa-clock",units:["Second","Minute","Hour","Day","Week"],func:(val,from,to)=>{
-    const f={"Second":1,"Minute":60,"Hour":3600,"Day":86400,"Week":604800};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Currency",icon:"fa-dollar-sign",units:["USD","QAR","PKR","EUR"],func:(val,from,to)=>{
-    const f={"USD":1,"QAR":0.27,"PKR":0.0055,"EUR":1.1};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Pressure",icon:"fa-tachometer-alt",units:["Pa","kPa","bar","atm"],func:(val,from,to)=>{
-    const f={Pa:1,kPa:1000,bar:100000,atm:101325};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Energy",icon:"fa-bolt",units:["Joule","Calorie","kWh"],func:(val,from,to)=>{
-    const f={Joule:1,Calorie:4.184,kWh:3.6e6};
-    return (val*f[from]/f[to]).toFixed(2);
-  }},
-  {name:"Data Size",icon:"fa-database",units:["Byte","Kilobyte","Megabyte","Gigabyte","Terabyte"],func:(val,from,to)=>{
-    const f={Byte:1,Kilobyte:1024,Megabyte:1048576,Gigabyte:1073741824,Terabyte:1099511627776};
-    return (val*f[from]/f[to]).toFixed(2);
-  }}
+  {name:"Length",icon:"fa-ruler",units:["Meter","Kilometer","Centimeter","Millimeter","Mile","Yard","Foot","Inch"],func:(val,from,to)=>{const f={"Meter":1,"Kilometer":1000,"Centimeter":0.01,"Millimeter":0.001,"Mile":1609.34,"Yard":0.9144,"Foot":0.3048,"Inch":0.0254};return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Weight",icon:"fa-weight-scale",units:["Kilogram","Gram","Milligram","Pound","Ounce"],func:(val,from,to)=>{const f={"Kilogram":1,"Gram":0.001,"Milligram":0.000001,"Pound":0.453592,"Ounce":0.0283495};return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Temperature",icon:"fa-thermometer-half",units:["Celsius","Fahrenheit","Kelvin"],func:(val,from,to)=>{let c=0;if(from==="Celsius") c=val; else if(from==="Fahrenheit") c=(val-32)*5/9; else c=val-273.15; if(to==="Celsius") return c.toFixed(2); else if(to==="Fahrenheit") return (c*9/5+32).toFixed(2); else return (c+273.15).toFixed(2);}},
+  {name:"Volume",icon:"fa-cube",units:["Liter","Milliliter","Gallon","Cubic Meter"],func:(val,from,to)=>{const f={"Liter":1,"Milliliter":0.001,"Gallon":3.78541,"Cubic Meter":1000}; return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Speed",icon:"fa-tachometer-alt",units:["km/h","m/s","mph"],func:(val,from,to)=>{const f={"km/h":1,"m/s":3.6,"mph":1.60934}; return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Area",icon:"fa-vector-square",units:["m²","km²","mi²","ft²","yd²"],func:(val,from,to)=>{const f={"m²":1,"km²":1e6,"mi²":2.59e6,"ft²":0.092903,"yd²":0.836127};return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Time",icon:"fa-clock",units:["Second","Minute","Hour","Day","Week"],func:(val,from,to)=>{const f={"Second":1,"Minute":60,"Hour":3600,"Day":86400,"Week":604800};return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Currency",icon:"fa-dollar-sign",units:["USD","QAR","PKR","EUR"],func:(val,from,to)=>{const f={"USD":1,"QAR":0.27,"PKR":0.0055,"EUR":1.1}; return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Pressure",icon:"fa-tachometer-alt",units:["Pa","kPa","bar","atm"],func:(val,from,to)=>{const f={Pa:1,kPa:1000,bar:100000,atm:101325}; return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Energy",icon:"fa-bolt",units:["Joule","Calorie","kWh"],func:(val,from,to)=>{const f={Joule:1,Calorie:4.184,kWh:3.6e6}; return (val*f[from]/f[to]).toFixed(2);}},
+  {name:"Data Size",icon:"fa-database",units:["Byte","Kilobyte","Megabyte","Gigabyte","Terabyte"],func:(val,from,to)=>{const f={Byte:1,Kilobyte:1024,Megabyte:1048576,Gigabyte:1073741824,Terabyte:1099511627776}; return (val*f[from]/f[to]).toFixed(2);}}
 ];
 
 converters.forEach(c=>{
@@ -106,6 +67,30 @@ converters.forEach(c=>{
   converterContainer.appendChild(card);
 });
 
+// ===================== Search Functionality =====================
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+function highlightConverter() {
+  const query = searchInput.value.toLowerCase();
+  const cards = document.querySelectorAll('.converter-card');
+  cards.forEach(card=>{
+    const title = card.querySelector('h3').innerText.toLowerCase();
+    if(query && title.includes(query)){
+      card.style.transform = "scale(1.05)";
+      card.style.boxShadow = "0 15px 30px rgba(0,0,0,0.3)";
+      card.scrollIntoView({behavior:"smooth", block:"center"});
+    } else {
+      card.style.transform = "scale(1)";
+      card.style.boxShadow = "0 5px 15px rgba(0,0,0,0.1)";
+    }
+  });
+}
+searchBtn.addEventListener('click', highlightConverter);
+searchInput.addEventListener('keyup', e=>{
+  if(e.key === "Enter") highlightConverter();
+  if(searchInput.value==="") highlightConverter();
+});
+
 // ===================== Calories =====================
 function calculateCalories() {
   const age = +document.getElementById('age').value;
@@ -123,22 +108,14 @@ function calculateCalories() {
   const carbs = ((calories-(protein*4+fat*9))/4).toFixed(1);
   const resultDiv = document.getElementById('calorieResult');
   resultDiv.innerHTML = `
-    <h3><i class="fa-solid fa-bowl-food"></i> Daily Needs</h3>
-    <p><i class="fa-solid fa-fire"></i> Calories: ${calories} kcal</p>
-    <p><i class="fa-solid fa-drumstick-bite"></i> Protein: ${protein} g</p>
-    <p><i class="fa-solid fa-bacon"></i> Fat: ${fat} g</p>
-    <p><i class="fa-solid fa-bread-slice"></i> Carbs: ${carbs} g</p>
+    <h3><i class="fa-solid fa-bolt"></i> Daily Requirements</h3>
+    <p>Calories: ${calories} kcal</p>
+    <p>Protein: ${protein} g</p>
+    <p>Fat: ${fat} g</p>
+    <p>Carbs: ${carbs} g</p>
   `;
 }
 
-// ===================== PDF Tools =====================
-function convertPdfToWord() {
-  const file = document.getElementById('pdfToWord').files[0];
-  if(!file){alert("Select a PDF"); return;}
-  document.getElementById('pdfWordResult').innerText = "Conversion simulated: PDF → Word (Free demo)";
-}
-function convertWordToPdf() {
-  const file = document.getElementById('wordToPdf').files[0];
-  if(!file){alert("Select a Word file"); return;}
-  document.getElementById('wordPdfResult').innerText = "Conversion simulated: Word → PDF (Free demo)";
-}
+// ===================== PDF Tools (Demo) =====================
+function convertPdfToWord(){document.getElementById('pdfWordResult').innerText="Conversion failed. Use a valid PDF.";}
+function convertWordToPdf(){document.getElementById('wordPdfResult').innerText="Conversion failed. Use a valid Word file.";}

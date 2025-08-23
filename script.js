@@ -28,7 +28,7 @@ const unitsData={
   temperature:{celsius:"c",fahrenheit:"f",kelvin:"k"},
   volume:{liter:1,milliliter:0.001,gallon:3.78541,pint:0.473176,cup:0.24},
   speed:{kmh:1,mph:1.60934,ms:3.6,knot:1.852},
-  area:{sqm:1,sqkm:1e6,sqmi:2.59e6, sqft:0.092903,acre:4046.86},
+  area:{sqm:1,sqkm:1e6,sqmi:2.59e6,sqft:0.092903,acre:4046.86},
   time:{second:1,minute:60,hour:3600,day:86400,week:604800},
   currency:{USD:1,QAR:3.64,PKR:280,EUR:0.92},
   energy:{joule:1,kcal:4184,kwh:3600000},
@@ -57,55 +57,54 @@ converters.forEach(conv=>{
   card.innerHTML=`
     <h3><i class="fa-solid ${conv.icon}"></i> ${conv.title} Converter</h3>
     <div class="icon-container">
-      <svg width="50" height="50"><circle cx="25" cy="25" r="10" fill="#2196f3"><animate attributeName="r" values="10;20;10" dur="1.5s" repeatCount="indefinite"/></circle></svg>
+      <svg class="anim-icon" width="50" height="50"><circle cx="25" cy="25" r="10" fill="#2196f3"/></svg>
     </div>
-    <input type="number" class="input-val" placeholder="Enter value">
-    <select class="unit-from">${conv.units.map(u=>`<option value="${u}">${u}</option>`).join('')}</select>
-    <select class="unit-to">${conv.units.map(u=>`<option value="${u}">${u}</option>`).join('')}</select>
-    <button class="calc-btn">Calculate</button>
+    <input type="number" placeholder="Enter value" class="conv-input">
+    <select class="from-unit">${conv.units.map(u=>`<option value="${u}">${u}</option>`).join('')}</select>
+    <select class="to-unit">${conv.units.map(u=>`<option value="${u}">${u}</option>`).join('')}</select>
+    <button class="calc-btn"><i class="fa-solid fa-calculator"></i> Calculate</button>
     <div class="result"></div>
   `;
   container.appendChild(card);
 });
 
-// ================== CALCULATE ==================
-container.addEventListener('click', e=>{
-  if(e.target.classList.contains('calc-btn')){
-    const card=e.target.closest('.converter-card');
-    const val=parseFloat(card.querySelector('.input-val').value);
-    const from=card.querySelector('.unit-from').value;
-    const to=card.querySelector('.unit-to').value;
-    const title=card.querySelector('h3').innerText;
-    const res=convert(val,from,to,title);
-    const resDiv=card.querySelector('.result');
-    resDiv.innerText=`Result: ${res}`;
-    resDiv.classList.add('show');
-    setTimeout(()=>resDiv.classList.remove('show'),800);
+// ================== CALCULATION LOGIC ==================
+function convertValue(key,val,from,to){
+  if(key==="temperature"){
+    let c=0;
+    if(from==="celsius") c=val;
+    else if(from==="fahrenheit") c=(val-32)*5/9;
+    else if(from==="kelvin") c=val-273.15;
+    if(to==="celsius") return c.toFixed(2);
+    if(to==="fahrenheit") return (c*9/5+32).toFixed(2);
+    if(to==="kelvin") return (c+273.15).toFixed(2);
+  } else if(key==="currency") {
+    return (val*unitsData.currency[to]/unitsData.currency[from]).toFixed(2);
+  } else {
+    return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
   }
-});
-
-// ================== BIDIRECTIONAL CONVERT FUNCTION ==================
-function convert(val,from,to,title){
-  if(isNaN(val)) return "Enter a number";
-  title=title.toLowerCase();
-  for(let key in unitsData){
-    if(title.includes(key)){
-      if(key=="temperature"){
-        let c=0;
-        if(from=="celsius") c=val;
-        else if(from=="fahrenheit") c=(val-32)*5/9;
-        else if(from=="kelvin") c=val-273.15;
-        if(to=="celsius") return c.toFixed(2);
-        if(to=="fahrenheit") return (c*9/5+32).toFixed(2);
-        if(to=="kelvin") return (c+273.15).toFixed(2);
-      } else {
-        const res=val*unitsData[key][from]/unitsData[key][to];
-        return res.toFixed(2);
-      }
-    }
-  }
-  return "N/A";
 }
+
+// ================== ADD CALCULATION EVENTS ==================
+document.querySelectorAll('.converter-card').forEach((card,i)=>{
+  const key=converters[i].title.toLowerCase();
+  const btn=card.querySelector('.calc-btn');
+  const input=card.querySelector('.conv-input');
+  const fromSel=card.querySelector('.from-unit');
+  const toSel=card.querySelector('.to-unit');
+  const resDiv=card.querySelector('.result');
+  const icon=card.querySelector('.anim-icon');
+
+  btn.addEventListener('click',()=>{
+    const val=parseFloat(input.value);
+    if(isNaN(val)){alert("Enter valid number"); return;}
+    const result=convertValue(key,val,fromSel.value,toSel.value);
+    resDiv.innerHTML=`Result: ${result} ${toSel.value}`;
+    resDiv.classList.add('show');
+    icon.style.animation="spin 1s linear";
+    setTimeout(()=>{icon.style.animation="";},1000);
+  });
+});
 
 // ================== SEARCH ==================
 document.getElementById('searchBtn').addEventListener('click',()=>{
@@ -141,5 +140,5 @@ function calculateCalories(){
 }
 
 // ================== PDF TOOLS ==================
-function convertPdfToWord(){document.getElementById('pdfWordResult').innerText="Conversion failed. Use a valid PDF.";}
-function convertWordToPdf(){document.getElementById('wordPdfResult').innerText="Conversion failed. Use a valid Word file.";}
+function convertPdfToWord(){document.getElementById('pdfWordResult').innerText="Conversion failed. Make sure it is a readable PDF.";}
+function convertWordToPdf(){document.getElementById('wordPdfResult').innerText="Conversion failed. Make sure it is a readable Word file.";}

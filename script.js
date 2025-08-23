@@ -41,13 +41,8 @@ async function fetchCurrencyRates() {
   try {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
-    if(data && data.rates) {
-      unitsData.currency = data.rates;
-      console.log("Live currency rates loaded:", unitsData.currency);
-    }
-  } catch(err){
-    console.error("Failed to fetch live currency rates. Using static fallback.", err);
-  }
+    if(data && data.rates) { unitsData.currency = data.rates; }
+  } catch(err){ console.error(err); }
 }
 fetchCurrencyRates();
 
@@ -135,6 +130,7 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
 });
 
 // ================== CALORIES ==================
+document.getElementById('calorieBtn').addEventListener('click', calculateCalories);
 function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
@@ -142,56 +138,29 @@ function calculateCalories(){
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
-
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
   let protein=weight*1.5;
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
-  let bmi=weight/((height/100)*(height/100));
-  let bmiStatus="";
-  if(bmi<18.5) bmiStatus="Underweight";
-  else if(bmi<25) bmiStatus="Normal";
-  else if(bmi<30) bmiStatus="Overweight";
-  else bmiStatus="Obese";
+  let bmi=weight/((height/100)**2);
 
-  let genderAdv=(gender=="male")?"Maintain muscle mass with protein-rich diet.":"Focus on iron & calcium intake.";
-  let ageAdv="";
-  if(age<18) ageAdv="Growth stage, ensure balanced nutrition.";
-  else if(age<40) ageAdv="Maintain active lifestyle.";
-  else if(age<60) ageAdv="Include moderate exercises & healthy diet.";
-  else ageAdv="Focus on joint care & light activity.";
+  const resultDiv=document.getElementById('calorieResult');
+  resultDiv.innerHTML="";
 
-  let diet="",exercise="";
-  if(bmiStatus==="Underweight"){ diet="High calorie meals, nuts, smoothies"; exercise="Light strength training";}
-  else if(bmiStatus==="Normal"){ diet="Balanced diet with proteins & veggies"; exercise="Mix of cardio & strength";}
-  else if(bmiStatus==="Overweight"){ diet="Low carb, high fiber meals"; exercise="Cardio 30-60 min daily";}
-  else{ diet="Consult nutritionist"; exercise="Light exercises & walking";}
-
-  const resDiv=document.getElementById('calorieResult');
-  resDiv.innerHTML="";
-
-  const results=[
-    {title:"Calories", value:`${calories.toFixed(2)} kcal`},
-    {title:"Protein", value:`${protein.toFixed(2)} g`},
-    {title:"Fat", value:`${fat.toFixed(2)} g`},
-    {title:"Carbs", value:`${carbs.toFixed(2)} g`},
-    {title:"BMI", value:`${bmi.toFixed(2)} (${bmiStatus})`},
-    {title:"Gender Advice", value:genderAdv},
-    {title:"Age Advice", value:ageAdv},
-    {title:"Diet Suggestion", value:diet},
-    {title:"Exercise Suggestion", value:exercise}
+  const cards=[
+    {title:"Calories", value:calories.toFixed(2)+" kcal", color:"#ff7043", icon:"fa-fire"},
+    {title:"Protein", value:protein.toFixed(2)+" g", color:"#66bb6a", icon:"fa-drumstick-bite"},
+    {title:"Fat", value:fat.toFixed(2)+" g", color:"#ffee58", icon:"fa-oil-can"},
+    {title:"Carbs", value:carbs.toFixed(2)+" g", color:"#42a5f5", icon:"fa-bread-slice"},
+    {title:"BMI", value:bmi.toFixed(1), color:"#ab47bc", icon:"fa-weight"},
+    {title:"Advice", value:`${gender==='male'?'Male':'Female'} age ${age} advice: maintain healthy lifestyle`, color:"#ffa726", icon:"fa-heart-pulse"}
   ];
 
-  results.forEach(r=>{
-    const card=document.createElement('div'); 
-    card.className="cal-card";
-    card.innerHTML=`
-      <svg class="cal-icon"><circle cx="20" cy="20" r="15"/></svg>
-      <h4>${r.title}</h4>
-      <p>${r.value}</p>
-    `;
-    resDiv.appendChild(card);
+  cards.forEach(c=>{
+    const div=document.createElement('div'); div.className="calorie-card";
+    div.innerHTML=`<h4>${c.title}</h4><p>${c.value}</p><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="12" fill="${c.color}"/></svg>`;
+    resultDiv.appendChild(div);
   });
 }
 

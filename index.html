@@ -10,219 +10,211 @@
 <body>
 
 <header>
-    <h1><i class="fas fa-calculator"></i> All-in-One Converters</h1>
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search converter...">
-        <button onclick="searchConverter()">Search</button>
-    </div>
+<h1><i class="fas fa-calculator"></i> All-in-One Converters</h1>
+<div class="search-bar">
+<input type="text" id="searchInput" placeholder="Search converter...">
+<button onclick="searchConverter()">Search</button>
+</div>
 </header>
 
 <main>
-    <div class="converters">
+<div class="converters">
 
-        <!-- LENGTH -->
-        <div class="converter" data-name="length">
-            <h3><i class="fas fa-ruler"></i> Length Converter</h3>
-            <input type="number" id="lengthValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="lengthFrom">
-                    <option value="meter">Meter</option>
-                    <option value="kilometer">Kilometer</option>
-                    <option value="centimeter">Centimeter</option>
-                    <option value="mile">Mile</option>
-                    <option value="foot">Foot</option>
-                    <option value="inch">Inch</option>
-                </select>
-                <span>→</span>
-                <select id="lengthTo">
-                    <option value="meter">Meter</option>
-                    <option value="kilometer">Kilometer</option>
-                    <option value="centimeter">Centimeter</option>
-                    <option value="mile">Mile</option>
-                    <option value="foot">Foot</option>
-                    <option value="inch">Inch</option>
-                </select>
-            </div>
-            <button onclick="convertLength()">Convert</button>
-            <span class="fly-icon" id="lengthFly"></span>
-            <div class="result" id="lengthResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- LENGTH -->
+<div class="converter" data-name="length">
+<h3><i class="fas fa-ruler"></i> Length Converter</h3>
+<input type="number" id="lengthValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="lengthFrom">
+<option value="meter">Meter</option>
+<option value="kilometer">Kilometer</option>
+<option value="centimeter">Centimeter</option>
+<option value="mile">Mile</option>
+<option value="foot">Foot</option>
+<option value="inch">Inch</option>
+</select><span>→</span>
+<select id="lengthTo">
+<option value="meter">Meter</option>
+<option value="kilometer">Kilometer</option>
+<option value="centimeter">Centimeter</option>
+<option value="mile">Mile</option>
+<option value="foot">Foot</option>
+<option value="inch">Inch</option>
+</select>
+</div>
+<button onclick="convertLength()">Convert</button>
+<span class="fly-icon" id="lengthFly"></span>
+<div class="result" id="lengthResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- WEIGHT -->
-        <div class="converter" data-name="weight">
-            <h3><i class="fas fa-weight-scale"></i> Weight Converter</h3>
-            <input type="number" id="weightValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="weightFrom">
-                    <option value="kilogram">Kilogram</option>
-                    <option value="gram">Gram</option>
-                    <option value="pound">Pound</option>
-                    <option value="ounce">Ounce</option>
-                </select>
-                <span>→</span>
-                <select id="weightTo">
-                    <option value="kilogram">Kilogram</option>
-                    <option value="gram">Gram</option>
-                    <option value="pound">Pound</option>
-                    <option value="ounce">Ounce</option>
-                </select>
-            </div>
-            <button onclick="convertWeight()">Convert</button>
-            <span class="fly-icon" id="weightFly"></span>
-            <div class="result" id="weightResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- WEIGHT -->
+<div class="converter" data-name="weight">
+<h3><i class="fas fa-weight-scale"></i> Weight Converter</h3>
+<input type="number" id="weightValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="weightFrom">
+<option value="kilogram">Kilogram</option>
+<option value="gram">Gram</option>
+<option value="pound">Pound</option>
+<option value="ounce">Ounce</option>
+</select><span>→</span>
+<select id="weightTo">
+<option value="kilogram">Kilogram</option>
+<option value="gram">Gram</option>
+<option value="pound">Pound</option>
+<option value="ounce">Ounce</option>
+</select>
+</div>
+<button onclick="convertWeight()">Convert</button>
+<span class="fly-icon" id="weightFly"></span>
+<div class="result" id="weightResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- TEMPERATURE -->
-        <div class="converter" data-name="temperature">
-            <h3><i class="fas fa-thermometer-half"></i> Temperature Converter</h3>
-            <input type="number" id="tempValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="tempFrom">
-                    <option value="celsius">Celsius</option>
-                    <option value="fahrenheit">Fahrenheit</option>
-                    <option value="kelvin">Kelvin</option>
-                </select>
-                <span>→</span>
-                <select id="tempTo">
-                    <option value="celsius">Celsius</option>
-                    <option value="fahrenheit">Fahrenheit</option>
-                    <option value="kelvin">Kelvin</option>
-                </select>
-            </div>
-            <button onclick="convertTemperature()">Convert</button>
-            <span class="fly-icon" id="tempFly"></span>
-            <div class="result" id="tempResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- TEMPERATURE -->
+<div class="converter" data-name="temperature">
+<h3><i class="fas fa-thermometer-half"></i> Temperature Converter</h3>
+<input type="number" id="tempValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="tempFrom">
+<option value="celsius">Celsius</option>
+<option value="fahrenheit">Fahrenheit</option>
+<option value="kelvin">Kelvin</option>
+</select><span>→</span>
+<select id="tempTo">
+<option value="celsius">Celsius</option>
+<option value="fahrenheit">Fahrenheit</option>
+<option value="kelvin">Kelvin</option>
+</select>
+</div>
+<button onclick="convertTemperature()">Convert</button>
+<span class="fly-icon" id="tempFly"></span>
+<div class="result" id="tempResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- VOLUME -->
-        <div class="converter" data-name="volume">
-            <h3><i class="fas fa-cube"></i> Volume Converter</h3>
-            <input type="number" id="volumeValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="volumeFrom">
-                    <option value="liter">Liter</option>
-                    <option value="milliliter">Milliliter</option>
-                    <option value="gallon">Gallon</option>
-                    <option value="cup">Cup</option>
-                </select>
-                <span>→</span>
-                <select id="volumeTo">
-                    <option value="liter">Liter</option>
-                    <option value="milliliter">Milliliter</option>
-                    <option value="gallon">Gallon</option>
-                    <option value="cup">Cup</option>
-                </select>
-            </div>
-            <button onclick="convertVolume()">Convert</button>
-            <span class="fly-icon" id="volumeFly"></span>
-            <div class="result" id="volumeResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- VOLUME -->
+<div class="converter" data-name="volume">
+<h3><i class="fas fa-cube"></i> Volume Converter</h3>
+<input type="number" id="volumeValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="volumeFrom">
+<option value="liter">Liter</option>
+<option value="milliliter">Milliliter</option>
+<option value="gallon">Gallon</option>
+<option value="cup">Cup</option>
+</select><span>→</span>
+<select id="volumeTo">
+<option value="liter">Liter</option>
+<option value="milliliter">Milliliter</option>
+<option value="gallon">Gallon</option>
+<option value="cup">Cup</option>
+</select>
+</div>
+<button onclick="convertVolume()">Convert</button>
+<span class="fly-icon" id="volumeFly"></span>
+<div class="result" id="volumeResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- SPEED -->
-        <div class="converter" data-name="speed">
-            <h3><i class="fas fa-tachometer-alt"></i> Speed Converter</h3>
-            <input type="number" id="speedValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="speedFrom">
-                    <option value="kmh">km/h</option>
-                    <option value="mph">mph</option>
-                    <option value="ms">m/s</option>
-                </select>
-                <span>→</span>
-                <select id="speedTo">
-                    <option value="kmh">km/h</option>
-                    <option value="mph">mph</option>
-                    <option value="ms">m/s</option>
-                </select>
-            </div>
-            <button onclick="convertSpeed()">Convert</button>
-            <span class="fly-icon" id="speedFly"></span>
-            <div class="result" id="speedResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- SPEED -->
+<div class="converter" data-name="speed">
+<h3><i class="fas fa-tachometer-alt"></i> Speed Converter</h3>
+<input type="number" id="speedValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="speedFrom">
+<option value="kmh">km/h</option>
+<option value="mph">mph</option>
+<option value="ms">m/s</option>
+</select><span>→</span>
+<select id="speedTo">
+<option value="kmh">km/h</option>
+<option value="mph">mph</option>
+<option value="ms">m/s</option>
+</select>
+</div>
+<button onclick="convertSpeed()">Convert</button>
+<span class="fly-icon" id="speedFly"></span>
+<div class="result" id="speedResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- AREA -->
-        <div class="converter" data-name="area">
-            <h3><i class="fas fa-vector-square"></i> Area Converter</h3>
-            <input type="number" id="areaValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="areaFrom">
-                    <option value="sqmeter">m²</option>
-                    <option value="sqkilometer">km²</option>
-                    <option value="sqmile">mi²</option>
-                    <option value="sqyard">yd²</option>
-                </select>
-                <span>→</span>
-                <select id="areaTo">
-                    <option value="sqmeter">m²</option>
-                    <option value="sqkilometer">km²</option>
-                    <option value="sqmile">mi²</option>
-                    <option value="sqyard">yd²</option>
-                </select>
-            </div>
-            <button onclick="convertArea()">Convert</button>
-            <span class="fly-icon" id="areaFly"></span>
-            <div class="result" id="areaResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- AREA -->
+<div class="converter" data-name="area">
+<h3><i class="fas fa-vector-square"></i> Area Converter</h3>
+<input type="number" id="areaValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="areaFrom">
+<option value="sqmeter">m²</option>
+<option value="sqkilometer">km²</option>
+<option value="sqmile">mi²</option>
+<option value="sqyard">yd²</option>
+</select><span>→</span>
+<select id="areaTo">
+<option value="sqmeter">m²</option>
+<option value="sqkilometer">km²</option>
+<option value="sqmile">mi²</option>
+<option value="sqyard">yd²</option>
+</select>
+</div>
+<button onclick="convertArea()">Convert</button>
+<span class="fly-icon" id="areaFly"></span>
+<div class="result" id="areaResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- TIME -->
-        <div class="converter" data-name="time">
-            <h3><i class="fas fa-clock"></i> Time Converter</h3>
-            <input type="number" id="timeValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="timeFrom">
-                    <option value="second">Seconds</option>
-                    <option value="minute">Minutes</option>
-                    <option value="hour">Hours</option>
-                </select>
-                <span>→</span>
-                <select id="timeTo">
-                    <option value="second">Seconds</option>
-                    <option value="minute">Minutes</option>
-                    <option value="hour">Hours</option>
-                </select>
-            </div>
-            <button onclick="convertTime()">Convert</button>
-            <span class="fly-icon" id="timeFly"></span>
-            <div class="result" id="timeResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- TIME -->
+<div class="converter" data-name="time">
+<h3><i class="fas fa-clock"></i> Time Converter</h3>
+<input type="number" id="timeValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="timeFrom">
+<option value="second">Seconds</option>
+<option value="minute">Minutes</option>
+<option value="hour">Hours</option>
+</select><span>→</span>
+<select id="timeTo">
+<option value="second">Seconds</option>
+<option value="minute">Minutes</option>
+<option value="hour">Hours</option>
+</select>
+</div>
+<button onclick="convertTime()">Convert</button>
+<span class="fly-icon" id="timeFly"></span>
+<div class="result" id="timeResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-        <!-- CURRENCY -->
-        <div class="converter" data-name="currency">
-            <h3><i class="fas fa-dollar-sign"></i> Currency Converter</h3>
-            <input type="number" id="currencyValue" placeholder="Enter value">
-            <div class="unit-select">
-                <select id="currencyFrom">
-                    <option value="usd">USD</option>
-                    <option value="qar">QAR</option>
-                    <option value="pkr">PKR</option>
-                    <option value="eur">EUR</option>
-                </select>
-                <span>→</span>
-                <select id="currencyTo">
-                    <option value="usd">USD</option>
-                    <option value="qar">QAR</option>
-                    <option value="pkr">PKR</option>
-                    <option value="eur">EUR</option>
-                </select>
-            </div>
-            <button onclick="convertCurrency()">Convert</button>
-            <span class="fly-icon" id="currencyFly"></span>
-            <div class="result" id="currencyResult"></div>
-            <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+<!-- CURRENCY -->
+<div class="converter" data-name="currency">
+<h3><i class="fas fa-dollar-sign"></i> Currency Converter</h3>
+<input type="number" id="currencyValue" placeholder="Enter value">
+<div class="unit-select">
+<select id="currencyFrom">
+<option value="USD">USD</option>
+<option value="QAR">QAR</option>
+<option value="PKR">PKR</option>
+<option value="EUR">EUR</option>
+</select><span>→</span>
+<select id="currencyTo">
+<option value="USD">USD</option>
+<option value="QAR">QAR</option>
+<option value="PKR">PKR</option>
+<option value="EUR">EUR</option>
+</select>
+</div>
+<button onclick="convertCurrency()">Convert</button>
+<span class="fly-icon" id="currencyFly"></span>
+<div class="result" id="currencyResult"></div>
+<div class="ad-placeholder">Google Ad Placeholder</div>
+</div>
 
-    </div>
+</div>
 </main>
 
 <footer>
-    © 2025 Team Riz | All Rights Reserved
+© 2025 Team Riz | All Rights Reserved
 </footer>
 
 <script src="script.js"></script>

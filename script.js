@@ -42,7 +42,7 @@ async function fetchCurrencyRates() {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
     if(data && data.rates) unitsData.currency = data.rates;
-  } catch(err){console.error("Currency fetch failed, using static rates.", err);}
+  } catch(err){console.error(err);}
 }
 fetchCurrencyRates();
 
@@ -129,49 +129,29 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES + HEALTH METRICS ==================
+// ================== CALORIES ==================
 function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
   const height=parseFloat(document.getElementById('height').value);
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
-
   if(!age||!weight||!height){alert("Enter all values"); return;}
-
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
   let protein=weight*1.5;
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
-
-  let heightM = height/100;
-  let bmi = weight/(heightM*heightM);
-  let minWeight = (18.5*heightM*heightM).toFixed(1);
-  let maxWeight = (24.9*heightM*heightM).toFixed(1);
-
-  let diet="";
-  if(bmi<18.5) diet="You are underweight. Focus on high-calorie nutritious meals.";
-  else if(bmi<24.9) diet="You have a normal weight. Maintain a balanced diet.";
-  else if(bmi<29.9) diet="You are overweight. Consider low-calorie balanced meals.";
-  else diet="Obese. Consult a health professional and follow a structured diet plan.";
-
+  let bmi=(weight/(height*height))*10000;
+  let idealWeight=(gender=="male")?22*(height/100)**2:21*(height/100)**2;
   document.getElementById('calorieResult').innerHTML=`
-    <h3><i class="fa-solid fa-bolt"></i> Health & Daily Requirements</h3>
-    <p><strong>Calories:</strong> ${calories.toFixed(2)} kcal</p>
-    <p><strong>Protein:</strong> ${protein.toFixed(2)} g</p>
-    <p><strong>Fat:</strong> ${fat.toFixed(2)} g</p>
-    <p><strong>Carbs:</strong> ${carbs.toFixed(2)} g</p>
-    <p><strong>BMI:</strong> ${bmi.toFixed(2)}</p>
-    <p><strong>Ideal Weight Range:</strong> ${minWeight} kg - ${maxWeight} kg</p>
-    <p><strong>Diet Advice:</strong> ${diet}</p>
-    <div style="text-align:center; margin-top:15px;">
-      <svg width="100" height="100">
-        <circle cx="50" cy="50" r="40" stroke="#ff5722" stroke-width="5" fill="rgba(255,87,34,0.1)">
-          <animate attributeName="r" values="40;45;40" dur="1.5s" repeatCount="indefinite"/>
-        </circle>
-      </svg>
-    </div>
+    <h3><i class="fa-solid fa-bolt"></i> Daily Requirements</h3>
+    <p>Calories: ${calories.toFixed(2)} kcal</p>
+    <p>Protein: ${protein.toFixed(2)} g</p>
+    <p>Fat: ${fat.toFixed(2)} g</p>
+    <p>Carbs: ${carbs.toFixed(2)} g</p>
+    <p>BMI: ${bmi.toFixed(2)}</p>
+    <p>Ideal Weight: ${idealWeight.toFixed(2)} kg</p>
   `;
 }
 

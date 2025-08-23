@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>All-in-One Converters & Tools</title>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- PDF.js (for reading PDFs in browser) -->
@@ -248,7 +246,7 @@
           <button onclick="convertCurrency()">Convert</button>
           <span class="fly-icon" id="currencyFly"><i class="fas fa-arrow-up"></i></span>
           <div class="result" id="currencyResult"></div>
-          <div class="small-note" id="currencyNote">Rates via open.er-api.com (fallback to static if offline)</div>
+          <div class="small-note" id="currencyNote">Rates via open.er-api.com (fallback if offline)</div>
           <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
       </div>
@@ -257,8 +255,21 @@
     <!-- ======= FILES TAB ======= -->
     <section id="tab-files" class="tab-page">
       <div class="converters">
+
+        <!-- PDF → Word -->
         <div class="converter" data-name="pdf word doc docx file convert pdf to word">
           <h3><i class="fas fa-file-word"></i> PDF → Word (.docx)</h3>
+
+          <div class="unit-select" style="flex-wrap:wrap">
+            <label><input type="radio" name="pdfMode" value="browser" checked> Browser (text-only)</label>
+            <label><input type="radio" name="pdfMode" value="api"> API (recommended)</label>
+          </div>
+
+          <div id="pdfApiBox" style="display:none">
+            <input type="text" id="pdfApiKey" placeholder="Enter API key" />
+            <input type="text" id="pdfApiEndpoint" placeholder="API endpoint (POST) e.g. https://api.example.com/pdf/to/docx" />
+          </div>
+
           <input type="file" id="pdfFile" accept="application/pdf" />
           <button id="pdfConvertBtn" type="button"><i class="fas fa-file-export"></i> Convert to .docx</button>
           <span class="fly-icon" id="pdfFly"><i class="fas fa-arrow-up"></i></span>
@@ -266,6 +277,23 @@
           <div id="pdfDownloadWrap"></div>
           <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
+
+        <!-- Word → PDF -->
+        <div class="converter" data-name="word pdf doc docx word to pdf">
+          <h3><i class="fas fa-file-pdf"></i> Word (.doc/.docx) → PDF</h3>
+          <div class="unit-select" style="flex-wrap:wrap">
+            <label><input type="radio" name="docMode" value="api" checked> API (required)</label>
+          </div>
+          <input type="text" id="docApiKey" placeholder="Enter API key" />
+          <input type="text" id="docApiEndpoint" placeholder="API endpoint (POST) e.g. https://api.example.com/docx/to/pdf" />
+          <input type="file" id="docFile" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+          <button id="docConvertBtn" type="button"><i class="fas fa-file-export"></i> Convert to PDF</button>
+          <span class="fly-icon" id="docFly"><i class="fas fa-arrow-up"></i></span>
+          <div class="result" id="docStatus">Provide API key & endpoint, choose a file, then convert.</div>
+          <div id="docDownloadWrap"></div>
+          <div class="ad-placeholder">Google Ad Placeholder</div>
+        </div>
+
       </div>
     </section>
   </main>

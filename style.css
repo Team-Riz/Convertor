@@ -44,7 +44,7 @@
       <option value="1.55">Moderately Active</option>
       <option value="1.725">Very Active</option>
     </select>
-    <button class="cal-btn" onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
+    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
     <div id="calorieResult" class="calorie-result"></div>
   </div>
 </div>

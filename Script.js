@@ -1,81 +1,156 @@
-document.getElementById('datetime').innerText = new Date().toLocaleString();
+// Search functionality
+function searchConverter() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let converters = document.querySelectorAll('.converter');
+    converters.forEach(conv => {
+        let name = conv.getAttribute('data-name');
+        if(name.includes(input) && input !== '') {
+            conv.classList.add('highlight');
+            conv.scrollIntoView({behavior: 'smooth', block: 'center'});
+        } else {
+            conv.classList.remove('highlight');
+        }
+    });
+}
 
-// Length
+// ======= Conversion Functions =======
+
+// Length conversions in meters as base
 function convertLength() {
-    let val = parseFloat(document.getElementById('lengthInput').value);
-    let unit = document.getElementById('lengthUnit').value;
-    let meters = unit==='meter'?val:unit==='kilometer'?val*1000:val*1609.34;
-    let km = meters/1000;
-    let miles = meters/1609.34;
-    document.getElementById('lengthResult').innerText = `Meters: ${meters.toFixed(2)}, Kilometers: ${km.toFixed(4)}, Miles: ${miles.toFixed(4)}`;
+    const val = parseFloat(document.getElementById('lengthValue').value);
+    const from = document.getElementById('lengthFrom').value;
+    const to = document.getElementById('lengthTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const map = {
+        meter: 1,
+        kilometer: 1000,
+        centimeter: 0.01,
+        mile: 1609.34,
+        foot: 0.3048,
+        inch: 0.0254
+    };
+    const result = val * map[from] / map[to];
+    document.getElementById('lengthResult').innerText = `${result.toFixed(4)} ${to}`;
 }
 
-// Weight
+// Weight conversions in kilograms as base
 function convertWeight() {
-    let val = parseFloat(document.getElementById('weightInput').value);
-    let unit = document.getElementById('weightUnit').value;
-    let kg = unit==='kilogram'?val:unit==='gram'?val/1000:val*0.453592;
-    let g = kg*1000;
-    let lb = kg/0.453592;
-    document.getElementById('weightResult').innerText = `Kilogram: ${kg.toFixed(2)}, Gram: ${g.toFixed(2)}, Pound: ${lb.toFixed(2)}`;
+    const val = parseFloat(document.getElementById('weightValue').value);
+    const from = document.getElementById('weightFrom').value;
+    const to = document.getElementById('weightTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const map = {
+        kilogram: 1,
+        gram: 0.001,
+        pound: 0.453592,
+        ounce: 0.0283495
+    };
+    const result = val * map[from] / map[to];
+    document.getElementById('weightResult').innerText = `${result.toFixed(4)} ${to}`;
 }
 
-// Temperature
+// Temperature conversions
 function convertTemperature() {
-    let val = parseFloat(document.getElementById('tempInput').value);
-    let unit = document.getElementById('tempUnit').value;
-    let c = unit==='celsius'?val:unit==='fahrenheit'?(val-32)*5/9:val-273.15;
-    let f = c*9/5+32;
-    let k = c+273.15;
-    document.getElementById('tempResult').innerText = `${c.toFixed(2)} °C, ${f.toFixed(2)} °F, ${k.toFixed(2)} K`;
+    const val = parseFloat(document.getElementById('tempValue').value);
+    const from = document.getElementById('tempFrom').value;
+    const to = document.getElementById('tempTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    let celsius;
+    if(from==='celsius') celsius = val;
+    else if(from==='fahrenheit') celsius = (val-32)*5/9;
+    else celsius = val - 273.15;
+
+    let result;
+    if(to==='celsius') result = celsius;
+    else if(to==='fahrenheit') result = celsius*9/5+32;
+    else result = celsius + 273.15;
+
+    document.getElementById('tempResult').innerText = `${result.toFixed(2)} ${to}`;
 }
 
-// Volume
+// Volume conversions in liters as base
 function convertVolume() {
-    let val = parseFloat(document.getElementById('volumeInput').value);
-    let unit = document.getElementById('volumeUnit').value;
-    let l = unit==='liter'?val:unit==='milliliter'?val/1000:val*3.78541;
-    let ml = l*1000;
-    let gal = l/3.78541;
-    document.getElementById('volumeResult').innerText = `${l.toFixed(2)} L, ${ml.toFixed(2)} mL, ${gal.toFixed(2)} gal`;
+    const val = parseFloat(document.getElementById('volumeValue').value);
+    const from = document.getElementById('volumeFrom').value;
+    const to = document.getElementById('volumeTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const map = {
+        liter: 1,
+        milliliter: 0.001,
+        gallon: 3.78541,
+        cup: 0.24
+    };
+    const result = val * map[from] / map[to];
+    document.getElementById('volumeResult').innerText = `${result.toFixed(4)} ${to}`;
 }
 
-// Speed
+// Speed conversions in km/h as base
 function convertSpeed() {
-    let val = parseFloat(document.getElementById('speedInput').value);
-    let unit = document.getElementById('speedUnit').value;
-    let kmh = unit==='kmh'?val:unit==='mph'?val*1.60934:val*3.6;
-    let mph = kmh/1.60934;
-    let ms = kmh/3.6;
-    document.getElementById('speedResult').innerText = `${kmh.toFixed(2)} km/h, ${mph.toFixed(2)} mph, ${ms.toFixed(2)} m/s`;
+    const val = parseFloat(document.getElementById('speedValue').value);
+    const from = document.getElementById('speedFrom').value;
+    const to = document.getElementById('speedTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const map = {
+        kmh:1,
+        mph:1.60934,
+        ms:3.6
+    };
+    const result = val * map[from] / map[to];
+    document.getElementById('speedResult').innerText = `${result.toFixed(4)} ${to}`;
 }
 
-// Area
+// Area conversions in m² as base
 function convertArea() {
-    let val = parseFloat(document.getElementById('areaInput').value);
-    let unit = document.getElementById('areaUnit').value;
-    let sqm = unit==='sqmeter'?val:unit==='sqkilometer'?val*1e6:val*2.59e6;
-    let sqkm = sqm/1e6;
-    let sqmile = sqm/2.59e6;
-    document.getElementById('areaResult').innerText = `${sqm.toFixed(2)} m², ${sqkm.toFixed(4)} km², ${sqmile.toFixed(4)} mi²`;
+    const val = parseFloat(document.getElementById('areaValue').value);
+    const from = document.getElementById('areaFrom').value;
+    const to = document.getElementById('areaTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const map = {
+        sqmeter:1,
+        sqkilometer:1e6,
+        sqmile:2.59e6,
+        sqyard:0.836127
+    };
+    const result = val * map[from] / map[to];
+    document.getElementById('areaResult').innerText = `${result.toFixed(4)} ${to}`;
 }
 
-// Time
+// Time conversions in seconds as base
 function convertTime() {
-    let val = parseFloat(document.getElementById('timeInput').value);
-    let unit = document.getElementById('timeUnit').value;
-    let sec = unit==='second'?val:unit==='minute'?val*60:val*3600;
-    let min = sec/60;
-    let hr = sec/3600;
-    document.getElementById('timeResult').innerText = `${sec.toFixed(2)} s, ${min.toFixed(2)} min, ${hr.toFixed(2)} hr`;
+    const val = parseFloat(document.getElementById('timeValue').value);
+    const from = document.getElementById('timeFrom').value;
+    const to = document.getElementById('timeTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const map = {
+        second:1,
+        minute:60,
+        hour:3600
+    };
+    const result = val * map[from] / map[to];
+    document.getElementById('timeResult').innerText = `${result.toFixed(4)} ${to}`;
 }
 
-// Currency USD <-> QAR
+// Currency conversions base USD (example rates)
 function convertCurrency() {
-    let val = parseFloat(document.getElementById('currencyInput').value);
-    let unit = document.getElementById('currencyUnit').value;
-    const rate = 3.64; // 1 USD = 3.64 QAR
-    let usd = unit==='usd'?val:val/rate;
-    let qar = unit==='qar'?val:usd*rate;
-    document.getElementById('currencyResult').innerText = `USD: ${usd.toFixed(2)}, QAR: ${qar.toFixed(2)}`;
+    const val = parseFloat(document.getElementById('currencyValue').value);
+    const from = document.getElementById('currencyFrom').value;
+    const to = document.getElementById('currencyTo').value;
+    if(isNaN(val)) return alert("Enter a number!");
+
+    const rates = {
+        usd:1,
+        qar:3.64,
+        pkr:284,
+        eur:0.92
+    };
+
+    const result = val * rates[to]/rates[from];
+    document.getElementById('currencyResult').innerText = `${result.toFixed(2)} ${to.toUpperCase()}`;
 }

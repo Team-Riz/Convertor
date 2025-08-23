@@ -45,15 +45,18 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 @keyframes pop {0%{transform:scale(0.8);opacity:0;}50%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
 
 /* ===== CALORIES FORM ===== */
-.calorie-form .input-group {position:relative; margin-bottom:12px;}
-.calorie-form .input-group i {position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#2196f3;}
-.calorie-form input, .calorie-form select {width:100%; padding:12px 12px 12px 35px; border-radius:8px; border:1px solid #ccc; transition:0.3s;}
-.calorie-form input:focus, .calorie-form select:focus {border-color:#2196f3; outline:none;}
+.input-group {position:relative; margin-bottom:15px; display:flex; align-items:center; gap:10px;}
+.input-group input, .input-group select {flex:1; padding:12px 10px; border-radius:8px; border:1px solid #ccc; transition:0.3s;}
+.input-group input:focus, .input-group select:focus {border-color:#2196f3; outline:none;}
+.input-icon {flex-shrink:0; transition: transform 0.3s;}
+.input-group input:focus + .input-icon, .input-group select:focus + .input-icon {transform: scale(1.2) rotate(10deg);}
 .calorie-form button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
 .calorie-form button:hover {background:#e64a19; transform:translateY(-2px);}
 .calorie-result {margin-top:15px; padding:15px; border-radius:12px; background:rgba(255,87,34,0.1);}
-.calorie-result h3 {margin-top:0; color:#ff5722;}
-.calorie-result p {margin:5px 0; font-weight:bold;}
+.calorie-result h3 {margin-bottom:12px; color:#ff5722;}
+.calorie-result p {display:flex; align-items:center; gap:8px; font-weight:bold; transition:all 0.3s;}
+.calorie-result p i {animation: bounce 1s infinite; color:#ff5722;}
+@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
 
 /* ===== PDF TOOLS ===== */
 .pdf-container input, .pdf-container button {display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;}

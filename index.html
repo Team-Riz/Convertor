@@ -35,12 +35,12 @@
   <div class="pdf-container">
     <h3><i class="fa-solid fa-file-pdf"></i> PDF → Word</h3>
     <input type="file" id="pdfToWord" accept="application/pdf">
-    <button onclick="convertPdfToWord()"><i class="fa-solid fa-arrow-right"></i> Convert</button>
+    <button class="pdf-calc-btn" onclick="convertPdfToWord()"><i class="fa-solid fa-arrow-right"></i> Convert</button>
     <p id="pdfWordResult"></p>
 
     <h3><i class="fa-solid fa-file-word"></i> Word → PDF</h3>
     <input type="file" id="wordToPdf" accept=".doc,.docx">
-    <button onclick="convertWordToPdf()"><i class="fa-solid fa-arrow-right"></i> Convert</button>
+    <button class="pdf-calc-btn" onclick="convertWordToPdf()"><i class="fa-solid fa-arrow-right"></i> Convert</button>
     <p id="wordPdfResult"></p>
   </div>
 </section>
@@ -61,7 +61,7 @@
       <option value="1.55">Moderate Activity</option>
       <option value="1.725">Very Active</option>
     </select>
-    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
+    <button class="calorie-calc-btn" onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
   </div>
   <div id="calorieResult" class="calorie-result"></div>
 </section>

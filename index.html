@@ -1,176 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>All-in-One Converters & Tools</title>
 
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <!-- Font Awesome Icons -->
+
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- PDF.js (for reading PDFs in browser) -->
+  <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-  <!-- docx (for creating .docx files in browser) -->
+  <!-- docx (create .docx) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.0.1/docx.umd.min.js"></script>
-  <!-- Mammoth (.docx -> HTML) -->
+  <!-- mammoth (docx -> html) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-  <!-- html2pdf (HTML -> PDF) -->
+  <!-- html2pdf (html -> pdf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
   <header>
-    <h1><i class="fas fa-calculator"></i> All-in-One Converters & Tools</h1>
-
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search converter (e.g., length, usd, time)..." />
-      <button id="searchBtn" type="button"><i class="fas fa-search"></i> Search</button>
+    <div class="brand">
+      <h1><i class="fas fa-calculator"></i> All-in-One Converters</h1>
+      <p class="tag">Length · Weight · Temp · Pressure · Energy · Data · Currency · Calories · PDF↔DOCX</p>
     </div>
 
-    <button id="modeToggle" type="button"><i class="fas fa-moon"></i> Dark Mode</button>
+    <div class="header-right">
+      <div class="search">
+        <input id="searchInput" type="text" placeholder="Search converters (e.g., length, usd, pressure)..." />
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+      </div>
+      <button id="modeToggle" class="mode-btn" title="Toggle light/dark"><i class="fas fa-moon"></i></button>
+    </div>
   </header>
 
-  <!-- Tabs -->
-  <nav class="tabs">
-    <button class="tab-btn active" data-target="tab-units"><i class="fas fa-sliders-h"></i> Unit Converters</button>
-    <button class="tab-btn" data-target="tab-currency"><i class="fas fa-dollar-sign"></i> Currency</button>
-    <button class="tab-btn" data-target="tab-files"><i class="fas fa-file-word"></i> Files</button>
+  <!-- tabs -->
+  <nav class="tabs" role="tablist" aria-label="Main tabs">
+    <button class="tab-btn active" data-target="tab-units">Converters</button>
+    <button class="tab-btn" data-target="tab-currency">Currency</button>
+    <button class="tab-btn" data-target="tab-files">Files</button>
+    <button class="tab-btn" data-target="tab-calories">Calories</button>
+    <button class="tab-btn" data-target="tab-about">About</button>
   </nav>
 
   <main>
-    <!-- ======= UNIT CONVERTERS TAB ======= -->
+    <!-- ===== UNITS TAB ===== -->
     <section id="tab-units" class="tab-page active">
-      <div class="converters">
+      <div class="grid">
 
         <!-- LENGTH -->
-        <div class="converter" data-name="length meter kilometer km m centimeter cm mile foot inch yard">
+        <article class="card converter" data-name="length meter kilometer centimeter millimeter mile yard foot inch">
           <h3><i class="fas fa-ruler"></i> Length</h3>
-          <input type="number" id="lengthValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="lengthValue" type="number" placeholder="Enter value" />
             <select id="lengthFrom">
-              <option value="meter">Meters</option>
-              <option value="kilometer">Kilometers</option>
-              <option value="centimeter">Centimeters</option>
-              <option value="millimeter">Millimeters</option>
-              <option value="mile">Miles</option>
-              <option value="yard">Yards</option>
-              <option value="foot">Feet</option>
-              <option value="inch">Inches</option>
+              <option value="meter">Meter</option>
+              <option value="kilometer">Kilometer</option>
+              <option value="centimeter">Centimeter</option>
+              <option value="millimeter">Millimeter</option>
+              <option value="mile">Mile</option>
+              <option value="yard">Yard</option>
+              <option value="foot">Foot</option>
+              <option value="inch">Inch</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="lengthTo">
-              <option value="meter">Meters</option>
-              <option value="kilometer">Kilometers</option>
-              <option value="centimeter">Centimeters</option>
-              <option value="millimeter">Millimeters</option>
-              <option value="mile">Miles</option>
-              <option value="yard">Yards</option>
-              <option value="foot">Feet</option>
-              <option value="inch">Inches</option>
+              <option value="meter">Meter</option>
+              <option value="kilometer">Kilometer</option>
+              <option value="centimeter">Centimeter</option>
+              <option value="millimeter">Millimeter</option>
+              <option value="mile">Mile</option>
+              <option value="yard">Yard</option>
+              <option value="foot">Foot</option>
+              <option value="inch">Inch</option>
             </select>
           </div>
           <button onclick="convertLength()">Convert</button>
-          <span class="fly-icon" id="lengthFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="lengthResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="lengthResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
         <!-- WEIGHT -->
-        <div class="converter" data-name="weight kilogram kg gram g pound lb ounce oz">
+        <article class="card converter" data-name="weight kilogram gram milligram pound ounce">
           <h3><i class="fas fa-weight-scale"></i> Weight</h3>
-          <input type="number" id="weightValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="weightValue" type="number" placeholder="Enter value" />
             <select id="weightFrom">
-              <option value="kilogram">Kilograms</option>
-              <option value="gram">Grams</option>
-              <option value="milligram">Milligrams</option>
-              <option value="pound">Pounds</option>
-              <option value="ounce">Ounces</option>
+              <option value="kilogram">Kilogram (kg)</option>
+              <option value="gram">Gram (g)</option>
+              <option value="milligram">Milligram (mg)</option>
+              <option value="pound">Pound (lb)</option>
+              <option value="ounce">Ounce (oz)</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="weightTo">
-              <option value="kilogram">Kilograms</option>
-              <option value="gram">Grams</option>
-              <option value="milligram">Milligrams</option>
-              <option value="pound">Pounds</option>
-              <option value="ounce">Ounces</option>
+              <option value="kilogram">Kilogram (kg)</option>
+              <option value="gram">Gram (g)</option>
+              <option value="milligram">Milligram (mg)</option>
+              <option value="pound">Pound (lb)</option>
+              <option value="ounce">Ounce (oz)</option>
             </select>
           </div>
           <button onclick="convertWeight()">Convert</button>
-          <span class="fly-icon" id="weightFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="weightResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="weightResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
         <!-- TEMPERATURE -->
-        <div class="converter" data-name="temperature celsius fahrenheit kelvin temp">
+        <article class="card converter" data-name="temperature celsius fahrenheit kelvin">
           <h3><i class="fas fa-thermometer-half"></i> Temperature</h3>
-          <input type="number" id="tempValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="tempValue" type="number" placeholder="Enter value" />
             <select id="tempFrom">
-              <option value="celsius">Celsius</option>
-              <option value="fahrenheit">Fahrenheit</option>
-              <option value="kelvin">Kelvin</option>
+              <option value="celsius">Celsius (°C)</option>
+              <option value="fahrenheit">Fahrenheit (°F)</option>
+              <option value="kelvin">Kelvin (K)</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="tempTo">
-              <option value="celsius">Celsius</option>
-              <option value="fahrenheit">Fahrenheit</option>
-              <option value="kelvin">Kelvin</option>
+              <option value="celsius">Celsius (°C)</option>
+              <option value="fahrenheit">Fahrenheit (°F)</option>
+              <option value="kelvin">Kelvin (K)</option>
             </select>
           </div>
           <button onclick="convertTemperature()">Convert</button>
-          <span class="fly-icon" id="tempFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="tempResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="tempResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
         <!-- VOLUME -->
-        <div class="converter" data-name="volume liter milliliter ml gallon cup tablespoon teaspoon quart pint">
+        <article class="card converter" data-name="volume liter milliliter gallon quart pint cup tablespoon teaspoon">
           <h3><i class="fas fa-cube"></i> Volume</h3>
-          <input type="number" id="volumeValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="volumeValue" type="number" placeholder="Enter value" />
             <select id="volumeFrom">
-              <option value="liter">Liters</option>
-              <option value="milliliter">Milliliters</option>
-              <option value="gallon">Gallons (US)</option>
-              <option value="quart">Quarts (US)</option>
-              <option value="pint">Pints (US)</option>
-              <option value="cup">Cups (US)</option>
-              <option value="tablespoon">Tablespoons (US)</option>
-              <option value="teaspoon">Teaspoons (US)</option>
+              <option value="liter">Liter</option>
+              <option value="milliliter">Milliliter</option>
+              <option value="gallon">Gallon (US)</option>
+              <option value="quart">Quart (US)</option>
+              <option value="pint">Pint (US)</option>
+              <option value="cup">Cup (US)</option>
+              <option value="tablespoon">Tablespoon (US)</option>
+              <option value="teaspoon">Teaspoon (US)</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="volumeTo">
-              <option value="liter">Liters</option>
-              <option value="milliliter">Milliliters</option>
-              <option value="gallon">Gallons (US)</option>
-              <option value="quart">Quarts (US)</option>
-              <option value="pint">Pints (US)</option>
-              <option value="cup">Cups (US)</option>
-              <option value="tablespoon">Tablespoons (US)</option>
-              <option value="teaspoon">Teaspoons (US)</option>
+              <option value="liter">Liter</option>
+              <option value="milliliter">Milliliter</option>
+              <option value="gallon">Gallon (US)</option>
+              <option value="quart">Quart (US)</option>
+              <option value="pint">Pint (US)</option>
+              <option value="cup">Cup (US)</option>
+              <option value="tablespoon">Tablespoon (US)</option>
+              <option value="teaspoon">Teaspoon (US)</option>
             </select>
           </div>
           <button onclick="convertVolume()">Convert</button>
-          <span class="fly-icon" id="volumeFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="volumeResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="volumeResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
         <!-- SPEED -->
-        <div class="converter" data-name="speed kmh mph ms m/s knot knots">
+        <article class="card converter" data-name="speed kmh mph ms knot">
           <h3><i class="fas fa-tachometer-alt"></i> Speed</h3>
-          <input type="number" id="speedValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="speedValue" type="number" placeholder="Enter value" />
             <select id="speedFrom">
               <option value="kmh">km/h</option>
               <option value="mph">mph</option>
               <option value="ms">m/s</option>
               <option value="knot">knots</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="speedTo">
               <option value="kmh">km/h</option>
               <option value="mph">mph</option>
@@ -179,54 +183,52 @@
             </select>
           </div>
           <button onclick="convertSpeed()">Convert</button>
-          <span class="fly-icon" id="speedFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="speedResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="speedResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
         <!-- AREA -->
-        <div class="converter" data-name="area m2 m² km2 km² mile2 mi² yard2 yd² foot2 ft² hectare acre">
+        <article class="card converter" data-name="area square hectare acre">
           <h3><i class="fas fa-vector-square"></i> Area</h3>
-          <input type="number" id="areaValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="areaValue" type="number" placeholder="Enter value" />
             <select id="areaFrom">
-              <option value="sqmeter">Square meters</option>
-              <option value="sqkilometer">Square kilometers</option>
-              <option value="sqmile">Square miles</option>
-              <option value="sqyard">Square yards</option>
-              <option value="sqfoot">Square feet</option>
-              <option value="hectare">Hectares</option>
-              <option value="acre">Acres</option>
+              <option value="sqmeter">Square meter (m²)</option>
+              <option value="sqkilometer">Square kilometer (km²)</option>
+              <option value="sqmile">Square mile (mi²)</option>
+              <option value="sqyard">Square yard (yd²)</option>
+              <option value="sqfoot">Square foot (ft²)</option>
+              <option value="hectare">Hectare</option>
+              <option value="acre">Acre</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="areaTo">
-              <option value="sqmeter">Square meters</option>
-              <option value="sqkilometer">Square kilometers</option>
-              <option value="sqmile">Square miles</option>
-              <option value="sqyard">Square yards</option>
-              <option value="sqfoot">Square feet</option>
-              <option value="hectare">Hectares</option>
-              <option value="acre">Acres</option>
+              <option value="sqmeter">Square meter (m²)</option>
+              <option value="sqkilometer">Square kilometer (km²)</option>
+              <option value="sqmile">Square mile (mi²)</option>
+              <option value="sqyard">Square yard (yd²)</option>
+              <option value="sqfoot">Square foot (ft²)</option>
+              <option value="hectare">Hectare</option>
+              <option value="acre">Acre</option>
             </select>
           </div>
           <button onclick="convertArea()">Convert</button>
-          <span class="fly-icon" id="areaFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="areaResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="areaResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
         <!-- TIME -->
-        <div class="converter" data-name="time second minute hour day">
+        <article class="card converter" data-name="time second minute hour day">
           <h3><i class="fas fa-clock"></i> Time</h3>
-          <input type="number" id="timeValue" placeholder="Enter value" />
-          <div class="unit-select">
+          <div class="controls">
+            <input id="timeValue" type="number" placeholder="Enter value" />
             <select id="timeFrom">
               <option value="second">Seconds</option>
               <option value="minute">Minutes</option>
               <option value="hour">Hours</option>
               <option value="day">Days</option>
             </select>
-            <span>→</span>
+            <span class="arrow">→</span>
             <select id="timeTo">
               <option value="second">Seconds</option>
               <option value="minute">Minutes</option>
@@ -235,86 +237,208 @@
             </select>
           </div>
           <button onclick="convertTime()">Convert</button>
-          <span class="fly-icon" id="timeFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="timeResult"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="result" id="timeResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
-      </div>
-    </section>
-
-    <!-- ======= CURRENCY TAB ======= -->
-    <section id="tab-currency" class="tab-page">
-      <div class="converters">
-        <div class="converter highlight" data-name="currency usd qar pkr eur inr gbp aud cad sar aed">
-          <h3><i class="fas fa-dollar-sign"></i> Currency (Live)</h3>
-          <input type="number" id="currencyValue" placeholder="Enter amount" />
-          <div class="unit-select">
-            <select id="currencyFrom">
-              <option value="USD">USD</option>
-              <option value="QAR">QAR</option>
-              <option value="PKR">PKR</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="INR">INR</option>
-              <option value="AUD">AUD</option>
-              <option value="CAD">CAD</option>
-              <option value="SAR">SAR</option>
-              <option value="AED">AED</option>
+        <!-- PRESSURE -->
+        <article class="card converter" data-name="pressure pascal pa bar atm psi">
+          <h3><i class="fas fa-tachometer-alt"></i> Pressure</h3>
+          <div class="controls">
+            <input id="pressureValue" type="number" placeholder="Enter value" />
+            <select id="pressureFrom">
+              <option value="pascal">Pascal (Pa)</option>
+              <option value="bar">Bar</option>
+              <option value="psi">PSI</option>
+              <option value="atm">Atmosphere (atm)</option>
             </select>
-            <span>→</span>
-            <select id="currencyTo">
-              <option value="USD">USD</option>
-              <option value="QAR">QAR</option>
-              <option value="PKR">PKR</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="INR">INR</option>
-              <option value="AUD">AUD</option>
-              <option value="CAD">CAD</option>
-              <option value="SAR">SAR</option>
-              <option value="AED">AED</option>
+            <span class="arrow">→</span>
+            <select id="pressureTo">
+              <option value="pascal">Pascal (Pa)</option>
+              <option value="bar">Bar</option>
+              <option value="psi">PSI</option>
+              <option value="atm">Atmosphere (atm)</option>
             </select>
           </div>
-          <button onclick="convertCurrency()">Convert</button>
-          <span class="fly-icon" id="currencyFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="currencyResult"></div>
-          <div class="small-note" id="currencyNote">Live via open.er-api.com (fallback if offline)</div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <button onclick="convertPressure()">Convert</button>
+          <div class="result" id="pressureResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
+
+        <!-- ENERGY -->
+        <article class="card converter" data-name="energy joule calorie kcal kwh">
+          <h3><i class="fas fa-bolt"></i> Energy</h3>
+          <div class="controls">
+            <input id="energyValue" type="number" placeholder="Enter value" />
+            <select id="energyFrom">
+              <option value="joule">Joule (J)</option>
+              <option value="calorie">Calorie (cal)</option>
+              <option value="kcal">Kilocalorie (kcal)</option>
+              <option value="kwh">kWh</option>
+            </select>
+            <span class="arrow">→</span>
+            <select id="energyTo">
+              <option value="joule">Joule (J)</option>
+              <option value="calorie">Calorie (cal)</option>
+              <option value="kcal">Kilocalorie (kcal)</option>
+              <option value="kwh">kWh</option>
+            </select>
+          </div>
+          <button onclick="convertEnergy()">Convert</button>
+          <div class="result" id="energyResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
+
+        <!-- DATASIZE -->
+        <article class="card converter" data-name="data bytes kb mb gb tb">
+          <h3><i class="fas fa-database"></i> Data Size</h3>
+          <div class="controls">
+            <input id="dataValue" type="number" placeholder="Enter value" />
+            <select id="dataFrom">
+              <option value="B">Bytes (B)</option>
+              <option value="KB">Kilobytes (KB)</option>
+              <option value="MB">Megabytes (MB)</option>
+              <option value="GB">Gigabytes (GB)</option>
+              <option value="TB">Terabytes (TB)</option>
+            </select>
+            <span class="arrow">→</span>
+            <select id="dataTo">
+              <option value="B">Bytes (B)</option>
+              <option value="KB">Kilobytes (KB)</option>
+              <option value="MB">Megabytes (MB)</option>
+              <option value="GB">Gigabytes (GB)</option>
+              <option value="TB">Terabytes (TB)</option>
+            </select>
+          </div>
+          <button onclick="convertData()">Convert</button>
+          <div class="result" id="dataResult">Result will appear here</div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
+
       </div>
     </section>
 
-    <!-- ======= FILES TAB ======= -->
-    <section id="tab-files" class="tab-page">
-      <div class="converters">
+    <!-- ===== CURRENCY TAB ===== -->
+    <section id="tab-currency" class="tab-page">
+      <div class="card converter" data-name="currency usd qar pkr eur gbp inr aud cad">
+        <h3><i class="fas fa-money-bill-wave"></i> Currency (Live)</h3>
+        <div class="controls">
+          <input id="currencyValue" type="number" placeholder="Enter amount" />
+          <select id="currencyFrom">
+            <option>USD</option><option>QAR</option><option>PKR</option><option>EUR</option>
+            <option>GBP</option><option>INR</option><option>AUD</option><option>CAD</option><option>SAR</option><option>AED</option>
+          </select>
+          <span class="arrow">→</span>
+          <select id="currencyTo">
+            <option>USD</option><option>QAR</option><option>PKR</option><option>EUR</option>
+            <option>GBP</option><option>INR</option><option>AUD</option><option>CAD</option><option>SAR</option><option>AED</option>
+          </select>
+        </div>
+        <button onclick="convertCurrency()">Convert</button>
+        <div class="result" id="currencyResult">Result will appear here</div>
+        <div class="small" id="currencyNote">Rates via open.er-api.com (fallback available)</div>
+        <div class="ad">Google Ad Placeholder</div>
+      </div>
+    </section>
 
-        <!-- PDF → Word -->
-        <div class="converter" data-name="pdf word doc docx file convert pdf to word">
-          <h3><i class="fas fa-file-word"></i> PDF → Word (.docx) — No API</h3>
-          <div class="small-note">Works best for text-based PDFs (not scanned images).</div>
-          <input type="file" id="pdfFile" accept="application/pdf" />
-          <button id="pdfConvertBtn" type="button"><i class="fas fa-file-export"></i> Convert to .docx</button>
-          <span class="fly-icon" id="pdfFly"><i class="fas fa-arrow-up"></i></span>
+    <!-- ===== FILES TAB ===== -->
+    <section id="tab-files" class="tab-page">
+      <div class="grid">
+
+        <article class="card converter">
+          <h3><i class="fas fa-file-word"></i> PDF → Word (.docx)</h3>
+          <div class="small">Best for text-based PDFs (not scanned). Uses pdf.js + docx in-browser.</div>
+          <input id="pdfFile" type="file" accept="application/pdf" />
+          <button id="pdfConvertBtn">Convert to .docx</button>
           <div class="result" id="pdfStatus">Select a PDF and click convert.</div>
           <div id="pdfDownloadWrap"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
-        <!-- Word → PDF -->
-        <div class="converter" data-name="word pdf docx word to pdf">
-          <h3><i class="fas fa-file-pdf"></i> Word (.docx) → PDF — No API</h3>
-          <div class="small-note">Supports .docx with basic text/paragraphs. Complex layouts may differ.</div>
-          <input type="file" id="docFile" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
-          <button id="docConvertBtn" type="button"><i class="fas fa-file-export"></i> Convert to PDF</button>
-          <span class="fly-icon" id="docFly"><i class="fas fa-arrow-up"></i></span>
+        <article class="card converter">
+          <h3><i class="fas fa-file-pdf"></i> Word (.docx) → PDF</h3>
+          <div class="small">Converts .docx to a simple PDF in the browser using mammoth + html2pdf.</div>
+          <input id="docFile" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+          <button id="docConvertBtn">Convert to PDF</button>
           <div class="result" id="docStatus">Choose a .docx and convert.</div>
           <div id="docDownloadWrap"></div>
-          <div class="ad-placeholder">Google Ad Placeholder</div>
-        </div>
+          <div class="ad">Google Ad Placeholder</div>
+        </article>
 
       </div>
     </section>
+
+    <!-- ===== CALORIES (ADVANCED) TAB ===== -->
+    <section id="tab-calories" class="tab-page">
+      <div class="card">
+        <h3><i class="fas fa-apple-alt"></i> Advanced Calories & Macros Calculator</h3>
+        <div class="grid-two">
+          <div>
+            <label>Age (years)</label>
+            <input id="calAge" type="number" min="0" />
+            <label>Sex</label>
+            <select id="calSex"><option value="male">Male</option><option value="female">Female</option></select>
+            <label>Weight</label>
+            <input id="calWeight" type="number" placeholder="kg" />
+            <label>Height</label>
+            <input id="calHeight" type="number" placeholder="cm" />
+            <label>Activity Level</label>
+            <select id="calActivity">
+              <option value="1.2">Sedentary (little/no exercise)</option>
+              <option value="1.375">Light (1–3 days/week)</option>
+              <option value="1.55">Moderate (3–5 days/week)</option>
+              <option value="1.725">Active (6–7 days/week)</option>
+              <option value="1.9">Very active (hard exercise)</option>
+            </select>
+            <label>Goal</label>
+            <select id="calGoal">
+              <option value="maintain">Maintain Weight</option>
+              <option value="lose">Lose Weight (-20%)</option>
+              <option value="gain">Gain Weight (+15%)</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Macro Preset</label>
+            <select id="macroPreset">
+              <option value="balanced">Balanced (30%P / 40%C / 30%F)</option>
+              <option value="lowcarb">Low-Carb (30%P / 20%C / 50%F)</option>
+              <option value="highcarb">High-Carb (20%P / 60%C / 20%F)</option>
+              <option value="custom">Custom</option>
+            </select>
+
+            <div id="customMacros" style="display:none">
+              <label>Protein %</label><input id="protPct" type="number" value="30" />
+              <label>Carbs %</label><input id="carbPct" type="number" value="40" />
+              <label>Fat %</label><input id="fatPct" type="number" value="30" />
+            </div>
+
+            <label>Protein target method</label>
+            <select id="proteinMethod">
+              <option value="pct">Use macro %</option>
+              <option value="perkg">Use g per kg bodyweight (1.6 g/kg)</option>
+            </select>
+
+            <p class="small">Results include BMR, TDEE (maintenance), calorie goal per your selection, and macros in grams. All values rounded to 2 decimals.</p>
+            <button id="calcCaloriesBtn">Calculate</button>
+          </div>
+        </div>
+
+        <div class="result" id="calResult">Calculated results will appear here</div>
+        <div class="ad">Google Ad Placeholder</div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT TAB ===== -->
+    <section id="tab-about" class="tab-page">
+      <div class="card">
+        <h3><i class="fas fa-info-circle"></i> About & Notes</h3>
+        <p>This All-in-One converters app runs completely client-side (except live currency lookup) and includes many converters and file utilities. PDF → Word and Word → PDF use in-browser libraries; complex layout fidelity may vary. Currency uses <code>open.er-api.com</code> with fallback values.</p>
+        <p>Made 2025 — Team Riz.</p>
+        <div class="ad">Google Ad Placeholder</div>
+      </div>
+    </section>
+
   </main>
 
   <footer>

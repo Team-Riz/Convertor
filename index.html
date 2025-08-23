@@ -31,28 +31,21 @@
 
 <div id="tab-calories" class="tab-content">
   <div class="calorie-form">
-    <div class="input-row">
-      <input type="number" id="age" placeholder="Age">
-      <input type="number" id="weight" placeholder="Weight (kg)">
-      <input type="number" id="height" placeholder="Height (cm)">
-    </div>
-    <div class="input-row">
-      <select id="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-      <select id="activity">
-        <option value="1.2">Sedentary</option>
-        <option value="1.375">Lightly Active</option>
-        <option value="1.55">Moderately Active</option>
-        <option value="1.725">Very Active</option>
-      </select>
-    </div>
+    <input type="number" id="age" placeholder="Age">
+    <input type="number" id="weight" placeholder="Weight (kg)">
+    <input type="number" id="height" placeholder="Height (cm)">
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <select id="activity">
+      <option value="1.2">Sedentary</option>
+      <option value="1.375">Lightly Active</option>
+      <option value="1.55">Moderately Active</option>
+      <option value="1.725">Very Active</option>
+    </select>
     <button class="calc-calories-btn"><i class="fa-solid fa-calculator"></i> Calculate</button>
-  </div>
-
-  <div id="calorieResult" class="calorie-result-grid">
-    <!-- Results and tips will appear here -->
+    <div id="calorieResult" class="calorie-result"></div>
   </div>
 </div>
 
@@ -69,7 +62,7 @@
 
 <div id="tab-about" class="tab-content">
   <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories, BMI, and convert PDF/Word files.</p>
   <ul>
     <li>⚡ Fast & Interactive</li>
     <li>✅ Accurate & Bidirectional</li>

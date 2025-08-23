@@ -41,8 +41,12 @@ async function fetchCurrencyRates() {
   try {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
-    if(data && data.rates) unitsData.currency = data.rates;
-  } catch(err){ console.error("Failed to fetch live currency rates. Using static fallback.", err);}
+    if(data && data.rates) {
+      unitsData.currency = data.rates;
+    }
+  } catch(err){
+    console.error("Failed to fetch live currency rates. Using static fallback.", err);
+  }
 }
 fetchCurrencyRates();
 
@@ -92,7 +96,9 @@ function convertValue(key,val,from,to){
     if(unitsData.currency[from] && unitsData.currency[to]){
       return (val*unitsData.currency[to]/unitsData.currency[from]).toFixed(2);
     } else return "N/A";
-  } else return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
+  } else {
+    return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
+  }
 }
 
 // ================== ADD CALCULATION EVENTS ==================
@@ -127,34 +133,43 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES ==================
-document.getElementById('calorieCalculate').addEventListener('click', ()=>{
+// ================== CALORIES & HEALTH ==================
+document.querySelector('.calc-calories-btn').addEventListener('click', ()=>{
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
   const height=parseFloat(document.getElementById('height').value);
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
+
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
   let protein=weight*1.5;
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
-  let bmi=(weight/(height*height))*10000;
-  let bmiStatus=bmi<18.5?"Underweight":(bmi<24.9?"Normal":(bmi<29.9?"Overweight":"Obese"));
-  let idealWeightMin=(18.5*height*height)/10000;
-  let idealWeightMax=(24.9*height*height)/10000;
+  let bmi=weight/(height/100*height/100);
+  let bmiCat="";
+  if(bmi<18.5) bmiCat="Underweight";
+  else if(bmi<25) bmiCat="Normal";
+  else if(bmi<30) bmiCat="Overweight";
+  else bmiCat="Obese";
 
-  const resultDiv=document.getElementById('calorieResult');
-  resultDiv.innerHTML=`
-    <div class="calorie-card"><h4><i class="fa-solid fa-bolt"></i> Calories</h4><p>${calories.toFixed(2)} kcal</p></div>
+  const tips=[
+    "💧 Drink plenty of water daily.",
+    "🥗 Eat more vegetables and fruits.",
+    "🏃‍♂️ Exercise at least 30 mins/day.",
+    "🍽 Control portion sizes.",
+    "🛌 Ensure adequate sleep."
+  ];
+
+  const resDiv=document.getElementById('calorieResult');
+  resDiv.innerHTML=`
+    <div class="calorie-card"><h4><i class="fa-solid fa-fire"></i> Calories</h4><p>${calories.toFixed(2)} kcal</p></div>
     <div class="calorie-card"><h4><i class="fa-solid fa-drumstick-bite"></i> Protein</h4><p>${protein.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-oil-can"></i> Fat</h4><p>${fat.toFixed(2)} g</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-bacon"></i> Fat</h4><p>${fat.toFixed(2)} g</p></div>
     <div class="calorie-card"><h4><i class="fa-solid fa-bread-slice"></i> Carbs</h4><p>${carbs.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-person"></i> BMI</h4><p>${bmi.toFixed(2)} (${bmiStatus})</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-weight-scale"></i> Ideal Weight</h4><p>${idealWeightMin.toFixed(2)}kg - ${idealWeightMax.toFixed(2)}kg</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-apple-whole"></i> Diet Advice</h4><p>Include more vegetables, lean proteins, and whole grains.</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-person-running"></i> Exercise Advice</h4><p>At least 30 mins cardio + strength 3-5 times/week.</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-heart"></i> BMI</h4><p>${bmi.toFixed(2)} (${bmiCat})</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-lightbulb"></i> Tips</h4><ul>${tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>
   `;
 });
 

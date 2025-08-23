@@ -2,71 +2,261 @@
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
   background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
-  color:#222;
+  color: #222;
+  margin: 0;
   transition: all 0.3s;
-  margin:0;
 }
+
 header {
   background: linear-gradient(135deg,#3f51b5,#2196f3);
-  color:#fff;
-  padding:1rem 2rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 4px 15px rgba(0,0,0,0.3);
-  position:sticky; top:0; z-index:100;
-  border-bottom-left-radius:10px; border-bottom-right-radius:10px;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
-header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
-.header-right {display:flex; gap:10px;}
-.header-right input {padding:5px 12px; border-radius:10px; border:none; outline:none; width:180px; box-shadow:0 2px 6px rgba(0,0,0,0.2);}
-.header-right button {padding:5px 12px; border-radius:10px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.2); transition:0.3s;}
-.header-right button:hover {opacity:0.9; transform:translateY(-2px);}
 
-/* TAB NAV */
-.tab-nav {display:flex; justify-content:center; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.15); position:sticky; top:70px; z-index:90; border-radius:8px; margin:0 10px;}
-.tab-btn {flex:1; padding:1rem; background:transparent; border:none; font-size:1rem; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:6px; transition:0.3s; font-weight:bold;}
-.tab-btn.active {background:#2196f3; color:#fff; transform:scale(1.05);}
-.tab-content {display:none; padding:20px; animation:fadeIn 0.5s;}
-.tab-content.active {display:block;}
-@keyframes fadeIn {0%{opacity:0;}100%{opacity:1;}}
+header h1 {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
+}
+
+.header-right input {
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 180px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.header-right button {
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.header-right button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* TAB NAVIGATION */
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 70px;
+  z-index: 90;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.tab-btn.active {
+  background: #2196f3;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.tab-content {
+  display: none;
+  padding: 20px;
+  animation: fadeIn 0.5s;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
 
 /* CONVERTER CARDS */
-.grid {display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1rem;}
-.converter-card {background:linear-gradient(145deg,#fff,#e3f2fd); padding:20px; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:0.3s; position:relative; overflow:hidden;}
-.converter-card:hover {transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.25);}
-.converter-card h3 {margin-bottom:15px; display:flex; align-items:center; gap:10px; font-size:1.2rem; color:#0d47a1;}
-.converter-card input, .converter-card select {width:100%; margin-bottom:10px; padding:10px; border-radius:8px; border:1px solid #ccc; transition:0.3s;}
-.converter-card input:focus, .converter-card select:focus {border-color:#2196f3; outline:none;}
-.converter-card button {background:#2196f3; color:#fff; border:none; padding:12px; border-radius:8px; cursor:pointer; width:100%; font-size:1rem; transition:0.3s;}
-.converter-card button:hover {background:#1976d2; transform:translateY(-2px);}
-.converter-card .result {margin-top:12px; font-weight:bold; font-size:1.1rem; padding:10px; border-radius:8px; background: rgba(33,150,243,0.1); color:#0d47a1; transition:all 0.3s;}
+.converters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.converter {
+  background: linear-gradient(145deg, #fff, #e3f2fd);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  position: relative;
+}
+
+.converter:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+.converter h3 {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #0d47a1;
+}
+
+.converter input, .converter select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+}
+
+.converter input:focus, .converter select:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+.converter button {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.converter button:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+}
+
+.converter .result {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(33,150,243,0.1);
+  color: #0d47a1;
+  transition: all 0.3s;
+}
+
+/* DESCRIPTION */
+.description {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.description h2 {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0d47a1;
+}
 
 /* CALORIES & ABOUT CARDS */
 .calorie-result.card, .about-container.card {
   background: linear-gradient(135deg,#fff,#f0f4c3);
-  padding:20px;
-  margin-top:15px;
-  border-radius:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-  transition:0.3s;
-  display:flex;
-  align-items:center;
-  gap:15px;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-.calorie-result.card h3 {margin-bottom:10px; color:#ff5722; display:flex; align-items:center; gap:8px;}
-.calorie-result.card p {margin:5px 0; font-size:1rem;}
-.about-container.card {background:linear-gradient(135deg,#e3f2fd,#fff); padding:20px;}
-.about-container ul li {margin:10px 0; display:flex; align-items:center; gap:8px; font-size:1rem; color:#0d47a1;}
 
-/* CALORIES SVG ICONS */
-.calorie-icon, .bmi-icon, .diet-icon {flex-shrink:0;}
+.calorie-result.card h3, .about-container.card h2 {
+  color: #ff5722;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calorie-result.card p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+/* SVG ANIMATION CLASSES */
+.calorie-icon, .bmi-icon, .diet-icon {
+  flex-shrink: 0;
+}
 
 /* LIGHT/DARK MODE */
-body.dark-mode {background:#121212; color:#eee;}
-body.dark-mode header {background:#1e1e1e; color:#fff;}
-body.dark-mode .tab-nav {background:#1e1e1e;}
-body.dark-mode .tab-btn.active {background:#bb86fc; color:#121212;}
-body.dark-mode .converter-card {background:#1e1e1e; color:#eee;}
-body.dark-mode .converter-card input, .converter-card select {background:#121212; color:#eee; border:1px solid #444;}
-body.dark-mode .converter-card .result {background:rgba(187,134,252,0.1); color:#bb86fc;}
+body.dark-mode {
+  background: #121212;
+  color: #eee;
+}
+
+body.dark-mode header {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+body.dark-mode .tab-nav {
+  background: #1e1e1e;
+}
+
+body.dark-mode .tab-btn.active {
+  background: #bb86fc;
+  color: #121212;
+}
+
+body.dark-mode .converter {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+body.dark-mode .converter input, .converter select {
+  background: #121212;
+  color: #eee;
+  border: 1px solid #444;
+}
+
+body.dark-mode .converter .result {
+  background: rgba(187,134,252,0.1);
+  color: #bb86fc;
+}

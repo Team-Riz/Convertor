@@ -9,6 +9,7 @@
 body {
     background: linear-gradient(to right, #1c1c1c, #2c2c2c);
     color: #eee;
+    min-height: 100vh;
 }
 
 /* Header */
@@ -24,6 +25,9 @@ header {
 
 header h1 {
     font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 header .search-bar {
@@ -36,6 +40,8 @@ header input {
     border-radius: 5px;
     border: none;
     width: 200px;
+    background: #333;
+    color: #eee;
 }
 
 header button {

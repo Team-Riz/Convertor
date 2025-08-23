@@ -30,13 +30,28 @@ const unitsData={
   speed:{kmh:1,mph:1.60934,ms:3.6,knot:1.852},
   area:{sqm:1,sqkm:1e6,sqmi:2.59e6,sqft:0.092903,acre:4046.86},
   time:{second:1,minute:60,hour:3600,day:86400,week:604800},
-  currency:{USD:1,QAR:3.64,PKR:280,EUR:0.92},
+  currency:{USD:1,QAR:3.64,PKR:280,EUR:0.92}, // fallback static
   energy:{joule:1,kcal:4184,kwh:3600000},
   pressure:{pascal:1,bar:100000,psi:6894.76},
   datasize:{byte:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776}
 };
 
-// ================== GENERATE CARDS ==================
+// ================== LIVE CURRENCY ==================
+async function fetchCurrencyRates() {
+  try {
+    const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
+    const data = await res.json();
+    if(data && data.rates) {
+      unitsData.currency = data.rates; // overwrite static rates with live rates
+      console.log("Live currency rates loaded:", unitsData.currency);
+    }
+  } catch(err){
+    console.error("Failed to fetch live currency rates. Using static fallback.", err);
+  }
+}
+fetchCurrencyRates();
+
+// ================== GENERATE CONVERTER CARDS ==================
 const converters=[
   {title:"Length", icon:"fa-ruler", units:Object.keys(unitsData.length)},
   {title:"Weight", icon:"fa-weight-scale", units:Object.keys(unitsData.weight)},
@@ -68,7 +83,7 @@ converters.forEach(conv=>{
   container.appendChild(card);
 });
 
-// ================== CALCULATION LOGIC ==================
+// ================== CONVERSION FUNCTION ==================
 function convertValue(key,val,from,to){
   if(key==="temperature"){
     let c=0;
@@ -79,7 +94,9 @@ function convertValue(key,val,from,to){
     if(to==="fahrenheit") return (c*9/5+32).toFixed(2);
     if(to==="kelvin") return (c+273.15).toFixed(2);
   } else if(key==="currency") {
-    return (val*unitsData.currency[to]/unitsData.currency[from]).toFixed(2);
+    if(unitsData.currency[from] && unitsData.currency[to]){
+      return (val*unitsData.currency[to]/unitsData.currency[from]).toFixed(2);
+    } else return "N/A";
   } else {
     return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
   }

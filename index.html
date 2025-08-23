@@ -10,11 +10,22 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #667eea, #764ba2);
         margin: 0;
-        padding: 30px;
+        padding: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 25px;
+    }
+
+    header {
+        width: 100%;
+        background: rgba(255,255,255,0.95);
+        padding: 15px 0;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
     }
 
     .row {
@@ -23,6 +34,7 @@
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
+        margin-bottom: 20px;
     }
 
     .container {
@@ -100,6 +112,30 @@
         color: #333;
     }
 
+    .ads-placeholder {
+        width: 90%;
+        max-width: 728px;
+        height: 90px;
+        background: rgba(255,255,255,0.8);
+        border: 2px dashed #4a90e2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #4a90e2;
+        font-weight: bold;
+        margin: 20px 0;
+        border-radius: 15px;
+    }
+
+    footer {
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        color: #fff;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 14px;
+    }
+
     @media screen and (max-width: 600px) {
         .container {
             width: 90%;
@@ -108,6 +144,15 @@
 </style>
 </head>
 <body>
+
+<header>
+    <div id="dateTime"></div>
+</header>
+
+<!-- Google Ads Placeholder -->
+<div class="ads-placeholder">
+    Google Ad Placeholder
+</div>
 
 <!-- Row 1: Length & Weight -->
 <div class="row">
@@ -208,8 +253,22 @@
     </div>
 </div>
 
+<footer>
+    &copy; 2025 Multi Converter. All Rights Reserved. | Designed by YourName
+</footer>
+
 <script>
-// Length
+// Date & Time
+function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const time = now.toLocaleTimeString();
+    document.getElementById("dateTime").innerHTML = now.toLocaleDateString(undefined, options) + " | " + time;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+// Converters JS (same as previous)
 function convertLength() {
     const value = parseFloat(document.getElementById("lengthValue").value);
     const unit = document.getElementById("lengthUnit").value;
@@ -226,7 +285,6 @@ function convertLength() {
     document.getElementById("lengthResult").innerHTML=result;
 }
 
-// Weight
 function convertWeight() {
     const value=parseFloat(document.getElementById("weightValue").value);
     const unit=document.getElementById("weightUnit").value;
@@ -243,7 +301,6 @@ function convertWeight() {
     document.getElementById("weightResult").innerHTML=result;
 }
 
-// Temperature
 function convertTemp() {
     const value=parseFloat(document.getElementById("tempValue").value);
     const unit=document.getElementById("tempUnit").value;
@@ -260,7 +317,6 @@ function convertTemp() {
     document.getElementById("tempResult").innerHTML=result;
 }
 
-// Volume
 function convertVolume() {
     const value=parseFloat(document.getElementById("volumeValue").value);
     const unit=document.getElementById("volumeUnit").value;
@@ -277,7 +333,6 @@ function convertVolume() {
     document.getElementById("volumeResult").innerHTML=result;
 }
 
-// Speed
 function convertSpeed() {
     const value=parseFloat(document.getElementById("speedValue").value);
     const unit=document.getElementById("speedUnit").value;
@@ -294,7 +349,6 @@ function convertSpeed() {
     document.getElementById("speedResult").innerHTML=result;
 }
 
-// Time
 function convertTime() {
     const value=parseFloat(document.getElementById("timeValue").value);
     const unit=document.getElementById("timeUnit").value;

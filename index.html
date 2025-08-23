@@ -12,40 +12,63 @@
         margin: 0;
         padding: 30px;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         gap: 25px;
     }
+
+    .row {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
     .container {
         background: rgba(255,255,255,0.95);
         padding: 25px 20px;
         border-radius: 20px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        width: 300px;
-        min-width: 250px;
+        width: 45%;
+        min-width: 280px;
         text-align: center;
         color: #333;
+        transition: 0.3s;
     }
+
+    .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+    }
+
     h2 {
         margin-bottom: 15px;
         color: #4a90e2;
     }
+
     .input-group {
         display: flex;
-        align-items: center;
         margin-bottom: 15px;
     }
-    .input-group input, .input-group select {
-        flex: 1;
+
+    .input-group input {
+        flex: 2;
         padding: 10px;
         border-radius: 8px 0 0 8px;
         border: 1px solid #ccc;
+        border-right: none;
         outline: none;
     }
+
     .input-group select {
-        border-left: none;
+        flex: 1;
         border-radius: 0 8px 8px 0;
+        border: 1px solid #ccc;
+        border-left: none;
+        padding: 10px;
     }
+
     button {
         padding: 10px 20px;
         border: none;
@@ -57,10 +80,12 @@
         transition: 0.3s;
         margin-top: 5px;
     }
+
     button:hover {
         background: #357abd;
     }
-    #result {
+
+    p.result {
         margin-top: 15px;
         font-size: 16px;
         font-weight: bold;
@@ -69,95 +94,122 @@
         justify-content: center;
         align-items: center;
     }
-    #result i {
+
+    p.result i {
         margin-left: 6px;
         color: #333;
+    }
+
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 90%;
+        }
     }
 </style>
 </head>
 <body>
 
-<!-- Length Converter -->
-<div class="container">
-    <h2><i class="fas fa-ruler"></i> Length</h2>
-    <div class="input-group">
-        <input type="number" id="lengthValue" placeholder="Enter value">
-        <select id="lengthUnit">
-            <option value="cm">Centimeters → Meters</option>
-            <option value="m">Meters → Centimeters</option>
-            <option value="km">Kilometers → Meters</option>
-            <option value="m-km">Meters → Kilometers</option>
-        </select>
+<!-- Row 1: Length & Weight -->
+<div class="row">
+    <div class="container">
+        <h2><i class="fas fa-ruler"></i> Length</h2>
+        <div class="input-group">
+            <input type="number" id="lengthValue" placeholder="Enter value">
+            <select id="lengthUnit">
+                <option value="cm">Centimeters → Meters</option>
+                <option value="m">Meters → Centimeters</option>
+                <option value="km">Kilometers → Meters</option>
+                <option value="m-km">Meters → Kilometers</option>
+            </select>
+        </div>
+        <button onclick="convertLength()"><i class="fas fa-calculator"></i> Convert</button>
+        <p id="lengthResult" class="result"></p>
     </div>
-    <button onclick="convertLength()"><i class="fas fa-calculator"></i> Convert</button>
-    <p id="lengthResult"></p>
+
+    <div class="container">
+        <h2><i class="fas fa-weight-scale"></i> Weight</h2>
+        <div class="input-group">
+            <input type="number" id="weightValue" placeholder="Enter value">
+            <select id="weightUnit">
+                <option value="kg-g">Kilograms → Grams</option>
+                <option value="g-kg">Grams → Kilograms</option>
+                <option value="lb-kg">Pounds → Kilograms</option>
+                <option value="kg-lb">Kilograms → Pounds</option>
+            </select>
+        </div>
+        <button onclick="convertWeight()"><i class="fas fa-calculator"></i> Convert</button>
+        <p id="weightResult" class="result"></p>
+    </div>
 </div>
 
-<!-- Weight Converter -->
-<div class="container">
-    <h2><i class="fas fa-weight-scale"></i> Weight</h2>
-    <div class="input-group">
-        <input type="number" id="weightValue" placeholder="Enter value">
-        <select id="weightUnit">
-            <option value="kg-g">Kilograms → Grams</option>
-            <option value="g-kg">Grams → Kilograms</option>
-            <option value="lb-kg">Pounds → Kilograms</option>
-            <option value="kg-lb">Kilograms → Pounds</option>
-        </select>
+<!-- Row 2: Temperature & Volume -->
+<div class="row">
+    <div class="container">
+        <h2><i class="fas fa-thermometer-half"></i> Temperature</h2>
+        <div class="input-group">
+            <input type="number" id="tempValue" placeholder="Enter value">
+            <select id="tempUnit">
+                <option value="c-f">Celsius → Fahrenheit</option>
+                <option value="f-c">Fahrenheit → Celsius</option>
+                <option value="c-k">Celsius → Kelvin</option>
+                <option value="k-c">Kelvin → Celsius</option>
+            </select>
+        </div>
+        <button onclick="convertTemp()"><i class="fas fa-calculator"></i> Convert</button>
+        <p id="tempResult" class="result"></p>
     </div>
-    <button onclick="convertWeight()"><i class="fas fa-calculator"></i> Convert</button>
-    <p id="weightResult"></p>
+
+    <div class="container">
+        <h2><i class="fas fa-glass-water"></i> Volume</h2>
+        <div class="input-group">
+            <input type="number" id="volumeValue" placeholder="Enter value">
+            <select id="volumeUnit">
+                <option value="l-ml">Liters → Milliliters</option>
+                <option value="ml-l">Milliliters → Liters</option>
+                <option value="gal-l">Gallons → Liters</option>
+                <option value="l-gal">Liters → Gallons</option>
+            </select>
+        </div>
+        <button onclick="convertVolume()"><i class="fas fa-calculator"></i> Convert</button>
+        <p id="volumeResult" class="result"></p>
+    </div>
 </div>
 
-<!-- Temperature Converter -->
-<div class="container">
-    <h2><i class="fas fa-thermometer-half"></i> Temperature</h2>
-    <div class="input-group">
-        <input type="number" id="tempValue" placeholder="Enter value">
-        <select id="tempUnit">
-            <option value="c-f">Celsius → Fahrenheit</option>
-            <option value="f-c">Fahrenheit → Celsius</option>
-            <option value="c-k">Celsius → Kelvin</option>
-            <option value="k-c">Kelvin → Celsius</option>
-        </select>
+<!-- Row 3: Speed & Time -->
+<div class="row">
+    <div class="container">
+        <h2><i class="fas fa-tachometer-alt"></i> Speed</h2>
+        <div class="input-group">
+            <input type="number" id="speedValue" placeholder="Enter value">
+            <select id="speedUnit">
+                <option value="kmh-ms">Km/h → m/s</option>
+                <option value="ms-kmh">m/s → Km/h</option>
+                <option value="mph-kmh">MPH → Km/h</option>
+                <option value="kmh-mph">Km/h → MPH</option>
+            </select>
+        </div>
+        <button onclick="convertSpeed()"><i class="fas fa-calculator"></i> Convert</button>
+        <p id="speedResult" class="result"></p>
     </div>
-    <button onclick="convertTemp()"><i class="fas fa-calculator"></i> Convert</button>
-    <p id="tempResult"></p>
-</div>
 
-<!-- Volume Converter -->
-<div class="container">
-    <h2><i class="fas fa-glass-water"></i> Volume</h2>
-    <div class="input-group">
-        <input type="number" id="volumeValue" placeholder="Enter value">
-        <select id="volumeUnit">
-            <option value="l-ml">Liters → Milliliters</option>
-            <option value="ml-l">Milliliters → Liters</option>
-            <option value="gal-l">Gallons → Liters</option>
-            <option value="l-gal">Liters → Gallons</option>
-        </select>
+    <div class="container">
+        <h2><i class="fas fa-clock"></i> Time</h2>
+        <div class="input-group">
+            <input type="number" id="timeValue" placeholder="Enter value">
+            <select id="timeUnit">
+                <option value="hr-min">Hours → Minutes</option>
+                <option value="min-hr">Minutes → Hours</option>
+                <option value="day-hr">Days → Hours</option>
+                <option value="hr-day">Hours → Days</option>
+            </select>
+        </div>
+        <button onclick="convertTime()"><i class="fas fa-calculator"></i> Convert</button>
+        <p id="timeResult" class="result"></p>
     </div>
-    <button onclick="convertVolume()"><i class="fas fa-calculator"></i> Convert</button>
-    <p id="volumeResult"></p>
-</div>
-
-<!-- Speed Converter -->
-<div class="container">
-    <h2><i class="fas fa-tachometer-alt"></i> Speed</h2>
-    <div class="input-group">
-        <input type="number" id="speedValue" placeholder="Enter value">
-        <select id="speedUnit">
-            <option value="kmh-ms">Km/h → m/s</option>
-            <option value="ms-kmh">m/s → Km/h</option>
-            <option value="mph-kmh">MPH → Km/h</option>
-            <option value="kmh-mph">Km/h → MPH</option>
-        </select>
-    </div>
-    <button onclick="convertSpeed()"><i class="fas fa-calculator"></i> Convert</button>
-    <p id="speedResult"></p>
 </div>
 
 <script>
+// Length
 function convertLength() {
     const value = parseFloat(document.getElementById("lengthValue").value);
     const unit = document.getElementById("lengthUnit").value;
@@ -174,6 +226,7 @@ function convertLength() {
     document.getElementById("lengthResult").innerHTML=result;
 }
 
+// Weight
 function convertWeight() {
     const value=parseFloat(document.getElementById("weightValue").value);
     const unit=document.getElementById("weightUnit").value;
@@ -190,6 +243,7 @@ function convertWeight() {
     document.getElementById("weightResult").innerHTML=result;
 }
 
+// Temperature
 function convertTemp() {
     const value=parseFloat(document.getElementById("tempValue").value);
     const unit=document.getElementById("tempUnit").value;
@@ -206,6 +260,7 @@ function convertTemp() {
     document.getElementById("tempResult").innerHTML=result;
 }
 
+// Volume
 function convertVolume() {
     const value=parseFloat(document.getElementById("volumeValue").value);
     const unit=document.getElementById("volumeUnit").value;
@@ -222,6 +277,7 @@ function convertVolume() {
     document.getElementById("volumeResult").innerHTML=result;
 }
 
+// Speed
 function convertSpeed() {
     const value=parseFloat(document.getElementById("speedValue").value);
     const unit=document.getElementById("speedUnit").value;
@@ -236,6 +292,23 @@ function convertSpeed() {
         }
     }
     document.getElementById("speedResult").innerHTML=result;
+}
+
+// Time
+function convertTime() {
+    const value=parseFloat(document.getElementById("timeValue").value);
+    const unit=document.getElementById("timeUnit").value;
+    let result="";
+    if(isNaN(value)){ result="Enter a number <i class='fas fa-exclamation-circle'></i>"; }
+    else{
+        switch(unit){
+            case "hr-min": result=(value*60)+" min <i class='fas fa-check-circle'></i>"; break;
+            case "min-hr": result=(value/60)+" hr <i class='fas fa-check-circle'></i>"; break;
+            case "day-hr": result=(value*24)+" hr <i class='fas fa-check-circle'></i>"; break;
+            case "hr-day": result=(value/24)+" day <i class='fas fa-check-circle'></i>"; break;
+        }
+    }
+    document.getElementById("timeResult").innerHTML=result;
 }
 </script>
 

@@ -3,31 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Universal Converter</title>
+<title>Multi Converter</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #667eea, #764ba2);
+        margin: 0;
+        padding: 20px;
         display: flex;
         justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        color: #fff;
+        flex-wrap: wrap;
+        gap: 20px;
     }
     .container {
         background: rgba(255,255,255,0.95);
-        padding: 30px 25px;
+        padding: 25px 20px;
         border-radius: 20px;
-        box-shadow: 0 15px 25px rgba(0,0,0,0.3);
-        max-width: 400px;
-        width: 100%;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        width: 300px;
         text-align: center;
         color: #333;
     }
     h2 {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         color: #4a90e2;
     }
     .input-group {
@@ -37,7 +36,7 @@
     }
     .input-group input, .input-group select {
         flex: 1;
-        padding: 12px;
+        padding: 10px;
         border-radius: 8px 0 0 8px;
         border: 1px solid #ccc;
         outline: none;
@@ -47,7 +46,7 @@
         border-radius: 0 8px 8px 0;
     }
     button {
-        padding: 12px 20px;
+        padding: 10px 20px;
         border: none;
         background: #4a90e2;
         color: white;
@@ -55,14 +54,14 @@
         border-radius: 10px;
         cursor: pointer;
         transition: 0.3s;
-        margin-top: 10px;
+        margin-top: 5px;
     }
     button:hover {
         background: #357abd;
     }
     #result {
-        margin-top: 20px;
-        font-size: 18px;
+        margin-top: 15px;
+        font-size: 16px;
         font-weight: bold;
         color: #4a90e2;
         display: flex;
@@ -70,106 +69,111 @@
         align-items: center;
     }
     #result i {
-        margin-left: 8px;
+        margin-left: 6px;
         color: #333;
-    }
-    .converter-select {
-        margin-bottom: 15px;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        width: 100%;
-        outline: none;
     }
 </style>
 </head>
 <body>
 
+<!-- Length Converter -->
 <div class="container">
-    <h2><i class="fas fa-sync-alt"></i> Universal Converter</h2>
-
-    <select class="converter-select" id="converterType" onchange="updateUnits()">
-        <option value="length">Length</option>
-        <option value="weight">Weight</option>
-        <option value="temperature">Temperature</option>
-    </select>
-
+    <h2><i class="fas fa-ruler"></i> Length Converter</h2>
     <div class="input-group">
-        <input type="number" id="value" placeholder="Enter value">
-        <select id="unit"></select>
+        <input type="number" id="lengthValue" placeholder="Enter value">
+        <select id="lengthUnit">
+            <option value="cm">Centimeters → Meters</option>
+            <option value="m">Meters → Centimeters</option>
+            <option value="km">Kilometers → Meters</option>
+            <option value="m-km">Meters → Kilometers</option>
+        </select>
     </div>
+    <button onclick="convertLength()"><i class="fas fa-calculator"></i> Convert</button>
+    <p id="lengthResult"></p>
+</div>
 
-    <button onclick="convert()"><i class="fas fa-calculator"></i> Convert</button>
+<!-- Weight Converter -->
+<div class="container">
+    <h2><i class="fas fa-weight-scale"></i> Weight Converter</h2>
+    <div class="input-group">
+        <input type="number" id="weightValue" placeholder="Enter value">
+        <select id="weightUnit">
+            <option value="kg-g">Kilograms → Grams</option>
+            <option value="g-kg">Grams → Kilograms</option>
+            <option value="lb-kg">Pounds → Kilograms</option>
+            <option value="kg-lb">Kilograms → Pounds</option>
+        </select>
+    </div>
+    <button onclick="convertWeight()"><i class="fas fa-calculator"></i> Convert</button>
+    <p id="weightResult"></p>
+</div>
 
-    <p id="result"></p>
+<!-- Temperature Converter -->
+<div class="container">
+    <h2><i class="fas fa-thermometer-half"></i> Temperature Converter</h2>
+    <div class="input-group">
+        <input type="number" id="tempValue" placeholder="Enter value">
+        <select id="tempUnit">
+            <option value="c-f">Celsius → Fahrenheit</option>
+            <option value="f-c">Fahrenheit → Celsius</option>
+            <option value="c-k">Celsius → Kelvin</option>
+            <option value="k-c">Kelvin → Celsius</option>
+        </select>
+    </div>
+    <button onclick="convertTemp()"><i class="fas fa-calculator"></i> Convert</button>
+    <p id="tempResult"></p>
 </div>
 
 <script>
-const units = {
-    length: [
-        { value: 'cm', text: 'Centimeters → Meters' },
-        { value: 'm', text: 'Meters → Centimeters' },
-        { value: 'km', text: 'Kilometers → Meters' },
-        { value: 'm-km', text: 'Meters → Kilometers' }
-    ],
-    weight: [
-        { value: 'kg-g', text: 'Kilograms → Grams' },
-        { value: 'g-kg', text: 'Grams → Kilograms' },
-        { value: 'lb-kg', text: 'Pounds → Kilograms' },
-        { value: 'kg-lb', text: 'Kilograms → Pounds' }
-    ],
-    temperature: [
-        { value: 'c-f', text: 'Celsius → Fahrenheit' },
-        { value: 'f-c', text: 'Fahrenheit → Celsius' },
-        { value: 'c-k', text: 'Celsius → Kelvin' },
-        { value: 'k-c', text: 'Kelvin → Celsius' }
-    ]
-};
-
-function updateUnits() {
-    const converterType = document.getElementById('converterType').value;
-    const unitSelect = document.getElementById('unit');
-    unitSelect.innerHTML = '';
-    units[converterType].forEach(u => {
-        const option = document.createElement('option');
-        option.value = u.value;
-        option.text = u.text;
-        unitSelect.appendChild(option);
-    });
-}
-
-// Initial load
-updateUnits();
-
-function convert() {
-    const value = parseFloat(document.getElementById("value").value);
-    const unit = document.getElementById("unit").value;
+function convertLength() {
+    const value = parseFloat(document.getElementById("lengthValue").value);
+    const unit = document.getElementById("lengthUnit").value;
     let result = "";
-
     if (isNaN(value)) {
         result = "Please enter a number <i class='fas fa-exclamation-circle'></i>";
     } else {
         switch(unit) {
-            // Length
             case "cm": result = (value / 100).toFixed(2) + " meters <i class='fas fa-check-circle'></i>"; break;
             case "m": result = (value * 100).toFixed(2) + " cm <i class='fas fa-check-circle'></i>"; break;
             case "km": result = (value * 1000).toFixed(2) + " meters <i class='fas fa-check-circle'></i>"; break;
             case "m-km": result = (value / 1000).toFixed(2) + " km <i class='fas fa-check-circle'></i>"; break;
-            // Weight
+        }
+    }
+    document.getElementById("lengthResult").innerHTML = result;
+}
+
+function convertWeight() {
+    const value = parseFloat(document.getElementById("weightValue").value);
+    const unit = document.getElementById("weightUnit").value;
+    let result = "";
+    if (isNaN(value)) {
+        result = "Please enter a number <i class='fas fa-exclamation-circle'></i>";
+    } else {
+        switch(unit) {
             case "kg-g": result = (value * 1000).toFixed(2) + " grams <i class='fas fa-check-circle'></i>"; break;
             case "g-kg": result = (value / 1000).toFixed(2) + " kg <i class='fas fa-check-circle'></i>"; break;
             case "lb-kg": result = (value * 0.453592).toFixed(2) + " kg <i class='fas fa-check-circle'></i>"; break;
             case "kg-lb": result = (value / 0.453592).toFixed(2) + " lbs <i class='fas fa-check-circle'></i>"; break;
-            // Temperature
+        }
+    }
+    document.getElementById("weightResult").innerHTML = result;
+}
+
+function convertTemp() {
+    const value = parseFloat(document.getElementById("tempValue").value);
+    const unit = document.getElementById("tempUnit").value;
+    let result = "";
+    if (isNaN(value)) {
+        result = "Please enter a number <i class='fas fa-exclamation-circle'></i>";
+    } else {
+        switch(unit) {
             case "c-f": result = ((value * 9/5) + 32).toFixed(2) + " °F <i class='fas fa-check-circle'></i>"; break;
             case "f-c": result = ((value - 32) * 5/9).toFixed(2) + " °C <i class='fas fa-check-circle'></i>"; break;
             case "c-k": result = (value + 273.15).toFixed(2) + " K <i class='fas fa-check-circle'></i>"; break;
             case "k-c": result = (value - 273.15).toFixed(2) + " °C <i class='fas fa-check-circle'></i>"; break;
-            default: result = "Conversion not found <i class='fas fa-exclamation-circle'></i>";
         }
     }
-
-    document.getElementById("result").innerHTML = result;
+    document.getElementById("tempResult").innerHTML = result;
 }
 </script>
 

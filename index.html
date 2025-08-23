@@ -1,75 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Universal Converter Suite</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal Converter Suite</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1><i class="fa-solid fa-exchange-alt"></i> Universal Converter Suite</h1>
-    <button id="modeToggle"><i class="fa-solid fa-moon"></i></button>
-  </header>
 
-  <!-- Sticky Navigation -->
-  <nav class="tab-nav">
-    <button class="tab-btn active" data-tab="converters"><i class="fa-solid fa-sliders"></i> Converters</button>
-    <button class="tab-btn" data-tab="pdf-tools"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
-    <button class="tab-btn" data-tab="calories"><i class="fa-solid fa-bowl-food"></i> Calories</button>
-    <button class="tab-btn" data-tab="about"><i class="fa-solid fa-circle-info"></i> About</button>
-  </nav>
+<header>
+  <h1><i class="fa-solid fa-exchange-alt"></i> Universal Converter Suite</h1>
+  <button id="modeToggle"><i class="fa-solid fa-moon"></i></button>
+</header>
 
-  <!-- Tab Contents -->
-  <section id="converters" class="tab-content active">
-    <h2>All Unit Converters</h2>
-    <div id="converter-container" class="grid"></div>
-  </section>
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="converters"><i class="fa-solid fa-sliders"></i> Converters</button>
+  <button class="tab-btn" data-tab="pdf-tools"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
+  <button class="tab-btn" data-tab="calories"><i class="fa-solid fa-bowl-food"></i> Calories</button>
+  <button class="tab-btn" data-tab="about"><i class="fa-solid fa-circle-info"></i> About</button>
+</nav>
 
-  <section id="pdf-tools" class="tab-content">
-    <h2>PDF Tools</h2>
-    <div class="pdf-container">
-      <h3>Convert PDF → Word</h3>
-      <input type="file" id="pdfToWord" accept="application/pdf">
-      <button onclick="convertPdfToWord()">Convert</button>
-      <p id="pdfWordResult"></p>
+<section id="converters" class="tab-content active">
+  <h2>All Unit Converters</h2>
+  <div id="converter-container" class="grid"></div>
+</section>
 
-      <h3>Convert Word → PDF</h3>
-      <input type="file" id="wordToPdf" accept=".doc,.docx">
-      <button onclick="convertWordToPdf()">Convert</button>
-      <p id="wordPdfResult"></p>
-    </div>
-  </section>
+<section id="pdf-tools" class="tab-content">
+  <h2>PDF Tools</h2>
+  <div class="pdf-container">
+    <h3>Convert PDF → Word</h3>
+    <input type="file" id="pdfToWord" accept="application/pdf">
+    <button onclick="convertPdfToWord()">Convert</button>
+    <p id="pdfWordResult"></p>
 
-  <section id="calories" class="tab-content">
-    <h2>Calories & Macros Calculator</h2>
-    <div class="calorie-form">
-      <input type="number" id="age" placeholder="Age" />
-      <input type="number" id="weight" placeholder="Weight (kg)" />
-      <input type="number" id="height" placeholder="Height (cm)" />
-      <select id="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-      <select id="activity">
-        <option value="1.2">Sedentary</option>
-        <option value="1.375">Light Activity</option>
-        <option value="1.55">Moderate Activity</option>
-        <option value="1.725">Very Active</option>
-      </select>
-      <button onclick="calculateCalories()">Calculate</button>
-    </div>
-    <div id="calorieResult"></div>
-  </section>
+    <h3>Convert Word → PDF</h3>
+    <input type="file" id="wordToPdf" accept=".doc,.docx">
+    <button onclick="convertWordToPdf()">Convert</button>
+    <p id="wordPdfResult"></p>
+  </div>
+</section>
 
-  <section id="about" class="tab-content">
-    <h2>About</h2>
-    <p>This is an all-in-one conversion suite with PDF tools and calorie tracking!</p>
-    <div class="ads">Google Ads Placeholder</div>
-  </section>
+<section id="calories" class="tab-content">
+  <h2>Calories & Macros Calculator</h2>
+  <div class="calorie-form">
+    <input type="number" id="age" placeholder="Age" />
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <input type="number" id="height" placeholder="Height (cm)" />
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <select id="activity">
+      <option value="1.2">Sedentary</option>
+      <option value="1.375">Light Activity</option>
+      <option value="1.55">Moderate Activity</option>
+      <option value="1.725">Very Active</option>
+    </select>
+    <button onclick="calculateCalories()">Calculate</button>
+  </div>
+  <div id="calorieResult"></div>
+</section>
 
-  <script src="script.js"></script>
+<section id="about" class="tab-content">
+  <h2>About</h2>
+  <p>This is an all-in-one conversion suite with PDF tools and calorie tracking!</p>
+  <div class="ads">Google Ads Placeholder</div>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>

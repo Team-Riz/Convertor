@@ -41,8 +41,12 @@ async function fetchCurrencyRates() {
   try {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
-    if(data && data.rates) { unitsData.currency = data.rates; }
-  } catch(err){ console.error(err); }
+    if(data && data.rates) {
+      unitsData.currency = data.rates;
+    }
+  } catch(err){
+    console.error("Failed to fetch live currency rates. Using static fallback.", err);
+  }
 }
 fetchCurrencyRates();
 
@@ -129,40 +133,74 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES ==================
-document.getElementById('calorieBtn').addEventListener('click', calculateCalories);
-function calculateCalories(){
+// ================== CALORIES & BMI ==================
+document.getElementById('calcCalories').addEventListener('click',()=>{
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
   const height=parseFloat(document.getElementById('height').value);
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
+
+  // BMR & Calories
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
   let protein=weight*1.5;
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
-  let bmi=weight/((height/100)**2);
 
-  const resultDiv=document.getElementById('calorieResult');
-  resultDiv.innerHTML="";
+  // BMI
+  let heightM=height/100;
+  let bmi=(weight/(heightM*heightM)).toFixed(1);
 
-  const cards=[
-    {title:"Calories", value:calories.toFixed(2)+" kcal", color:"#ff7043", icon:"fa-fire"},
-    {title:"Protein", value:protein.toFixed(2)+" g", color:"#66bb6a", icon:"fa-drumstick-bite"},
-    {title:"Fat", value:fat.toFixed(2)+" g", color:"#ffee58", icon:"fa-oil-can"},
-    {title:"Carbs", value:carbs.toFixed(2)+" g", color:"#42a5f5", icon:"fa-bread-slice"},
-    {title:"BMI", value:bmi.toFixed(1), color:"#ab47bc", icon:"fa-weight"},
-    {title:"Advice", value:`${gender==='male'?'Male':'Female'} age ${age} advice: maintain healthy lifestyle`, color:"#ffa726", icon:"fa-heart-pulse"}
-  ];
+  // BMI Category
+  let bmiCategory="", bmiColor="";
+  if(bmi<18.5){bmiCategory="Underweight"; bmiColor="#29b6f6";}
+  else if(bmi<25){bmiCategory="Normal"; bmiColor="#66bb6a";}
+  else if(bmi<30){bmiCategory="Overweight"; bmiColor="#ffa726";}
+  else{bmiCategory="Obese"; bmiColor="#ef5350";}
 
-  cards.forEach(c=>{
-    const div=document.createElement('div'); div.className="calorie-card";
-    div.innerHTML=`<h4>${c.title}</h4><p>${c.value}</p><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="12" fill="${c.color}"/></svg>`;
-    resultDiv.appendChild(div);
-  });
-}
+  // Diet & Exercise (simplified)
+  let diet="", exercise="";
+  if(bmiCategory=="Underweight"){diet="High-calorie meals, nuts, protein-rich foods."; exercise="Light strength and cardio.";}
+  else if(bmiCategory=="Normal"){diet="Balanced diet with fruits & vegetables."; exercise="Moderate cardio & strength training.";}
+  else if(bmiCategory=="Overweight"){diet="Reduce sugar & processed foods."; exercise="Cardio, strength, regular walking.";}
+  else{diet="Low-calorie, high-fiber diet."; exercise="Low-impact cardio, stretching, daily walks.";}
+
+  // Age Advice
+  let ageAdvice="";
+  if(age<18) ageAdvice="You are under 18, consider consulting a nutritionist for growth.";
+  else if(age<50) ageAdvice="Maintain balanced diet and regular exercises.";
+  else ageAdvice="Focus on low-impact activities and balanced diet.";
+
+  // Display Results
+  document.getElementById('calorieResult').innerHTML=`
+    <div class="bmi-card" style="background:${bmiColor}33; color:${bmiColor};">
+      <div class="icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <h4>BMI: ${bmi} (${bmiCategory})</h4>
+    </div>
+    <div class="bmi-card">
+      <div class="icon"><i class="fa-solid fa-fire"></i></div>
+      <h4>Calories: ${calories.toFixed(0)} kcal</h4>
+      <p>Protein: ${protein.toFixed(1)}g | Fat: ${fat.toFixed(1)}g | Carbs: ${carbs.toFixed(1)}g</p>
+    </div>
+    <div class="bmi-card">
+      <div class="icon"><i class="fa-solid fa-user"></i></div>
+      <h4>Gender Advice (${gender})</h4>
+      <p>${diet}</p>
+    </div>
+    <div class="bmi-card">
+      <div class="icon"><i class="fa-solid fa-child"></i></div>
+      <h4>Age Advice (${age} yrs)</h4>
+      <p>${ageAdvice}</p>
+    </div>
+    <div class="bmi-card">
+      <div class="icon"><i class="fa-solid fa-dumbbell"></i></div>
+      <h4>Exercise</h4>
+      <p>${exercise}</p>
+    </div>
+  `;
+});
 
 // ================== PDF TOOLS ==================
 function convertPdfToWord(){document.getElementById('pdfWordResult').innerText="Conversion failed. Make sure it is a readable PDF.";}

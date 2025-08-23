@@ -3,145 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All-in-One Converters & Calculators</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<title>Advanced All-in-One Converter</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
 <header>
-    <h1><i class="fas fa-sun"></i> All-in-One Converters & Calculators</h1>
-    <div class="header-right">
-        <input type="text" placeholder="Search converters..." id="searchInput">
-        <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-        <button id="modeToggle"><i class="fa-solid fa-moon"></i> Dark Mode</button>
-    </div>
+  <h1><i class="fas fa-sun"></i> Advanced Converter</h1>
+  <div class="header-right">
+    <input type="text" placeholder="Search converters..." id="searchInput">
+    <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    <button id="modeToggle"><i class="fa-solid fa-moon"></i> Dark Mode</button>
+  </div>
 </header>
 
 <div class="tab-nav">
-    <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
-    <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-bolt"></i> Calories</button>
-    <button class="tab-btn" data-tab="tab-pdf"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
-    <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
+  <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
+  <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-bolt"></i> Calories</button>
+  <button class="tab-btn" data-tab="tab-pdf"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
+  <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- CONVERTERS TAB -->
-<main id="tab-converters" class="tab-content active">
-    <div class="converters">
-        <!-- LENGTH CONVERTER -->
-        <div class="converter">
-            <h3><i class="fas fa-ruler"></i> Length Converter</h3>
-            <input type="number" id="lengthInput" placeholder="Enter value">
-            <select id="lengthUnit">
-                <option value="meter->kilometer">Meter → Kilometer</option>
-                <option value="kilometer->meter">Kilometer → Meter</option>
-                <option value="meter->mile">Meter → Mile</option>
-                <option value="mile->meter">Mile → Meter</option>
-            </select>
-            <button onclick="convertLength()">Calculate</button>
-            <div class="result" id="lengthResult"></div>
-        </div>
+<div id="tab-converters" class="tab-content active">
+  <div id="converter-container" class="grid"></div>
+</div>
 
-        <!-- WEIGHT CONVERTER -->
-        <div class="converter">
-            <h3><i class="fas fa-weight-scale"></i> Weight Converter</h3>
-            <input type="number" id="weightInput" placeholder="Enter value">
-            <select id="weightUnit">
-                <option value="kg->g">Kg → g</option>
-                <option value="g->kg">g → Kg</option>
-                <option value="kg->lb">Kg → lb</option>
-                <option value="lb->kg">lb → Kg</option>
-            </select>
-            <button onclick="convertWeight()">Calculate</button>
-            <div class="result" id="weightResult"></div>
-        </div>
-
-        <!-- TEMPERATURE CONVERTER -->
-        <div class="converter">
-            <h3><i class="fas fa-thermometer-half"></i> Temperature Converter</h3>
-            <input type="number" id="tempInput" placeholder="Enter value">
-            <select id="tempUnit">
-                <option value="c->f">Celsius → Fahrenheit</option>
-                <option value="f->c">Fahrenheit → Celsius</option>
-                <option value="c->k">Celsius → Kelvin</option>
-                <option value="k->c">Kelvin → Celsius</option>
-            </select>
-            <button onclick="convertTemperature()">Calculate</button>
-            <div class="result" id="tempResult"></div>
-        </div>
-
-        <!-- Add all other converters here, keeping the previous design intact -->
-    </div>
-
-    <div class="description">
-        <h2><i class="fas fa-info-circle"></i> About This Page</h2>
-        <p>Welcome to <strong>All-in-One Converters</strong>! This tool allows you to easily convert between various units of <strong>length, weight, temperature, volume, speed, area, time</strong>.</p>
-        <ul>
-            <li>⚡ Fast & Easy to Use</li>
-            <li>✅ Accurate Conversions</li>
-            <li>💻 Works on All Devices</li>
-            <li>🌐 Free & Always Online</li>
-        </ul>
-        <div style="border: 1px dashed #ccc; padding: 10px; text-align:center;">Google Ads Placeholder</div>
-    </div>
-</main>
-
-<!-- CALORIES TAB -->
 <div id="tab-calories" class="tab-content">
-    <div class="calorie-form">
-        <input type="number" id="age" placeholder="Age">
-        <input type="number" id="weight" placeholder="Weight (kg)">
-        <input type="number" id="height" placeholder="Height (cm)">
-        <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-        <select id="activity">
-            <option value="1.2">Sedentary</option>
-            <option value="1.375">Lightly Active</option>
-            <option value="1.55">Moderately Active</option>
-            <option value="1.725">Very Active</option>
-        </select>
-        <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
-
-        <div id="calorieResult" class="calorie-result card"></div>
-        <div id="bmiResult" class="calorie-result card"></div>
-        <div id="dietPlan" class="calorie-result card"></div>
-    </div>
+  <div class="calorie-form">
+    <input type="number" id="age" placeholder="Age">
+    <input type="number" id="weight" placeholder="Weight (kg)">
+    <input type="number" id="height" placeholder="Height (cm)">
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <select id="activity">
+      <option value="1.2">Sedentary</option>
+      <option value="1.375">Lightly Active</option>
+      <option value="1.55">Moderately Active</option>
+      <option value="1.725">Very Active</option>
+    </select>
+    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
+    <div id="calorieResult" class="calorie-result"></div>
+  </div>
 </div>
 
-<!-- PDF TAB -->
 <div id="tab-pdf" class="tab-content">
-    <div class="pdf-container">
-        <input type="file" id="pdfInput" accept=".pdf">
-        <button onclick="convertPdfToWord()">Convert PDF → Word</button>
-        <div id="pdfWordResult"></div>
-        <input type="file" id="wordInput" accept=".doc,.docx">
-        <button onclick="convertWordToPdf()">Convert Word → PDF</button>
-        <div id="wordPdfResult"></div>
-    </div>
+  <div class="pdf-container">
+    <input type="file" id="pdfInput" accept=".pdf">
+    <button onclick="convertPdfToWord()">Convert PDF → Word</button>
+    <div id="pdfWordResult"></div>
+    <input type="file" id="wordInput" accept=".doc,.docx">
+    <button onclick="convertWordToPdf()">Convert Word → PDF</button>
+    <div id="wordPdfResult"></div>
+  </div>
 </div>
 
-<!-- ABOUT TAB -->
 <div id="tab-about" class="tab-content">
-    <div class="about-container card">
-        <h2><i class="fa-solid fa-info-circle"></i> About This Tool</h2>
-        <p>This tool provides <strong>advanced unit conversions</strong> and health utilities. You can:</p>
-        <ul>
-            <li><i class="fa-solid fa-ruler"></i> Convert length, weight, volume, temperature, speed, area, time, energy, pressure, data size</li>
-            <li><i class="fa-solid fa-dollar-sign"></i> Convert currencies <strong>USD, QAR, PKR, EUR</strong> live</li>
-            <li><i class="fa-solid fa-bolt"></i> Calculate daily calories, BMI, and ideal weight</li>
-            <li><i class="fa-solid fa-file-pdf"></i> Convert PDF and Word files</li>
-            <li><i class="fa-solid fa-utensils"></i> Plan diet based on your daily requirements</li>
-        </ul>
-        <div class="ads">Google Ads Placeholder</div>
-    </div>
+  <h2>About This Page</h2>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
+  <ul>
+    <li>⚡ Fast & Interactive</li>
+    <li>✅ Accurate & Bidirectional</li>
+    <li>💻 Works on all devices</li>
+    <li>🌐 Free & Always Online</li>
+  </ul>
+  <div class="ads">Google Ads Placeholder</div>
 </div>
-
-<footer>
-    © 2025 Team Riz | All Rights Reserved<br>
-    <span id="datetime"></span>
-</footer>
 
 <script src="script.js"></script>
 </body>

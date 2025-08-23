@@ -60,6 +60,23 @@ header h1 {
     background: var(--button-hover);
 }
 
+#modeToggle {
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    background: var(--button-bg);
+    color: var(--button-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s;
+}
+
+#modeToggle:hover {
+    background: var(--button-hover);
+}
+
 main {
     display: flex;
     flex-wrap: wrap;
@@ -172,13 +189,13 @@ footer {
     margin-top: 20px;
 }
 
-/* ========== HIGHLIGHT SEARCH ========== */
+/* SEARCH HIGHLIGHT */
 .converter.highlight {
     transform: scale(1.05);
     border: 2px solid var(--button-bg);
 }
 
-/* ========== LIGHT & DARK MODE VARIABLES ========== */
+/* LIGHT & DARK MODE VARIABLES */
 :root {
     --bg-color: #f4f6f9;
     --text-color: #222;
@@ -218,8 +235,8 @@ body.dark-mode {
     --ad-text: #ccc;
 }
 
-/* ========== RESPONSIVE ========== */
-@media(max-width: 800px) {
+/* RESPONSIVE */
+@media(max-width: 800px){
     main {
         flex-direction: column;
     }

@@ -11,7 +11,7 @@
 
 <header>
   <h1><i class="fa-solid fa-exchange-alt"></i> Universal Converter Suite</h1>
-  <button id="modeToggle"><i class="fa-solid fa-moon"></i></button>
+  <button id="modeToggle"><i class="fa-solid fa-sun"></i> Light Mode</button>
 </header>
 
 <nav class="tab-nav">
@@ -29,14 +29,14 @@
 <section id="pdf-tools" class="tab-content">
   <h2>PDF Tools</h2>
   <div class="pdf-container">
-    <h3>Convert PDF → Word</h3>
+    <h3><i class="fa-solid fa-file-pdf"></i> PDF → Word</h3>
     <input type="file" id="pdfToWord" accept="application/pdf">
-    <button onclick="convertPdfToWord()">Convert</button>
+    <button onclick="convertPdfToWord()"><i class="fa-solid fa-arrow-right"></i> Convert</button>
     <p id="pdfWordResult"></p>
 
-    <h3>Convert Word → PDF</h3>
+    <h3><i class="fa-solid fa-file-word"></i> Word → PDF</h3>
     <input type="file" id="wordToPdf" accept=".doc,.docx">
-    <button onclick="convertWordToPdf()">Convert</button>
+    <button onclick="convertWordToPdf()"><i class="fa-solid fa-arrow-right"></i> Convert</button>
     <p id="wordPdfResult"></p>
   </div>
 </section>
@@ -57,14 +57,32 @@
       <option value="1.55">Moderate Activity</option>
       <option value="1.725">Very Active</option>
     </select>
-    <button onclick="calculateCalories()">Calculate</button>
+    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
   </div>
-  <div id="calorieResult"></div>
+  <div id="calorieResult" class="calorie-result"></div>
 </section>
 
 <section id="about" class="tab-content">
-  <h2>About</h2>
-  <p>This is an all-in-one conversion suite with PDF tools and calorie tracking!</p>
+  <h2>About This Suite</h2>
+  <p>Welcome to <strong>Universal Converter Suite</strong>! This tool allows you to easily convert units for:</p>
+  <ul>
+    <li><i class="fa-solid fa-ruler"></i> Length (Meter, Kilometer, Mile, etc.)</li>
+    <li><i class="fa-solid fa-weight-scale"></i> Weight (Kg, g, lb, oz)</li>
+    <li><i class="fa-solid fa-thermometer-half"></i> Temperature (C, F, K)</li>
+    <li><i class="fa-solid fa-cube"></i> Volume (Liter, Gallon, m³)</li>
+    <li><i class="fa-solid fa-tachometer-alt"></i> Speed (km/h, m/s, mph)</li>
+    <li><i class="fa-solid fa-vector-square"></i> Area (m², km², mi²)</li>
+    <li><i class="fa-solid fa-clock"></i> Time (Seconds, Minutes, Hours, Days)</li>
+    <li><i class="fa-solid fa-dollar-sign"></i> Currency (USD, QAR, PKR, EUR)</li>
+    <li><i class="fa-solid fa-bolt"></i> Energy & Pressure units</li>
+    <li><i class="fa-solid fa-database"></i> Data Size (Bytes, KB, MB, GB)</li>
+  </ul>
+  <p>This suite also includes:</p>
+  <ul>
+    <li><i class="fa-solid fa-file-pdf"></i> PDF → Word & Word → PDF</li>
+    <li><i class="fa-solid fa-bowl-food"></i> Calories & Macros Calculator</li>
+    <li>✨ Dark/Light mode, responsive design, animations, and modern UI.</li>
+  </ul>
   <div class="ads">Google Ads Placeholder</div>
 </section>
 

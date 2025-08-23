@@ -6,12 +6,17 @@
   <title>All-in-One Converters & Tools</title>
 
   <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- PDF.js (for reading PDFs in browser) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <!-- docx (for creating .docx files in browser) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.0.1/docx.umd.min.js"></script>
+  <!-- Mammoth (.docx -> HTML) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <!-- html2pdf (HTML -> PDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -39,26 +44,30 @@
       <div class="converters">
 
         <!-- LENGTH -->
-        <div class="converter" data-name="length meter kilometer km m centimeter cm mile foot inch">
+        <div class="converter" data-name="length meter kilometer km m centimeter cm mile foot inch yard">
           <h3><i class="fas fa-ruler"></i> Length</h3>
           <input type="number" id="lengthValue" placeholder="Enter value" />
           <div class="unit-select">
             <select id="lengthFrom">
-              <option value="meter">Meter</option>
-              <option value="kilometer">Kilometer</option>
-              <option value="centimeter">Centimeter</option>
-              <option value="mile">Mile</option>
-              <option value="foot">Foot</option>
-              <option value="inch">Inch</option>
+              <option value="meter">Meters</option>
+              <option value="kilometer">Kilometers</option>
+              <option value="centimeter">Centimeters</option>
+              <option value="millimeter">Millimeters</option>
+              <option value="mile">Miles</option>
+              <option value="yard">Yards</option>
+              <option value="foot">Feet</option>
+              <option value="inch">Inches</option>
             </select>
             <span>→</span>
             <select id="lengthTo">
-              <option value="meter">Meter</option>
-              <option value="kilometer">Kilometer</option>
-              <option value="centimeter">Centimeter</option>
-              <option value="mile">Mile</option>
-              <option value="foot">Foot</option>
-              <option value="inch">Inch</option>
+              <option value="meter">Meters</option>
+              <option value="kilometer">Kilometers</option>
+              <option value="centimeter">Centimeters</option>
+              <option value="millimeter">Millimeters</option>
+              <option value="mile">Miles</option>
+              <option value="yard">Yards</option>
+              <option value="foot">Feet</option>
+              <option value="inch">Inches</option>
             </select>
           </div>
           <button onclick="convertLength()">Convert</button>
@@ -73,17 +82,19 @@
           <input type="number" id="weightValue" placeholder="Enter value" />
           <div class="unit-select">
             <select id="weightFrom">
-              <option value="kilogram">Kilogram</option>
-              <option value="gram">Gram</option>
-              <option value="pound">Pound</option>
-              <option value="ounce">Ounce</option>
+              <option value="kilogram">Kilograms</option>
+              <option value="gram">Grams</option>
+              <option value="milligram">Milligrams</option>
+              <option value="pound">Pounds</option>
+              <option value="ounce">Ounces</option>
             </select>
             <span>→</span>
             <select id="weightTo">
-              <option value="kilogram">Kilogram</option>
-              <option value="gram">Gram</option>
-              <option value="pound">Pound</option>
-              <option value="ounce">Ounce</option>
+              <option value="kilogram">Kilograms</option>
+              <option value="gram">Grams</option>
+              <option value="milligram">Milligrams</option>
+              <option value="pound">Pounds</option>
+              <option value="ounce">Ounces</option>
             </select>
           </div>
           <button onclick="convertWeight()">Convert</button>
@@ -116,22 +127,30 @@
         </div>
 
         <!-- VOLUME -->
-        <div class="converter" data-name="volume liter milliliter ml gallon cup">
+        <div class="converter" data-name="volume liter milliliter ml gallon cup tablespoon teaspoon quart pint">
           <h3><i class="fas fa-cube"></i> Volume</h3>
           <input type="number" id="volumeValue" placeholder="Enter value" />
           <div class="unit-select">
             <select id="volumeFrom">
-              <option value="liter">Liter</option>
-              <option value="milliliter">Milliliter</option>
-              <option value="gallon">Gallon</option>
-              <option value="cup">Cup</option>
+              <option value="liter">Liters</option>
+              <option value="milliliter">Milliliters</option>
+              <option value="gallon">Gallons (US)</option>
+              <option value="quart">Quarts (US)</option>
+              <option value="pint">Pints (US)</option>
+              <option value="cup">Cups (US)</option>
+              <option value="tablespoon">Tablespoons (US)</option>
+              <option value="teaspoon">Teaspoons (US)</option>
             </select>
             <span>→</span>
             <select id="volumeTo">
-              <option value="liter">Liter</option>
-              <option value="milliliter">Milliliter</option>
-              <option value="gallon">Gallon</option>
-              <option value="cup">Cup</option>
+              <option value="liter">Liters</option>
+              <option value="milliliter">Milliliters</option>
+              <option value="gallon">Gallons (US)</option>
+              <option value="quart">Quarts (US)</option>
+              <option value="pint">Pints (US)</option>
+              <option value="cup">Cups (US)</option>
+              <option value="tablespoon">Tablespoons (US)</option>
+              <option value="teaspoon">Teaspoons (US)</option>
             </select>
           </div>
           <button onclick="convertVolume()">Convert</button>
@@ -141,7 +160,7 @@
         </div>
 
         <!-- SPEED -->
-        <div class="converter" data-name="speed kmh mph ms m/s">
+        <div class="converter" data-name="speed kmh mph ms m/s knot knots">
           <h3><i class="fas fa-tachometer-alt"></i> Speed</h3>
           <input type="number" id="speedValue" placeholder="Enter value" />
           <div class="unit-select">
@@ -149,12 +168,14 @@
               <option value="kmh">km/h</option>
               <option value="mph">mph</option>
               <option value="ms">m/s</option>
+              <option value="knot">knots</option>
             </select>
             <span>→</span>
             <select id="speedTo">
               <option value="kmh">km/h</option>
               <option value="mph">mph</option>
               <option value="ms">m/s</option>
+              <option value="knot">knots</option>
             </select>
           </div>
           <button onclick="convertSpeed()">Convert</button>
@@ -164,22 +185,28 @@
         </div>
 
         <!-- AREA -->
-        <div class="converter" data-name="area m2 m² km2 km² mile2 mi² yard2 yd²">
+        <div class="converter" data-name="area m2 m² km2 km² mile2 mi² yard2 yd² foot2 ft² hectare acre">
           <h3><i class="fas fa-vector-square"></i> Area</h3>
           <input type="number" id="areaValue" placeholder="Enter value" />
           <div class="unit-select">
             <select id="areaFrom">
-              <option value="sqmeter">m²</option>
-              <option value="sqkilometer">km²</option>
-              <option value="sqmile">mi²</option>
-              <option value="sqyard">yd²</option>
+              <option value="sqmeter">Square meters</option>
+              <option value="sqkilometer">Square kilometers</option>
+              <option value="sqmile">Square miles</option>
+              <option value="sqyard">Square yards</option>
+              <option value="sqfoot">Square feet</option>
+              <option value="hectare">Hectares</option>
+              <option value="acre">Acres</option>
             </select>
             <span>→</span>
             <select id="areaTo">
-              <option value="sqmeter">m²</option>
-              <option value="sqkilometer">km²</option>
-              <option value="sqmile">mi²</option>
-              <option value="sqyard">yd²</option>
+              <option value="sqmeter">Square meters</option>
+              <option value="sqkilometer">Square kilometers</option>
+              <option value="sqmile">Square miles</option>
+              <option value="sqyard">Square yards</option>
+              <option value="sqfoot">Square feet</option>
+              <option value="hectare">Hectares</option>
+              <option value="acre">Acres</option>
             </select>
           </div>
           <button onclick="convertArea()">Convert</button>
@@ -189,7 +216,7 @@
         </div>
 
         <!-- TIME -->
-        <div class="converter" data-name="time second minute hour seconds minutes hours">
+        <div class="converter" data-name="time second minute hour day">
           <h3><i class="fas fa-clock"></i> Time</h3>
           <input type="number" id="timeValue" placeholder="Enter value" />
           <div class="unit-select">
@@ -197,12 +224,14 @@
               <option value="second">Seconds</option>
               <option value="minute">Minutes</option>
               <option value="hour">Hours</option>
+              <option value="day">Days</option>
             </select>
             <span>→</span>
             <select id="timeTo">
               <option value="second">Seconds</option>
               <option value="minute">Minutes</option>
               <option value="hour">Hours</option>
+              <option value="day">Days</option>
             </select>
           </div>
           <button onclick="convertTime()">Convert</button>
@@ -217,7 +246,7 @@
     <!-- ======= CURRENCY TAB ======= -->
     <section id="tab-currency" class="tab-page">
       <div class="converters">
-        <div class="converter highlight" data-name="currency usd qar pkr eur inr gbp aud cad">
+        <div class="converter highlight" data-name="currency usd qar pkr eur inr gbp aud cad sar aed">
           <h3><i class="fas fa-dollar-sign"></i> Currency (Live)</h3>
           <input type="number" id="currencyValue" placeholder="Enter amount" />
           <div class="unit-select">
@@ -230,6 +259,8 @@
               <option value="INR">INR</option>
               <option value="AUD">AUD</option>
               <option value="CAD">CAD</option>
+              <option value="SAR">SAR</option>
+              <option value="AED">AED</option>
             </select>
             <span>→</span>
             <select id="currencyTo">
@@ -241,12 +272,14 @@
               <option value="INR">INR</option>
               <option value="AUD">AUD</option>
               <option value="CAD">CAD</option>
+              <option value="SAR">SAR</option>
+              <option value="AED">AED</option>
             </select>
           </div>
           <button onclick="convertCurrency()">Convert</button>
           <span class="fly-icon" id="currencyFly"><i class="fas fa-arrow-up"></i></span>
           <div class="result" id="currencyResult"></div>
-          <div class="small-note" id="currencyNote">Rates via open.er-api.com (fallback if offline)</div>
+          <div class="small-note" id="currencyNote">Live via open.er-api.com (fallback if offline)</div>
           <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>
       </div>
@@ -258,18 +291,8 @@
 
         <!-- PDF → Word -->
         <div class="converter" data-name="pdf word doc docx file convert pdf to word">
-          <h3><i class="fas fa-file-word"></i> PDF → Word (.docx)</h3>
-
-          <div class="unit-select" style="flex-wrap:wrap">
-            <label><input type="radio" name="pdfMode" value="browser" checked> Browser (text-only)</label>
-            <label><input type="radio" name="pdfMode" value="api"> API (recommended)</label>
-          </div>
-
-          <div id="pdfApiBox" style="display:none">
-            <input type="text" id="pdfApiKey" placeholder="Enter API key" />
-            <input type="text" id="pdfApiEndpoint" placeholder="API endpoint (POST) e.g. https://api.example.com/pdf/to/docx" />
-          </div>
-
+          <h3><i class="fas fa-file-word"></i> PDF → Word (.docx) — No API</h3>
+          <div class="small-note">Works best for text-based PDFs (not scanned images).</div>
           <input type="file" id="pdfFile" accept="application/pdf" />
           <button id="pdfConvertBtn" type="button"><i class="fas fa-file-export"></i> Convert to .docx</button>
           <span class="fly-icon" id="pdfFly"><i class="fas fa-arrow-up"></i></span>
@@ -279,17 +302,13 @@
         </div>
 
         <!-- Word → PDF -->
-        <div class="converter" data-name="word pdf doc docx word to pdf">
-          <h3><i class="fas fa-file-pdf"></i> Word (.doc/.docx) → PDF</h3>
-          <div class="unit-select" style="flex-wrap:wrap">
-            <label><input type="radio" name="docMode" value="api" checked> API (required)</label>
-          </div>
-          <input type="text" id="docApiKey" placeholder="Enter API key" />
-          <input type="text" id="docApiEndpoint" placeholder="API endpoint (POST) e.g. https://api.example.com/docx/to/pdf" />
-          <input type="file" id="docFile" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+        <div class="converter" data-name="word pdf docx word to pdf">
+          <h3><i class="fas fa-file-pdf"></i> Word (.docx) → PDF — No API</h3>
+          <div class="small-note">Supports .docx with basic text/paragraphs. Complex layouts may differ.</div>
+          <input type="file" id="docFile" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
           <button id="docConvertBtn" type="button"><i class="fas fa-file-export"></i> Convert to PDF</button>
           <span class="fly-icon" id="docFly"><i class="fas fa-arrow-up"></i></span>
-          <div class="result" id="docStatus">Provide API key & endpoint, choose a file, then convert.</div>
+          <div class="result" id="docStatus">Choose a .docx and convert.</div>
           <div id="docDownloadWrap"></div>
           <div class="ad-placeholder">Google Ad Placeholder</div>
         </div>

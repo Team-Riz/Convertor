@@ -41,8 +41,8 @@ async function fetchCurrencyRates() {
   try {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
-    if(data && data.rates) {unitsData.currency = data.rates;}
-  } catch(err){console.error(err);}
+    if(data && data.rates) unitsData.currency = data.rates;
+  } catch(err){ console.error("Failed to fetch live currency rates. Using static fallback.", err);}
 }
 fetchCurrencyRates();
 
@@ -92,12 +92,10 @@ function convertValue(key,val,from,to){
     if(unitsData.currency[from] && unitsData.currency[to]){
       return (val*unitsData.currency[to]/unitsData.currency[from]).toFixed(2);
     } else return "N/A";
-  } else {
-    return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
-  }
+  } else return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
 }
 
-// ================== CALCULATION EVENTS ==================
+// ================== ADD CALCULATION EVENTS ==================
 document.querySelectorAll('.converter-card').forEach((card,i)=>{
   const key=converters[i].title.toLowerCase();
   const btn=card.querySelector('.calc-btn');
@@ -130,41 +128,35 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
 });
 
 // ================== CALORIES ==================
-function calculateCalories(){
+document.getElementById('calorieCalculate').addEventListener('click', ()=>{
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
   const height=parseFloat(document.getElementById('height').value);
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
-
-  // BMR
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
-
-  // Macros
   let protein=weight*1.5;
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
-
-  // BMI
-  let heightM=height/100;
-  let bmi=(weight/(heightM*heightM)).toFixed(2);
-  let bmiStatus="";
-  if(bmi<18.5)bmiStatus="Underweight";
-  else if(bmi<24.9)bmiStatus="Normal";
-  else if(bmi<29.9)bmiStatus="Overweight";
-  else bmiStatus="Obese";
+  let bmi=(weight/(height*height))*10000;
+  let bmiStatus=bmi<18.5?"Underweight":(bmi<24.9?"Normal":(bmi<29.9?"Overweight":"Obese"));
+  let idealWeightMin=(18.5*height*height)/10000;
+  let idealWeightMax=(24.9*height*height)/10000;
 
   const resultDiv=document.getElementById('calorieResult');
   resultDiv.innerHTML=`
-    <div class="calorie-card"><h4><i class="fa-solid fa-fire"></i> Calories</h4><p>${calories.toFixed(2)} kcal</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-bolt"></i> Calories</h4><p>${calories.toFixed(2)} kcal</p></div>
     <div class="calorie-card"><h4><i class="fa-solid fa-drumstick-bite"></i> Protein</h4><p>${protein.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-bacon"></i> Fat</h4><p>${fat.toFixed(2)} g</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-oil-can"></i> Fat</h4><p>${fat.toFixed(2)} g</p></div>
     <div class="calorie-card"><h4><i class="fa-solid fa-bread-slice"></i> Carbs</h4><p>${carbs.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-heart"></i> BMI</h4><p>${bmi} (${bmiStatus})</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-person"></i> BMI</h4><p>${bmi.toFixed(2)} (${bmiStatus})</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-weight-scale"></i> Ideal Weight</h4><p>${idealWeightMin.toFixed(2)}kg - ${idealWeightMax.toFixed(2)}kg</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-apple-whole"></i> Diet Advice</h4><p>Include more vegetables, lean proteins, and whole grains.</p></div>
+    <div class="calorie-card"><h4><i class="fa-solid fa-person-running"></i> Exercise Advice</h4><p>At least 30 mins cardio + strength 3-5 times/week.</p></div>
   `;
-}
+});
 
 // ================== PDF TOOLS ==================
 function convertPdfToWord(){document.getElementById('pdfWordResult').innerText="Conversion failed. Make sure it is a readable PDF.";}

@@ -64,7 +64,7 @@ main{display:flex;justify-content:center;padding:20px}
 }
 .converter button:hover{ background:var(--button-hover); }
 
-.unit-select{display:flex;align-items:center;gap:8px;margin:8px 0;}
+.unit-select{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
 .unit-select span{font-weight:700;font-size:1.2rem}
 
 .result{
@@ -91,53 +91,53 @@ footer{
 
 /* ========== LIGHT THEME VARS ========== */
 :root{
-  --bg-color:#f4f6f9;
-  --text-color:#222;
-  --header-bg:#2b6cb0;
+  --bg-color:#0f172a;             /* dark blue base with gradient overlay via cards */
+  --text-color:#e5e7eb;
+  --header-bg:#1f2937;
   --header-text:#fff;
-  --input-bg:#fff;
-  --input-border:#cfd6e4;
-  --button-bg:#2b6cb0;
+  --input-bg:#111827;
+  --input-border:#374151;
+  --button-bg:#2563eb;
   --button-text:#fff;
-  --button-hover:#225a9e;
-  --card-bg:#ffffff;
-  --result-bg:#fff7d1;
-  --result-text:#222;
-  --footer-bg:#2b6cb0;
+  --button-hover:#1e40af;
+  --card-bg:#0b1220 linear-gradient(145deg, rgba(37,99,235,.12), rgba(16,185,129,.08)) no-repeat;
+  --result-bg:#0b1220;
+  --result-text:#facc15;
+  --footer-bg:#111827;
   --footer-text:#fff;
-  --ad-border:#cfd6e4;
-  --ad-text:#6b7280;
+  --ad-border:#374151;
+  --ad-text:#9ca3af;
 
-  --tabs-bg:#eef2f7;
-  --tab-btn:#ffffff;
-  --tab-text:#334155;
-  --tab-active:#2b6cb0;
+  --tabs-bg:#0b1220;
+  --tab-btn:#0b1220;
+  --tab-text:#d1d5db;
+  --tab-active:#2563eb;
   --tab-active-text:#ffffff;
 }
 
-/* ========== DARK THEME VARS ========== */
+/* ========== DARK THEME VARS (even darker) ========== */
 body.dark-mode{
-  --bg-color:#141622;
+  --bg-color:#0a0f1e;
   --text-color:#eaeaf2;
-  --header-bg:#1f2335;
+  --header-bg:#0c1326;
   --header-text:#fff;
-  --input-bg:#22263a;
-  --input-border:#3a3f5c;
-  --button-bg:#5c6bc0;
+  --input-bg:#0f172a;
+  --input-border:#1f2a44;
+  --button-bg:#7c3aed;
   --button-text:#fff;
-  --button-hover:#4e5db3;
-  --card-bg:#1f2335;
-  --result-bg:#2b3050;
+  --button-hover:#5b21b6;
+  --card-bg:#0a0f1e linear-gradient(145deg, rgba(124,58,237,.15), rgba(20,184,166,.08)) no-repeat;
+  --result-bg:#0f172a;
   --result-text:#ffd666;
-  --footer-bg:#1f2335;
+  --footer-bg:#0c1326;
   --footer-text:#fff;
-  --ad-border:#3a3f5c;
+  --ad-border:#1f2a44;
   --ad-text:#c9cbe2;
 
-  --tabs-bg:#171a2a;
-  --tab-btn:#22263a;
+  --tabs-bg:#0a0f1e;
+  --tab-btn:#0f172a;
   --tab-text:#eaeaf2;
-  --tab-active:#5c6bc0;
+  --tab-active:#7c3aed;
   --tab-active-text:#fff;
 }
 

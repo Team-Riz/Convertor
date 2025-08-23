@@ -22,31 +22,25 @@ modeBtn.addEventListener('click',()=>{
 });
 
 // ================== UNIT DATA ==================
-const unitsData={
-  length:{meter:1,kilometer:1000,centimeter:0.01,mile:1609.34,yard:0.9144,inch:0.0254,foot:0.3048},
-  weight:{kg:1,g:0.001,lb:0.453592,oz:0.0283495,ton:1000},
-  temperature:{celsius:"c",fahrenheit:"f",kelvin:"k"},
-  volume:{liter:1,milliliter:0.001,gallon:3.78541,pint:0.473176,cup:0.24},
-  speed:{kmh:1,mph:1.60934,ms:3.6,knot:1.852},
-  area:{sqm:1,sqkm:1e6,sqmi:2.59e6,sqft:0.092903,acre:4046.86},
-  time:{second:1,minute:60,hour:3600,day:86400,week:604800},
-  currency:{USD:1,QAR:3.64,PKR:280,EUR:0.92},
-  energy:{joule:1,kcal:4184,kwh:3600000},
-  pressure:{pascal:1,bar:100000,psi:6894.76},
-  datasize:{byte:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776}
-};
+const unitsData={length:{meter:1,kilometer:1000,centimeter:0.01,mile:1609.34,yard:0.9144,inch:0.0254,foot:0.3048},
+weight:{kg:1,g:0.001,lb:0.453592,oz:0.0283495,ton:1000},
+temperature:{celsius:"c",fahrenheit:"f",kelvin:"k"},
+volume:{liter:1,milliliter:0.001,gallon:3.78541,pint:0.473176,cup:0.24},
+speed:{kmh:1,mph:1.60934,ms:3.6,knot:1.852},
+area:{sqm:1,sqkm:1e6,sqmi:2.59e6,sqft:0.092903,acre:4046.86},
+time:{second:1,minute:60,hour:3600,day:86400,week:604800},
+currency:{USD:1,QAR:3.64,PKR:280,EUR:0.92},
+energy:{joule:1,kcal:4184,kwh:3600000},
+pressure:{pascal:1,bar:100000,psi:6894.76},
+datasize:{byte:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776}};
 
 // ================== LIVE CURRENCY ==================
 async function fetchCurrencyRates() {
   try {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
-    if(data && data.rates) {
-      unitsData.currency = data.rates;
-    }
-  } catch(err){
-    console.error("Failed to fetch live currency rates. Using static fallback.", err);
-  }
+    if(data && data.rates) unitsData.currency = data.rates;
+  } catch(err){console.error("Currency fetch failed.", err);}
 }
 fetchCurrencyRates();
 
@@ -133,8 +127,8 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES & HEALTH ==================
-document.querySelector('.calc-calories-btn').addEventListener('click', ()=>{
+// ================== CALORIES & BMI ==================
+function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
   const height=parseFloat(document.getElementById('height').value);
@@ -142,36 +136,46 @@ document.querySelector('.calc-calories-btn').addEventListener('click', ()=>{
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
 
+  // BMR & Calories
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
   let protein=weight*1.5;
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
-  let bmi=weight/(height/100*height/100);
-  let bmiCat="";
-  if(bmi<18.5) bmiCat="Underweight";
-  else if(bmi<25) bmiCat="Normal";
-  else if(bmi<30) bmiCat="Overweight";
-  else bmiCat="Obese";
 
-  const tips=[
-    "💧 Drink plenty of water daily.",
-    "🥗 Eat more vegetables and fruits.",
-    "🏃‍♂️ Exercise at least 30 mins/day.",
-    "🍽 Control portion sizes.",
-    "🛌 Ensure adequate sleep."
-  ];
+  // BMI
+  let bmi=(weight/((height/100)*(height/100))).toFixed(1);
+  let bmiStatus="";
+  if(bmi<18.5) bmiStatus="Underweight";
+  else if(bmi<25) bmiStatus="Normal";
+  else if(bmi<30) bmiStatus="Overweight";
+  else bmiStatus="Obese";
 
-  const resDiv=document.getElementById('calorieResult');
-  resDiv.innerHTML=`
-    <div class="calorie-card"><h4><i class="fa-solid fa-fire"></i> Calories</h4><p>${calories.toFixed(2)} kcal</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-drumstick-bite"></i> Protein</h4><p>${protein.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-bacon"></i> Fat</h4><p>${fat.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-bread-slice"></i> Carbs</h4><p>${carbs.toFixed(2)} g</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-heart"></i> BMI</h4><p>${bmi.toFixed(2)} (${bmiCat})</p></div>
-    <div class="calorie-card"><h4><i class="fa-solid fa-lightbulb"></i> Tips</h4><ul>${tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+  // Diet & Exercise Suggestions
+  let diet="", exercise="";
+  if(gender==="male"){
+    if(bmiStatus==="Underweight"){diet="High-protein diet with healthy fats."; exercise="Strength training 3-4 times/week.";}
+    else if(bmiStatus==="Normal"){diet="Balanced diet rich in nutrients."; exercise="Mix of cardio and strength 3-4 times/week.";}
+    else if(bmiStatus==="Overweight"){diet="Low-calorie, high-protein diet."; exercise="Cardio 4-5 times/week, strength 2 times.";}
+    else {diet="Consult nutritionist for weight loss plan."; exercise="Light cardio, avoid high intensity.";}
+  } else {
+    if(bmiStatus==="Underweight"){diet="Protein and iron-rich diet."; exercise="Light strength training, yoga.";}
+    else if(bmiStatus==="Normal"){diet="Balanced diet with vitamins."; exercise="Cardio and yoga mix.";}
+    else if(bmiStatus==="Overweight"){diet="Low-fat, high-fiber diet."; exercise="Cardio 4 times/week, strength 2 times.";}
+    else {diet="Consult a nutritionist."; exercise="Light cardio, stretching.";}
+  }
+
+  document.getElementById('calorieResult').innerHTML=`
+    <h3><i class="fa-solid fa-bolt"></i> Your Health Info</h3>
+    <p><strong>BMI:</strong> ${bmi} (${bmiStatus})</p>
+    <p><strong>Calories:</strong> ${calories.toFixed(2)} kcal/day</p>
+    <p><strong>Protein:</strong> ${protein.toFixed(2)} g/day</p>
+    <p><strong>Fat:</strong> ${fat.toFixed(2)} g/day</p>
+    <p><strong>Carbs:</strong> ${carbs.toFixed(2)} g/day</p>
+    <p><strong>Diet Advice:</strong> ${diet}</p>
+    <p><strong>Exercise Suggestion:</strong> ${exercise}</p>
   `;
-});
+}
 
 // ================== PDF TOOLS ==================
 function convertPdfToWord(){document.getElementById('pdfWordResult').innerText="Conversion failed. Make sure it is a readable PDF.";}

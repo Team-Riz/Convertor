@@ -6,7 +6,6 @@
 <title>Advanced All-in-One Converter</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -26,33 +25,22 @@
   <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
+<!-- ================== CONVERTERS TAB ================== -->
 <div id="tab-converters" class="tab-content active">
   <div id="converter-container" class="grid"></div>
 </div>
 
+<!-- ================== CALORIES TAB ================== -->
 <div id="tab-calories" class="tab-content">
   <div class="calorie-form">
-    <div class="input-group">
-      <svg class="input-icon" width="30" height="30"><circle cx="15" cy="15" r="10" fill="#ff5722"/></svg>
-      <input type="number" id="age" placeholder="Age">
-    </div>
-    <div class="input-group">
-      <svg class="input-icon" width="30" height="30"><circle cx="15" cy="15" r="10" fill="#ff9800"/></svg>
+    <div class="calorie-inputs">
+      <input type="number" id="age" placeholder="Age (years)">
       <input type="number" id="weight" placeholder="Weight (kg)">
-    </div>
-    <div class="input-group">
-      <svg class="input-icon" width="30" height="30"><circle cx="15" cy="15" r="10" fill="#ffc107"/></svg>
       <input type="number" id="height" placeholder="Height (cm)">
-    </div>
-    <div class="input-group">
-      <svg class="input-icon" width="30" height="30"><circle cx="15" cy="15" r="10" fill="#8bc34a"/></svg>
       <select id="gender">
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
-    </div>
-    <div class="input-group">
-      <svg class="input-icon" width="30" height="30"><circle cx="15" cy="15" r="10" fill="#03a9f4"/></svg>
       <select id="activity">
         <option value="1.2">Sedentary</option>
         <option value="1.375">Lightly Active</option>
@@ -60,12 +48,12 @@
         <option value="1.725">Very Active</option>
       </select>
     </div>
-    <button id="calcCaloriesBtn"><i class="fa-solid fa-calculator"></i> Calculate</button>
-    <div id="calorieResult" class="calorie-result"></div>
-    <canvas id="calorieChart" width="400" height="200"></canvas>
+    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
+    <div id="calorieResult" class="calorie-result grid"></div>
   </div>
 </div>
 
+<!-- ================== PDF TAB ================== -->
 <div id="tab-pdf" class="tab-content">
   <div class="pdf-container">
     <input type="file" id="pdfInput" accept=".pdf">
@@ -77,9 +65,10 @@
   </div>
 </div>
 
+<!-- ================== ABOUT TAB ================== -->
 <div id="tab-about" class="tab-content">
   <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories, BMI, and convert PDF/Word files.</p>
   <ul>
     <li>⚡ Fast & Interactive</li>
     <li>✅ Accurate & Bidirectional</li>

@@ -70,33 +70,12 @@ function convertTime() {
     document.getElementById('timeResult').innerText = `${sec.toFixed(2)} s, ${min.toFixed(2)} min, ${hr.toFixed(2)} hr`;
 }
 
-// Currency (example rates)
+// Currency USD <-> QAR
 function convertCurrency() {
     let val = parseFloat(document.getElementById('currencyInput').value);
     let unit = document.getElementById('currencyUnit').value;
-    const usdToQar = 3.64, usdToEur = 0.91;
-    let usd = unit==='usd'?val:unit==='qar'?val/usdToQar:val/usdToEur;
-    let qar = usd*usdToQar;
-    let eur = usd*usdToEur;
-    document.getElementById('currencyResult').innerText = `USD: ${usd.toFixed(2)}, QAR: ${qar.toFixed(2)}, EUR: ${eur.toFixed(2)}`;
+    const rate = 3.64; // 1 USD = 3.64 QAR
+    let usd = unit==='usd'?val:val/rate;
+    let qar = unit==='qar'?val:usd*rate;
+    document.getElementById('currencyResult').innerText = `USD: ${usd.toFixed(2)}, QAR: ${qar.toFixed(2)}`;
 }
-
-// Energy
-function convertEnergy() {
-    let val = parseFloat(document.getElementById('energyInput').value);
-    let unit = document.getElementById('energyUnit').value;
-    let joule = unit==='joule'?val:unit==='calorie'?val*4.184:val*3.6e6;
-    let cal = joule/4.184;
-    let kwh = joule/3.6e6;
-    document.getElementById('energyResult').innerText = `${joule.toFixed(2)} J, ${cal.toFixed(2)} cal, ${kwh.toFixed(4)} kWh`;
-}
-
-// Data Storage
-function convertData() {
-    let val = parseFloat(document.getElementById('dataInput').value);
-    let unit = document.getElementById('dataUnit').value;
-    let bytes = unit==='byte'?val:unit==='kb'?val*1024:unit==='mb'?val*1024*1024:val*1024*1024*1024;
-    let kb = bytes/1024;
-    let mb = bytes/(1024*1024);
-    let gb = bytes/(1024*1024*1024);
-    document.getElementById('dataResult').innerText = `${bytes.toFixed(0)}

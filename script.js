@@ -21,18 +21,34 @@ modeBtn.addEventListener('click',()=>{
   }
 });
 
-// ================== UNIT CONVERTER DATA ==================
+// ================== UNIT DATA ==================
 const unitsData={
-  length:{"meter":1,"kilometer":1000,"centimeter":0.01,"mile":1609.34},
-  weight:{"kg":1,"g":0.001,"lb":0.453592,"oz":0.0283495},
-  temperature:{"celsius":"c","fahrenheit":"f","kelvin":"k"}
+  length:{meter:1,kilometer:1000,centimeter:0.01,mile:1609.34,yard:0.9144,inch:0.0254,foot:0.3048},
+  weight:{kg:1,g:0.001,lb:0.453592,oz:0.0283495,ton:1000},
+  temperature:{celsius:"c",fahrenheit:"f",kelvin:"k"},
+  volume:{liter:1,milliliter:0.001,gallon:3.78541,pint:0.473176,cup:0.24},
+  speed:{kmh:1,mph:1.60934,ms:3.6,knot:1.852},
+  area:{sqm:1,sqkm:1e6,sqmi:2.59e6, sqft:0.092903,acre:4046.86},
+  time:{second:1,minute:60,hour:3600,day:86400,week:604800},
+  currency:{USD:1,QAR:3.64,PKR:280,EUR:0.92},
+  energy:{joule:1,kcal:4184,kwh:3600000},
+  pressure:{pascal:1,bar:100000,psi:6894.76},
+  datasize:{byte:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776}
 };
 
 // ================== GENERATE CARDS ==================
 const converters=[
   {title:"Length", icon:"fa-ruler", units:Object.keys(unitsData.length)},
   {title:"Weight", icon:"fa-weight-scale", units:Object.keys(unitsData.weight)},
-  {title:"Temperature", icon:"fa-thermometer-half", units:Object.keys(unitsData.temperature)}
+  {title:"Temperature", icon:"fa-thermometer-half", units:Object.keys(unitsData.temperature)},
+  {title:"Volume", icon:"fa-cube", units:Object.keys(unitsData.volume)},
+  {title:"Speed", icon:"fa-tachometer-alt", units:Object.keys(unitsData.speed)},
+  {title:"Area", icon:"fa-vector-square", units:Object.keys(unitsData.area)},
+  {title:"Time", icon:"fa-clock", units:Object.keys(unitsData.time)},
+  {title:"Currency", icon:"fa-dollar-sign", units:Object.keys(unitsData.currency)},
+  {title:"Energy", icon:"fa-bolt", units:Object.keys(unitsData.energy)},
+  {title:"Pressure", icon:"fa-gauge-high", units:Object.keys(unitsData.pressure)},
+  {title:"Data Size", icon:"fa-database", units:Object.keys(unitsData.datasize)}
 ];
 
 const container=document.getElementById('converter-container');
@@ -59,7 +75,8 @@ container.addEventListener('click', e=>{
     const val=parseFloat(card.querySelector('.input-val').value);
     const from=card.querySelector('.unit-from').value;
     const to=card.querySelector('.unit-to').value;
-    let res=convert(val,from,to,card.querySelector('h3').innerText);
+    const title=card.querySelector('h3').innerText;
+    const res=convert(val,from,to,title);
     const resDiv=card.querySelector('.result');
     resDiv.innerText=`Result: ${res}`;
     resDiv.classList.add('show');
@@ -71,33 +88,33 @@ container.addEventListener('click', e=>{
 function convert(val,from,to,title){
   if(isNaN(val)) return "Enter a number";
   title=title.toLowerCase();
-  if(title.includes("length")){
-    return (val*unitsData.length[from]/unitsData.length[to]).toFixed(2)+" "+to;
-  } else if(title.includes("weight")){
-    return (val*unitsData.weight[from]/unitsData.weight[to]).toFixed(2)+" "+to;
-  } else if(title.includes("temperature")){
-    let c=0;
-    if(from=="celsius") c=val;
-    else if(from=="fahrenheit") c=(val-32)*5/9;
-    else if(from=="kelvin") c=val-273.15;
-    let result=0;
-    if(to=="celsius") result=c;
-    else if(to=="fahrenheit") result=c*9/5+32;
-    else if(to=="kelvin") result=c+273.15;
-    return result.toFixed(2)+" "+to;
+  for(let key in unitsData){
+    if(title.includes(key)){
+      if(key=="temperature"){
+        let c=0;
+        if(from=="celsius") c=val;
+        else if(from=="fahrenheit") c=(val-32)*5/9;
+        else if(from=="kelvin") c=val-273.15;
+        if(to=="celsius") return c.toFixed(2);
+        if(to=="fahrenheit") return (c*9/5+32).toFixed(2);
+        if(to=="kelvin") return (c+273.15).toFixed(2);
+      } else {
+        const res=val*unitsData[key][from]/unitsData[key][to];
+        return res.toFixed(2);
+      }
+    }
   }
-  return val;
+  return "N/A";
 }
 
 // ================== SEARCH ==================
 document.getElementById('searchBtn').addEventListener('click',()=>{
   const q=document.getElementById('searchInput').value.toLowerCase();
-  const cards=document.querySelectorAll('.converter-card');
-  cards.forEach(c=>{
-    if(c.querySelector('h3').innerText.toLowerCase().includes(q)){
-      c.style.transform="scale(1.1)";
-      c.scrollIntoView({behavior:"smooth", block:"center"});
-    } else c.style.transform="scale(1)";
+  document.querySelectorAll('.converter-card').forEach(card=>{
+    if(card.querySelector('h3').innerText.toLowerCase().includes(q)){
+      card.style.transform="scale(1.1)";
+      card.scrollIntoView({behavior:"smooth", block:"center"});
+    } else card.style.transform="scale(1)";
   });
 });
 

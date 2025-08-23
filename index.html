@@ -10,134 +10,203 @@
 <body>
 
 <header>
-    <h1><i class="fas fa-calculator"></i> All-in-One Converters & Calculators</h1>
-    <input type="text" placeholder="Search converters...">
+    <h1><i class="fas fa-calculator"></i> All-in-One Converters</h1>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search converters...">
+        <button onclick="searchConverter()"><i class="fas fa-search"></i> Search</button>
+    </div>
 </header>
 
 <main>
     <div class="converters">
 
-        <!-- Length -->
-        <div class="converter">
+        <!-- Length Converter -->
+        <div class="converter" data-name="length">
             <h3><i class="fas fa-ruler"></i> Length</h3>
-            <input type="number" id="lengthInput" placeholder="Enter value">
-            <select id="lengthUnit">
-                <option value="meter">Meter</option>
-                <option value="kilometer">Kilometer</option>
-                <option value="mile">Mile</option>
-            </select>
-            <button onclick="convertLength()">Calculate</button>
-            <div class="result" id="lengthResult"></div>
+            <input type="number" id="lengthValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="lengthFrom">
+                    <option value="meter">Meter</option>
+                    <option value="kilometer">Kilometer</option>
+                    <option value="centimeter">Centimeter</option>
+                    <option value="mile">Mile</option>
+                    <option value="foot">Foot</option>
+                    <option value="inch">Inch</option>
+                </select>
+                <span>→</span>
+                <select id="lengthTo">
+                    <option value="meter">Meter</option>
+                    <option value="kilometer">Kilometer</option>
+                    <option value="centimeter">Centimeter</option>
+                    <option value="mile">Mile</option>
+                    <option value="foot">Foot</option>
+                    <option value="inch">Inch</option>
+                </select>
+            </div>
+            <button onclick="convertLength()">Convert</button>
+            <div class="result" id="lengthResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Weight -->
-        <div class="converter">
+        <!-- Weight Converter -->
+        <div class="converter" data-name="weight">
             <h3><i class="fas fa-weight-scale"></i> Weight</h3>
-            <input type="number" id="weightInput" placeholder="Enter value">
-            <select id="weightUnit">
-                <option value="kilogram">Kilogram</option>
-                <option value="gram">Gram</option>
-                <option value="pound">Pound</option>
-            </select>
-            <button onclick="convertWeight()">Calculate</button>
-            <div class="result" id="weightResult"></div>
+            <input type="number" id="weightValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="weightFrom">
+                    <option value="kilogram">Kilogram</option>
+                    <option value="gram">Gram</option>
+                    <option value="pound">Pound</option>
+                    <option value="ounce">Ounce</option>
+                </select>
+                <span>→</span>
+                <select id="weightTo">
+                    <option value="kilogram">Kilogram</option>
+                    <option value="gram">Gram</option>
+                    <option value="pound">Pound</option>
+                    <option value="ounce">Ounce</option>
+                </select>
+            </div>
+            <button onclick="convertWeight()">Convert</button>
+            <div class="result" id="weightResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Temperature -->
-        <div class="converter">
+        <!-- Temperature Converter -->
+        <div class="converter" data-name="temperature">
             <h3><i class="fas fa-thermometer-half"></i> Temperature</h3>
-            <input type="number" id="tempInput" placeholder="Enter value">
-            <select id="tempUnit">
-                <option value="celsius">Celsius</option>
-                <option value="fahrenheit">Fahrenheit</option>
-                <option value="kelvin">Kelvin</option>
-            </select>
-            <button onclick="convertTemperature()">Calculate</button>
-            <div class="result" id="tempResult"></div>
+            <input type="number" id="tempValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="tempFrom">
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+                <span>→</span>
+                <select id="tempTo">
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+            <button onclick="convertTemperature()">Convert</button>
+            <div class="result" id="tempResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Volume -->
-        <div class="converter">
+        <!-- Volume Converter -->
+        <div class="converter" data-name="volume">
             <h3><i class="fas fa-cube"></i> Volume</h3>
-            <input type="number" id="volumeInput" placeholder="Enter value">
-            <select id="volumeUnit">
-                <option value="liter">Liter</option>
-                <option value="milliliter">Milliliter</option>
-                <option value="gallon">Gallon</option>
-            </select>
-            <button onclick="convertVolume()">Calculate</button>
-            <div class="result" id="volumeResult"></div>
+            <input type="number" id="volumeValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="volumeFrom">
+                    <option value="liter">Liter</option>
+                    <option value="milliliter">Milliliter</option>
+                    <option value="gallon">Gallon</option>
+                    <option value="cup">Cup</option>
+                </select>
+                <span>→</span>
+                <select id="volumeTo">
+                    <option value="liter">Liter</option>
+                    <option value="milliliter">Milliliter</option>
+                    <option value="gallon">Gallon</option>
+                    <option value="cup">Cup</option>
+                </select>
+            </div>
+            <button onclick="convertVolume()">Convert</button>
+            <div class="result" id="volumeResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Speed -->
-        <div class="converter">
+        <!-- Speed Converter -->
+        <div class="converter" data-name="speed">
             <h3><i class="fas fa-tachometer-alt"></i> Speed</h3>
-            <input type="number" id="speedInput" placeholder="Enter value">
-            <select id="speedUnit">
-                <option value="kmh">km/h</option>
-                <option value="mph">mph</option>
-                <option value="ms">m/s</option>
-            </select>
-            <button onclick="convertSpeed()">Calculate</button>
-            <div class="result" id="speedResult"></div>
+            <input type="number" id="speedValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="speedFrom">
+                    <option value="kmh">km/h</option>
+                    <option value="mph">mph</option>
+                    <option value="ms">m/s</option>
+                </select>
+                <span>→</span>
+                <select id="speedTo">
+                    <option value="kmh">km/h</option>
+                    <option value="mph">mph</option>
+                    <option value="ms">m/s</option>
+                </select>
+            </div>
+            <button onclick="convertSpeed()">Convert</button>
+            <div class="result" id="speedResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Area -->
-        <div class="converter">
+        <!-- Area Converter -->
+        <div class="converter" data-name="area">
             <h3><i class="fas fa-vector-square"></i> Area</h3>
-            <input type="number" id="areaInput" placeholder="Enter value">
-            <select id="areaUnit">
-                <option value="sqmeter">m²</option>
-                <option value="sqkilometer">km²</option>
-                <option value="sqmile">mi²</option>
-            </select>
-            <button onclick="convertArea()">Calculate</button>
-            <div class="result" id="areaResult"></div>
+            <input type="number" id="areaValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="areaFrom">
+                    <option value="sqmeter">m²</option>
+                    <option value="sqkilometer">km²</option>
+                    <option value="sqmile">mi²</option>
+                    <option value="sqyard">yd²</option>
+                </select>
+                <span>→</span>
+                <select id="areaTo">
+                    <option value="sqmeter">m²</option>
+                    <option value="sqkilometer">km²</option>
+                    <option value="sqmile">mi²</option>
+                    <option value="sqyard">yd²</option>
+                </select>
+            </div>
+            <button onclick="convertArea()">Convert</button>
+            <div class="result" id="areaResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Time -->
-        <div class="converter">
+        <!-- Time Converter -->
+        <div class="converter" data-name="time">
             <h3><i class="fas fa-clock"></i> Time</h3>
-            <input type="number" id="timeInput" placeholder="Enter value">
-            <select id="timeUnit">
-                <option value="second">Seconds</option>
-                <option value="minute">Minutes</option>
-                <option value="hour">Hours</option>
-            </select>
-            <button onclick="convertTime()">Calculate</button>
-            <div class="result" id="timeResult"></div>
+            <input type="number" id="timeValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="timeFrom">
+                    <option value="second">Second</option>
+                    <option value="minute">Minute</option>
+                    <option value="hour">Hour</option>
+                </select>
+                <span>→</span>
+                <select id="timeTo">
+                    <option value="second">Second</option>
+                    <option value="minute">Minute</option>
+                    <option value="hour">Hour</option>
+                </select>
+            </div>
+            <button onclick="convertTime()">Convert</button>
+            <div class="result" id="timeResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-        <!-- Currency -->
-        <div class="converter">
+        <!-- Currency Converter -->
+        <div class="converter" data-name="currency">
             <h3><i class="fas fa-dollar-sign"></i> Currency</h3>
-            <input type="number" id="currencyInput" placeholder="Enter amount">
-            <select id="currencyUnit">
-                <option value="usd">USD</option>
-                <option value="qar">QAR</option>
-            </select>
-            <button onclick="convertCurrency()">Calculate</button>
-            <div class="result" id="currencyResult"></div>
+            <input type="number" id="currencyValue" placeholder="Enter value">
+            <div class="unit-select">
+                <select id="currencyFrom">
+                    <option value="usd">USD</option>
+                    <option value="qar">QAR</option>
+                    <option value="pkr">PKR</option>
+                    <option value="eur">EUR</option>
+                </select>
+                <span>→</span>
+                <select id="currencyTo">
+                    <option value="usd">USD</option>
+                    <option value="qar">QAR</option>
+                    <option value="pkr">PKR</option>
+                    <option value="eur">EUR</option>
+                </select>
+            </div>
+            <button onclick="convertCurrency()">Convert</button>
+            <div class="result" id="currencyResult"><i class="fas fa-equals"></i> Result</div>
         </div>
 
-    </div>
-
-    <div class="description">
-        <h2><i class="fas fa-info-circle"></i> About This Page</h2>
-        <p>Welcome to <strong>All-in-One Converters</strong>! Convert units in any direction easily.</p>
-        <ul>
-            <li>⚡ Fast & Easy to Use</li>
-            <li>✅ Accurate Conversions</li>
-            <li>💻 Works on All Devices</li>
-            <li>🌐 Free & Always Online</li>
-        </ul>
-        <div class="ad-placeholder">Google Ads Placeholder</div>
     </div>
 </main>
 
 <footer>
-    © 2025 Team Riz | All Rights Reserved<br>
-    <span id="datetime"></span>
+    © 2025 Team Riz | All Rights Reserved
 </footer>
 
 <script src="script.js"></script>

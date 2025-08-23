@@ -38,59 +38,99 @@
     <div class="content-wrapper">
       <!-- LEFT TOOLS -->
       <div class="tools" id="converterList">
+        <!-- LENGTH -->
         <div class="row">
           <div id="length" class="card">
             <h2><i class="fa-solid fa-ruler"></i> Length Converter</h2>
             <div class="input-group">
-              <input type="number" placeholder="Enter value" />
-              <select>
-                <option>Meter</option>
-                <option>Kilometer</option>
-                <option>Centimeter</option>
-                <option>Millimeter</option>
-                <option>Miles</option>
+              <input type="number" id="lengthInput" placeholder="Enter value" />
+              <select id="lengthFrom">
+                <option value="m">Meters</option>
+                <option value="km">Kilometers</option>
+                <option value="cm">Centimeters</option>
+                <option value="mm">Millimeters</option>
+                <option value="mi">Miles</option>
+              </select>
+              <span>to</span>
+              <select id="lengthTo">
+                <option value="m">Meters</option>
+                <option value="km">Kilometers</option>
+                <option value="cm">Centimeters</option>
+                <option value="mm">Millimeters</option>
+                <option value="mi">Miles</option>
               </select>
             </div>
+            <button class="convert-btn" onclick="convertLength()">Convert</button>
+            <p id="lengthResult" class="result"></p>
           </div>
 
+          <!-- WEIGHT -->
           <div id="weight" class="card">
             <h2><i class="fa-solid fa-weight-scale"></i> Weight Converter</h2>
             <div class="input-group">
-              <input type="number" placeholder="Enter value" />
-              <select>
-                <option>Kilogram</option>
-                <option>Gram</option>
-                <option>Pound</option>
-                <option>Ounce</option>
+              <input type="number" id="weightInput" placeholder="Enter value" />
+              <select id="weightFrom">
+                <option value="kg">Kilogram</option>
+                <option value="g">Gram</option>
+                <option value="lb">Pound</option>
+                <option value="oz">Ounce</option>
+              </select>
+              <span>to</span>
+              <select id="weightTo">
+                <option value="kg">Kilogram</option>
+                <option value="g">Gram</option>
+                <option value="lb">Pound</option>
+                <option value="oz">Ounce</option>
               </select>
             </div>
+            <button class="convert-btn" onclick="convertWeight()">Convert</button>
+            <p id="weightResult" class="result"></p>
           </div>
         </div>
 
+        <!-- TEMPERATURE -->
         <div class="row">
           <div id="temperature" class="card">
             <h2><i class="fa-solid fa-temperature-half"></i> Temperature Converter</h2>
             <div class="input-group">
-              <input type="number" placeholder="Enter value" />
-              <select>
-                <option>Celsius</option>
-                <option>Fahrenheit</option>
-                <option>Kelvin</option>
+              <input type="number" id="tempInput" placeholder="Enter value" />
+              <select id="tempFrom">
+                <option value="c">Celsius</option>
+                <option value="f">Fahrenheit</option>
+                <option value="k">Kelvin</option>
+              </select>
+              <span>to</span>
+              <select id="tempTo">
+                <option value="c">Celsius</option>
+                <option value="f">Fahrenheit</option>
+                <option value="k">Kelvin</option>
               </select>
             </div>
+            <button class="convert-btn" onclick="convertTemperature()">Convert</button>
+            <p id="tempResult" class="result"></p>
           </div>
 
+          <!-- VOLUME -->
           <div id="volume" class="card">
             <h2><i class="fa-solid fa-flask"></i> Volume Converter</h2>
             <div class="input-group">
-              <input type="number" placeholder="Enter value" />
-              <select>
-                <option>Liters</option>
-                <option>Milliliters</option>
-                <option>Gallons</option>
-                <option>Cubic Meters</option>
+              <input type="number" id="volumeInput" placeholder="Enter value" />
+              <select id="volumeFrom">
+                <option value="l">Liters</option>
+                <option value="ml">Milliliters</option>
+                <option value="gal">Gallons</option>
+                <option value="m3">Cubic Meters</option>
+              </select>
+              <span>to</span>
+              <select id="volumeTo">
+                <option value="l">Liters</option>
+                <option value="ml">Milliliters</option>
+                <option value="gal">Gallons</option>
+                <option value="m3">Cubic Meters</option>
               </select>
             </div>
+            <button class="convert-btn" onclick="convertVolume()">Convert</button>
+            <p id="volumeResult" class="result"></p>
           </div>
         </div>
       </div>
@@ -100,7 +140,7 @@
         <h2><i class="fa-solid fa-circle-info"></i> About This Page</h2>
         <p>
           Welcome to <strong>All-in-One Converters</strong>!  
-          This tool allows you to easily convert between various units of **length, weight, temperature, volume, speed, and time**.
+          This tool allows you to easily convert between various units of **length, weight, temperature, and volume**.
         </p>
         <ul>
           <li><i class="fa-solid fa-bolt" style="color:#f39c12;"></i> Fast & Easy to Use</li>

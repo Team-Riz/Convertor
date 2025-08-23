@@ -9,28 +9,37 @@
 </head>
 <body>
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <h2 class="logo"><i class="fa-solid fa-calculator"></i> Convertor</h2>
-    <nav>
-      <a href="#length"><i class="fa-solid fa-ruler"></i> Length</a>
-      <a href="#weight"><i class="fa-solid fa-weight-scale"></i> Weight</a>
-      <a href="#temperature"><i class="fa-solid fa-temperature-half"></i> Temperature</a>
-      <a href="#volume"><i class="fa-solid fa-flask"></i> Volume</a>
+  <aside class="sidebar collapsed" id="sidebar">
+    <div class="sidebar-header">
+      <i class="fa-solid fa-calculator logo-icon"></i>
+      <span class="logo-text">Convertor</span>
+      <i class="fa-solid fa-bars toggle-btn" id="sidebarToggle"></i>
+    </div>
+    <nav class="nav-links">
+      <a href="#length"><i class="fa-solid fa-ruler"></i><span>Length</span></a>
+      <a href="#weight"><i class="fa-solid fa-weight-scale"></i><span>Weight</span></a>
+      <a href="#temperature"><i class="fa-solid fa-temperature-half"></i><span>Temperature</span></a>
+      <a href="#volume"><i class="fa-solid fa-flask"></i><span>Volume</span></a>
     </nav>
-    <button id="darkModeToggle"><i class="fa-solid fa-moon"></i> Dark Mode</button>
+    <button id="darkModeToggle"><i class="fa-solid fa-moon"></i><span>Dark Mode</span></button>
   </aside>
 
   <!-- MAIN CONTENT -->
-  <main>
-    <header>
+  <main class="main-content">
+    <!-- TOP BAR -->
+    <header class="topbar">
       <h1>🌟 All-in-One Converters & Calculators</h1>
+      <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search converters..." />
+        <i class="fa-solid fa-search"></i>
+      </div>
     </header>
 
-    <section class="main-content">
-      <!-- LEFT CONVERTERS -->
-      <div class="tools">
+    <div class="content-wrapper">
+      <!-- LEFT TOOLS -->
+      <div class="tools" id="converterList">
         <div class="row">
-          <div id="length" class="container">
+          <div id="length" class="card">
             <h2><i class="fa-solid fa-ruler"></i> Length Converter</h2>
             <div class="input-group">
               <input type="number" placeholder="Enter value" />
@@ -44,7 +53,7 @@
             </div>
           </div>
 
-          <div id="weight" class="container">
+          <div id="weight" class="card">
             <h2><i class="fa-solid fa-weight-scale"></i> Weight Converter</h2>
             <div class="input-group">
               <input type="number" placeholder="Enter value" />
@@ -59,7 +68,7 @@
         </div>
 
         <div class="row">
-          <div id="temperature" class="container">
+          <div id="temperature" class="card">
             <h2><i class="fa-solid fa-temperature-half"></i> Temperature Converter</h2>
             <div class="input-group">
               <input type="number" placeholder="Enter value" />
@@ -71,7 +80,7 @@
             </div>
           </div>
 
-          <div id="volume" class="container">
+          <div id="volume" class="card">
             <h2><i class="fa-solid fa-flask"></i> Volume Converter</h2>
             <div class="input-group">
               <input type="number" placeholder="Enter value" />
@@ -86,7 +95,7 @@
         </div>
       </div>
 
-      <!-- RIGHT DESCRIPTION PANEL -->
+      <!-- RIGHT DESCRIPTION -->
       <aside class="info-box">
         <h2><i class="fa-solid fa-circle-info"></i> About This Page</h2>
         <p>
@@ -100,11 +109,12 @@
           <li><i class="fa-solid fa-globe" style="color:#e74c3c;"></i> Free & Always Online</li>
         </ul>
         <div class="ad-space">
-          <p><i class="fa-solid fa-ad"></i> Google Ads Here</p>
+          <p><i class="fa-solid fa-ad"></i> Google Ads Placeholder</p>
         </div>
       </aside>
-    </section>
+    </div>
 
+    <!-- FOOTER -->
     <footer>
       <p>&copy; <span id="year"></span> Team Riz | All Rights Reserved</p>
       <p id="datetime"></p>

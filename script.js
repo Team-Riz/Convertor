@@ -144,6 +144,13 @@ function calculateCalories(){
   let carbs=(calories-(protein*4+fat*9))/4;
   let bmi=(weight/(height*height))*10000;
   let idealWeight=(gender=="male")?22*(height/100)**2:21*(height/100)**2;
+
+  // Dynamic diet suggestion
+  let diet="";
+  if(calories>2500) diet="High protein, moderate carbs, include healthy fats.";
+  else if(calories>2000) diet="Balanced diet with protein, carbs, and fats.";
+  else diet="Low calorie diet, focus on vegetables and lean protein.";
+
   document.getElementById('calorieResult').innerHTML=`
     <h3><i class="fa-solid fa-bolt"></i> Daily Requirements</h3>
     <p>Calories: ${calories.toFixed(2)} kcal</p>
@@ -152,6 +159,7 @@ function calculateCalories(){
     <p>Carbs: ${carbs.toFixed(2)} g</p>
     <p>BMI: ${bmi.toFixed(2)}</p>
     <p>Ideal Weight: ${idealWeight.toFixed(2)} kg</p>
+    <p><i class="fa-solid fa-utensils"></i> Diet Suggestion: ${diet}</p>
   `;
 }
 

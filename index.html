@@ -1,1 +1,129 @@
-<!DOCTYPE html> <html> <head> <title>Length Converter</title> <style> body { font-family: Arial; padding: 20px; background-color: #f5f5f5; } .container { max-width: 300px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); } input, select, button { width: 100%; padding: 10px; margin: 5px 0; } </style> </head> <body> <div class="container"> <h2>Length Converter</h2> <input type="number" id="value" placeholder="Enter value"> <select id="unit"> <option value="cm">Centimeters → Meters</option> <option value="m">Meters → Centimeters</option> </select> <button onclick="convert()">Convert</button> <p id="result"></p> </div> <script> function convert() { let value = document.getElementById("value").value; let unit = document.getElementById("unit").value; let result = unit === "cm" ? value / 100 : value * 100; document.getElementById("result").innerText = "Result: " + result; } </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Converter</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+        .input-group select {
+            padding: 10px;
+            border-radius: 0 8px 8px 0;
+            border: 1px solid #ccc;
+            border-left: none;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #357abd;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4a90e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #result i {
+            margin-left: 8px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-ruler"></i> Length Converter</h2>
+
+        <div class="input-group">
+            <input type="number" id="value" placeholder="Enter value">
+            <select id="unit">
+                <option value="cm">Centimeters → Meters</option>
+                <option value="m">Meters → Centimeters</option>
+                <option value="inch">Inches → Centimeters</option>
+                <option value="cminch">Centimeters → Inches</option>
+            </select>
+        </div>
+
+        <button onclick="convert()"><i class="fas fa-calculator"></i> Convert</button>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function convert() {
+            let value = parseFloat(document.getElementById("value").value);
+            let unit = document.getElementById("unit").value;
+            let result = "";
+
+            if (isNaN(value)) {
+                document.getElementById("result").innerHTML = "Please enter a valid number <i class='fas fa-exclamation-circle'></i>";
+                return;
+            }
+
+            switch(unit) {
+                case "cm":
+                    result = (value / 100).toFixed(2) + " meters";
+                    break;
+                case "m":
+                    result = (value * 100).toFixed(2) + " cm";
+                    break;
+                case "inch":
+                    result = (value * 2.54).toFixed(2) + " cm";
+                    break;
+                case "cminch":
+                    result = (value / 2.54).toFixed(2) + " inches";
+                    break;
+            }
+
+            document.getElementById("result").innerHTML = result + " <i class='fas fa-check-circle'></i>";
+        }
+    </script>
+
+</body>
+</html>

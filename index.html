@@ -1,166 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All-in-One Converter & Calculators</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All-in-One Converters & Calculators</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- SIDEBAR -->
-  <aside class="sidebar collapsed" id="sidebar">
-    <div class="sidebar-header">
-      <i class="fa-solid fa-calculator logo-icon"></i>
-      <span class="logo-text">Convertor</span>
-      <i class="fa-solid fa-bars toggle-btn" id="sidebarToggle"></i>
+
+<header>
+    <h1><i class="fas fa-sun"></i> All-in-One Converters & Calculators</h1>
+    <input type="text" placeholder="Search converters...">
+</header>
+
+<main>
+    <div class="converters">
+        <!-- Length Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-ruler"></i> Length Converter</h3>
+            <input type="number" id="lengthInput" placeholder="Enter value">
+            <select id="lengthUnit">
+                <option value="meter">Meter</option>
+                <option value="kilometer">Kilometer</option>
+                <option value="mile">Mile</option>
+            </select>
+            <button onclick="convertLength()">Calculate</button>
+            <div class="result" id="lengthResult"></div>
+        </div>
+
+        <!-- Weight Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-weight-scale"></i> Weight Converter</h3>
+            <input type="number" id="weightInput" placeholder="Enter value">
+            <select id="weightUnit">
+                <option value="kilogram">Kilogram</option>
+                <option value="gram">Gram</option>
+                <option value="pound">Pound</option>
+            </select>
+            <button onclick="convertWeight()">Calculate</button>
+            <div class="result" id="weightResult"></div>
+        </div>
+
+        <!-- Temperature Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-thermometer-half"></i> Temperature Converter</h3>
+            <input type="number" id="tempInput" placeholder="Enter value">
+            <select id="tempUnit">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+            <button onclick="convertTemperature()">Calculate</button>
+            <div class="result" id="tempResult"></div>
+        </div>
+
+        <!-- Volume Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-cube"></i> Volume Converter</h3>
+            <input type="number" id="volumeInput" placeholder="Enter value">
+            <select id="volumeUnit">
+                <option value="liter">Liters</option>
+                <option value="milliliter">Milliliters</option>
+                <option value="gallon">Gallons</option>
+            </select>
+            <button onclick="convertVolume()">Calculate</button>
+            <div class="result" id="volumeResult"></div>
+        </div>
+
+        <!-- Speed Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-tachometer-alt"></i> Speed Converter</h3>
+            <input type="number" id="speedInput" placeholder="Enter value">
+            <select id="speedUnit">
+                <option value="kmh">km/h</option>
+                <option value="mph">mph</option>
+                <option value="ms">m/s</option>
+            </select>
+            <button onclick="convertSpeed()">Calculate</button>
+            <div class="result" id="speedResult"></div>
+        </div>
+
+        <!-- Area Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-vector-square"></i> Area Converter</h3>
+            <input type="number" id="areaInput" placeholder="Enter value">
+            <select id="areaUnit">
+                <option value="sqmeter">m²</option>
+                <option value="sqkilometer">km²</option>
+                <option value="sqmile">mi²</option>
+            </select>
+            <button onclick="convertArea()">Calculate</button>
+            <div class="result" id="areaResult"></div>
+        </div>
+
+        <!-- Time Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-clock"></i> Time Converter</h3>
+            <input type="number" id="timeInput" placeholder="Enter value">
+            <select id="timeUnit">
+                <option value="second">Seconds</option>
+                <option value="minute">Minutes</option>
+                <option value="hour">Hours</option>
+            </select>
+            <button onclick="convertTime()">Calculate</button>
+            <div class="result" id="timeResult"></div>
+        </div>
     </div>
-    <nav class="nav-links">
-      <a href="#length"><i class="fa-solid fa-ruler"></i><span>Length</span></a>
-      <a href="#weight"><i class="fa-solid fa-weight-scale"></i><span>Weight</span></a>
-      <a href="#temperature"><i class="fa-solid fa-temperature-half"></i><span>Temperature</span></a>
-      <a href="#volume"><i class="fa-solid fa-flask"></i><span>Volume</span></a>
-    </nav>
-    <button id="darkModeToggle"><i class="fa-solid fa-moon"></i><span>Dark Mode</span></button>
-  </aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
-    <!-- TOP BAR -->
-    <header class="topbar">
-      <h1>🌟 All-in-One Converters & Calculators</h1>
-      <div class="search-container">
-        <input type="text" id="searchBox" placeholder="Search converters..." />
-        <i class="fa-solid fa-search"></i>
-      </div>
-    </header>
-
-    <div class="content-wrapper">
-      <!-- LEFT TOOLS -->
-      <div class="tools" id="converterList">
-        <!-- LENGTH -->
-        <div class="row">
-          <div id="length" class="card">
-            <h2><i class="fa-solid fa-ruler"></i> Length Converter</h2>
-            <div class="input-group">
-              <input type="number" id="lengthInput" placeholder="Enter value" />
-              <select id="lengthFrom">
-                <option value="m">Meters</option>
-                <option value="km">Kilometers</option>
-                <option value="cm">Centimeters</option>
-                <option value="mm">Millimeters</option>
-                <option value="mi">Miles</option>
-              </select>
-              <span>to</span>
-              <select id="lengthTo">
-                <option value="m">Meters</option>
-                <option value="km">Kilometers</option>
-                <option value="cm">Centimeters</option>
-                <option value="mm">Millimeters</option>
-                <option value="mi">Miles</option>
-              </select>
-            </div>
-            <button class="convert-btn" onclick="convertLength()">Convert</button>
-            <p id="lengthResult" class="result"></p>
-          </div>
-
-          <!-- WEIGHT -->
-          <div id="weight" class="card">
-            <h2><i class="fa-solid fa-weight-scale"></i> Weight Converter</h2>
-            <div class="input-group">
-              <input type="number" id="weightInput" placeholder="Enter value" />
-              <select id="weightFrom">
-                <option value="kg">Kilogram</option>
-                <option value="g">Gram</option>
-                <option value="lb">Pound</option>
-                <option value="oz">Ounce</option>
-              </select>
-              <span>to</span>
-              <select id="weightTo">
-                <option value="kg">Kilogram</option>
-                <option value="g">Gram</option>
-                <option value="lb">Pound</option>
-                <option value="oz">Ounce</option>
-              </select>
-            </div>
-            <button class="convert-btn" onclick="convertWeight()">Convert</button>
-            <p id="weightResult" class="result"></p>
-          </div>
-        </div>
-
-        <!-- TEMPERATURE -->
-        <div class="row">
-          <div id="temperature" class="card">
-            <h2><i class="fa-solid fa-temperature-half"></i> Temperature Converter</h2>
-            <div class="input-group">
-              <input type="number" id="tempInput" placeholder="Enter value" />
-              <select id="tempFrom">
-                <option value="c">Celsius</option>
-                <option value="f">Fahrenheit</option>
-                <option value="k">Kelvin</option>
-              </select>
-              <span>to</span>
-              <select id="tempTo">
-                <option value="c">Celsius</option>
-                <option value="f">Fahrenheit</option>
-                <option value="k">Kelvin</option>
-              </select>
-            </div>
-            <button class="convert-btn" onclick="convertTemperature()">Convert</button>
-            <p id="tempResult" class="result"></p>
-          </div>
-
-          <!-- VOLUME -->
-          <div id="volume" class="card">
-            <h2><i class="fa-solid fa-flask"></i> Volume Converter</h2>
-            <div class="input-group">
-              <input type="number" id="volumeInput" placeholder="Enter value" />
-              <select id="volumeFrom">
-                <option value="l">Liters</option>
-                <option value="ml">Milliliters</option>
-                <option value="gal">Gallons</option>
-                <option value="m3">Cubic Meters</option>
-              </select>
-              <span>to</span>
-              <select id="volumeTo">
-                <option value="l">Liters</option>
-                <option value="ml">Milliliters</option>
-                <option value="gal">Gallons</option>
-                <option value="m3">Cubic Meters</option>
-              </select>
-            </div>
-            <button class="convert-btn" onclick="convertVolume()">Convert</button>
-            <p id="volumeResult" class="result"></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT DESCRIPTION -->
-      <aside class="info-box">
-        <h2><i class="fa-solid fa-circle-info"></i> About This Page</h2>
-        <p>
-          Welcome to <strong>All-in-One Converters</strong>!  
-          This tool allows you to easily convert between various units of **length, weight, temperature, and volume**.
-        </p>
+    <div class="description">
+        <h2><i class="fas fa-info-circle"></i> About This Page</h2>
+        <p>Welcome to <strong>All-in-One Converters</strong>! This tool allows you to easily convert between various units of <strong>length, weight, temperature, volume, speed, area, and time</strong>.</p>
         <ul>
-          <li><i class="fa-solid fa-bolt" style="color:#f39c12;"></i> Fast & Easy to Use</li>
-          <li><i class="fa-solid fa-check-circle" style="color:#27ae60;"></i> Accurate Conversions</li>
-          <li><i class="fa-solid fa-desktop" style="color:#3498db;"></i> Works on All Devices</li>
-          <li><i class="fa-solid fa-globe" style="color:#e74c3c;"></i> Free & Always Online</li>
+            <li>⚡ Fast & Easy to Use</li>
+            <li>✅ Accurate Conversions</li>
+            <li>💻 Works on All Devices</li>
+            <li>🌐 Free & Always Online</li>
         </ul>
-        <div class="ad-space">
-          <p><i class="fa-solid fa-ad"></i> Google Ads Placeholder</p>
-        </div>
-      </aside>
+        <div class="ad-placeholder">Google Ads Placeholder</div>
     </div>
+</main>
 
-    <!-- FOOTER -->
-    <footer>
-      <p>&copy; <span id="year"></span> Team Riz | All Rights Reserved</p>
-      <p id="datetime"></p>
-    </footer>
-  </main>
+<footer>
+    © 2025 Team Riz | All Rights Reserved<br>
+    <span id="datetime"></span>
+</footer>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

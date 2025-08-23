@@ -16,6 +16,7 @@
 
 <main>
     <div class="converters">
+
         <!-- Length Converter -->
         <div class="converter">
             <h3><i class="fas fa-ruler"></i> Length Converter</h3>
@@ -106,11 +107,52 @@
             <button onclick="convertTime()">Calculate</button>
             <div class="result" id="timeResult"></div>
         </div>
+
+        <!-- Currency Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-dollar-sign"></i> Currency Converter</h3>
+            <input type="number" id="currencyInput" placeholder="Enter amount">
+            <select id="currencyUnit">
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="qar">QAR</option>
+            </select>
+            <button onclick="convertCurrency()">Calculate</button>
+            <div class="result" id="currencyResult"></div>
+        </div>
+
+        <!-- Energy Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-bolt"></i> Energy Converter</h3>
+            <input type="number" id="energyInput" placeholder="Enter value">
+            <select id="energyUnit">
+                <option value="joule">Joule</option>
+                <option value="calorie">Calorie</option>
+                <option value="kilowatt">kWh</option>
+            </select>
+            <button onclick="convertEnergy()">Calculate</button>
+            <div class="result" id="energyResult"></div>
+        </div>
+
+        <!-- Data Storage Converter -->
+        <div class="converter">
+            <h3><i class="fas fa-database"></i> Data Storage Converter</h3>
+            <input type="number" id="dataInput" placeholder="Enter value">
+            <select id="dataUnit">
+                <option value="byte">Byte</option>
+                <option value="kb">KB</option>
+                <option value="mb">MB</option>
+                <option value="gb">GB</option>
+            </select>
+            <button onclick="convertData()">Calculate</button>
+            <div class="result" id="dataResult"></div>
+        </div>
+
     </div>
 
     <div class="description">
         <h2><i class="fas fa-info-circle"></i> About This Page</h2>
-        <p>Welcome to <strong>All-in-One Converters</strong>! This tool allows you to easily convert between various units of <strong>length, weight, temperature, volume, speed, area, and time</strong>.</p>
+        <p>Welcome to <strong>All-in-One Converters</strong>! This tool allows you to easily convert between various units of <strong>length, weight, temperature, volume, speed, area, time, currency, energy, and data storage</strong>.</p>
         <ul>
             <li>⚡ Fast & Easy to Use</li>
             <li>✅ Accurate Conversions</li>

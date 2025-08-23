@@ -1,114 +1,79 @@
-// Year & DateTime
-document.getElementById("year").textContent = new Date().getFullYear();
-function updateDateTime() {
-  document.getElementById("datetime").textContent =
-    new Date().toLocaleString();
-}
-setInterval(updateDateTime, 1000);
-updateDateTime();
+// Display current date and time
+document.getElementById('datetime').innerText = new Date().toLocaleString();
 
-// Sidebar toggle
-const sidebar = document.getElementById("sidebar");
-const sidebarToggle = document.getElementById("sidebarToggle");
-sidebarToggle.addEventListener("click", () => {
-  sidebar.classList.toggle("collapsed");
-});
-
-// Dark mode
-const toggle = document.getElementById("darkModeToggle");
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-});
-
-// SEARCH FUNCTION
-const searchBox = document.getElementById("searchBox");
-const converterList = document.getElementById("converterList");
-const cards = converterList.getElementsByClassName("card");
-
-searchBox.addEventListener("keyup", function () {
-  const term = searchBox.value.toLowerCase();
-  for (let i = 0; i < cards.length; i++) {
-    const text = cards[i].innerText.toLowerCase();
-    cards[i].style.display = text.includes(term) ? "block" : "none";
-  }
-});
-
-// ---------- CONVERSION FUNCTIONS ----------
-
-// LENGTH
+// Length Converter
 function convertLength() {
-  const input = parseFloat(document.getElementById("lengthInput").value);
-  const from = document.getElementById("lengthFrom").value;
-  const to = document.getElementById("lengthTo").value;
-  if (isNaN(input)) return (document.getElementById("lengthResult").textContent = "Enter a value!");
-
-  const conversionRates = {
-    m: 1,
-    km: 0.001,
-    cm: 100,
-    mm: 1000,
-    mi: 0.000621371,
-  };
-
-  const meters = input / conversionRates[from];
-  const result = meters * conversionRates[to];
-  document.getElementById("lengthResult").textContent = `Result: ${result.toFixed(4)} ${to}`;
+    let val = parseFloat(document.getElementById('lengthInput').value);
+    let unit = document.getElementById('lengthUnit').value;
+    let result = 0;
+    if (unit === 'meter') result = val;
+    else if (unit === 'kilometer') result = val * 1000;
+    else if (unit === 'mile') result = val * 1609.34;
+    document.getElementById('lengthResult').innerText = `Result: ${result} meters`;
 }
 
-// WEIGHT
+// Weight Converter
 function convertWeight() {
-  const input = parseFloat(document.getElementById("weightInput").value);
-  const from = document.getElementById("weightFrom").value;
-  const to = document.getElementById("weightTo").value;
-  if (isNaN(input)) return (document.getElementById("weightResult").textContent = "Enter a value!");
-
-  const conversionRates = {
-    kg: 1,
-    g: 1000,
-    lb: 2.20462,
-    oz: 35.274,
-  };
-
-  const kg = input / conversionRates[from];
-  const result = kg * conversionRates[to];
-  document.getElementById("weightResult").textContent = `Result: ${result.toFixed(4)} ${to}`;
+    let val = parseFloat(document.getElementById('weightInput').value);
+    let unit = document.getElementById('weightUnit').value;
+    let result = 0;
+    if (unit === 'kilogram') result = val;
+    else if (unit === 'gram') result = val / 1000;
+    else if (unit === 'pound') result = val * 0.453592;
+    document.getElementById('weightResult').innerText = `Result: ${result.toFixed(2)} kg`;
 }
 
-// TEMPERATURE
+// Temperature Converter
 function convertTemperature() {
-  const input = parseFloat(document.getElementById("tempInput").value);
-  const from = document.getElementById("tempFrom").value;
-  const to = document.getElementById("tempTo").value;
-  if (isNaN(input)) return (document.getElementById("tempResult").textContent = "Enter a value!");
-
-  let celsius;
-  if (from === "c") celsius = input;
-  else if (from === "f") celsius = (input - 32) * (5 / 9);
-  else if (from === "k") celsius = input - 273.15;
-
-  let result;
-  if (to === "c") result = celsius;
-  else if (to === "f") result = celsius * (9 / 5) + 32;
-  else if (to === "k") result = celsius + 273.15;
-
-  document.getElementById("tempResult").textContent = `Result: ${result.toFixed(2)}° ${to.toUpperCase()}`;
+    let val = parseFloat(document.getElementById('tempInput').value);
+    let unit = document.getElementById('tempUnit').value;
+    let celsius = 0;
+    if (unit === 'celsius') celsius = val;
+    else if (unit === 'fahrenheit') celsius = (val - 32) * 5/9;
+    else if (unit === 'kelvin') celsius = val - 273.15;
+    document.getElementById('tempResult').innerText = `Result: ${celsius.toFixed(2)} °C`;
 }
 
-// VOLUME
+// Volume Converter
 function convertVolume() {
-  const input = parseFloat(document.getElementById("volumeInput").value);
-  const from = document.getElementById("volumeFrom").value;
-  const to = document.getElementById("volumeTo").value;
-  if (isNaN(input)) return (document.getElementById("volumeResult").textContent = "Enter a value!");
+    let val = parseFloat(document.getElementById('volumeInput').value);
+    let unit = document.getElementById('volumeUnit').value;
+    let liters = 0;
+    if (unit === 'liter') liters = val;
+    else if (unit === 'milliliter') liters = val / 1000;
+    else if (unit === 'gallon') liters = val * 3.78541;
+    document.getElementById('volumeResult').innerText = `Result: ${liters.toFixed(2)} liters`;
+}
 
-  const conversionRates = {
-    l: 1,
-    ml: 1000,
-    gal: 0.264172,
-    m3: 0.001,
-  };
+// Speed Converter
+function convertSpeed() {
+    let val = parseFloat(document.getElementById('speedInput').value);
+    let unit = document.getElementById('speedUnit').value;
+    let kmh = 0;
+    if (unit === 'kmh') kmh = val;
+    else if (unit === 'mph') kmh = val * 1.60934;
+    else if (unit === 'ms') kmh = val * 3.6;
+    document.getElementById('speedResult').innerText = `Result: ${kmh.toFixed(2)} km/h`;
+}
 
-  const liters = input / conversionRates[from];
-  const result = liters * conversionRates[to];
-  document.getElementById("volumeResult").textContent = `Result: ${result.toFixed(4)} ${to}`;
+// Area Converter
+function convertArea() {
+    let val = parseFloat(document.getElementById('areaInput').value);
+    let unit = document.getElementById('areaUnit').value;
+    let sqm = 0;
+    if (unit === 'sqmeter') sqm = val;
+    else if (unit === 'sqkilometer') sqm = val * 1e6;
+    else if (unit === 'sqmile') sqm = val * 2.59e6;
+    document.getElementById('areaResult').innerText = `Result: ${sqm.toFixed(2)} m²`;
+}
+
+// Time Converter
+function convertTime() {
+    let val = parseFloat(document.getElementById('timeInput').value);
+    let unit = document.getElementById('timeUnit').value;
+    let seconds = 0;
+    if (unit === 'second') seconds = val;
+    else if (unit === 'minute') seconds = val * 60;
+    else if (unit === 'hour') seconds = val * 3600;
+    document.getElementById('timeResult').innerText = `Result: ${seconds.toFixed(2)} seconds`;
 }

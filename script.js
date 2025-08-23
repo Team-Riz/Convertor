@@ -42,7 +42,9 @@ async function fetchCurrencyRates() {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
     if(data && data.rates) unitsData.currency = data.rates;
-  } catch(err){console.error(err);}
+  } catch(err){
+    console.error("Failed to fetch live currency rates. Using static fallback.", err);
+  }
 }
 fetchCurrencyRates();
 
@@ -137,6 +139,7 @@ function calculateCalories(){
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
+  
   let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
   let calories=bmr*activity;
   let protein=weight*1.5;
@@ -145,7 +148,6 @@ function calculateCalories(){
   let bmi=(weight/(height*height))*10000;
   let idealWeight=(gender=="male")?22*(height/100)**2:21*(height/100)**2;
 
-  // Dynamic diet suggestion
   let diet="";
   if(calories>2500) diet="High protein, moderate carbs, include healthy fats.";
   else if(calories>2000) diet="Balanced diet with protein, carbs, and fats.";
@@ -153,12 +155,12 @@ function calculateCalories(){
 
   document.getElementById('calorieResult').innerHTML=`
     <h3><i class="fa-solid fa-bolt"></i> Daily Requirements</h3>
-    <p>Calories: ${calories.toFixed(2)} kcal</p>
-    <p>Protein: ${protein.toFixed(2)} g</p>
-    <p>Fat: ${fat.toFixed(2)} g</p>
-    <p>Carbs: ${carbs.toFixed(2)} g</p>
-    <p>BMI: ${bmi.toFixed(2)}</p>
-    <p>Ideal Weight: ${idealWeight.toFixed(2)} kg</p>
+    <p><i class="fa-solid fa-fire"></i> Calories: ${calories.toFixed(2)} kcal</p>
+    <p><i class="fa-solid fa-drumstick-bite"></i> Protein: ${protein.toFixed(2)} g</p>
+    <p><i class="fa-solid fa-oil-can"></i> Fat: ${fat.toFixed(2)} g</p>
+    <p><i class="fa-solid fa-bread-slice"></i> Carbs: ${carbs.toFixed(2)} g</p>
+    <p><i class="fa-solid fa-heart-pulse"></i> BMI: ${bmi.toFixed(2)}</p>
+    <p><i class="fa-solid fa-weight-scale"></i> Ideal Weight: ${idealWeight.toFixed(2)} kg</p>
     <p><i class="fa-solid fa-utensils"></i> Diet Suggestion: ${diet}</p>
   `;
 }

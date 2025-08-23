@@ -44,20 +44,22 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .result.show {animation: pop 0.3s;}
 @keyframes pop {0%{transform:scale(0.8);opacity:0;}50%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
 
-/* ===== CALORIES FORM ===== */
+/* ===== CALORIES CARDS ===== */
 .calorie-form input, .calorie-form select, .calorie-form button {width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ccc;}
 .calorie-form button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
 .calorie-form button:hover {background:#e64a19; transform:translateY(-2px);}
-.calorie-result {margin-top:15px; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px;}
-.calorie-card {background:#fff3e0; padding:15px; border-radius:12px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.15); transition:0.3s;}
-.calorie-card i {font-size:2rem; color:#ff5722; margin-bottom:8px;}
-.calorie-card p {margin:5px 0; font-weight:bold;}
+.calorie-result {display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin-top:15px;}
+.calorie-card {padding:12px; border-radius:12px; background:rgba(255,87,34,0.1); display:flex; flex-direction:column; align-items:center; text-align:center; font-weight:bold; color:#bf360c; transition:0.3s; }
+.calorie-card i{font-size:1.5rem; margin-bottom:6px;}
 .calorie-card.animate {animation:pop 0.3s;}
 
 /* ===== PDF TOOLS ===== */
 .pdf-container input, .pdf-container button {display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;}
 .pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
 .pdf-container button:hover {background:#388e3c; transform:translateY(-2px);}
+
+/* ===== ADS ===== */
+.ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}
 
 /* ===== DARK MODE ===== */
 body.dark {background:linear-gradient(135deg,#0d0d0d,#1a1a1a); color:#f1f1f1;}
@@ -67,4 +69,4 @@ body.dark .converter-card {background:#1e1e1e; border:1px solid #333;}
 body.dark .converter-card input, body.dark .converter-card select {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
 body.dark .converter-card button {background:#0d47a1;}
 body.dark .converter-card .result {background:rgba(13,71,161,0.2); color:#bbdefb;}
-body.dark .calorie-card {background:#1e1e1e; color:#fff;}
+body.dark .calorie-card {background:rgba(13,71,161,0.2); color:#bbdefb;}

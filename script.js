@@ -41,8 +41,13 @@ async function fetchCurrencyRates() {
   try {
     const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=USD,QAR,PKR,EUR');
     const data = await res.json();
-    if(data && data.rates) unitsData.currency = data.rates;
-  } catch(err){console.error("Currency fetch failed.", err);}
+    if(data && data.rates) {
+      unitsData.currency = data.rates;
+      console.log("Live currency rates loaded:", unitsData.currency);
+    }
+  } catch(err){
+    console.error("Failed to fetch live currency rates. Using static fallback.", err);
+  }
 }
 fetchCurrencyRates();
 
@@ -129,8 +134,8 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES & BMI ==================
-document.querySelector('.calc-calories-btn').addEventListener('click',calculateCalories);
+// ================== CALORIES ==================
+document.getElementById('calcCalories').addEventListener('click', calculateCalories);
 function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
@@ -145,11 +150,27 @@ function calculateCalories(){
   let fat=weight*0.8;
   let carbs=(calories-(protein*4+fat*9))/4;
   let bmi=(weight/((height/100)*(height/100))).toFixed(2);
+
+  // Dynamic diet/exercise
   let dietAdvice="", exercise="";
-  if(bmi<18.5){dietAdvice="Increase calorie intake with protein-rich foods"; exercise="Strength training";}
-  else if(bmi<25){dietAdvice="Maintain balanced diet"; exercise="Cardio 3-4 times/week";}
-  else if(bmi<30){dietAdvice="Reduce calorie intake"; exercise="Mix cardio & light strength";}
-  else{dietAdvice="Strict diet & consult nutritionist"; exercise="Supervised exercise"};
+  if(bmi<18.5){
+    dietAdvice="High-calorie diet with protein-rich foods, nuts, and healthy fats.";
+    exercise="Strength training 3-4 times/week, light cardio.";
+  } else if(bmi<25){
+    dietAdvice="Balanced diet with vegetables, lean protein, and whole grains.";
+    exercise="Moderate cardio 3-5 times/week, strength 2-3 times/week.";
+  } else if(bmi<30){
+    dietAdvice="Calorie-controlled diet focusing on vegetables, lean protein, and low sugar.";
+    exercise="Cardio 4-5 times/week and light resistance training.";
+  } else {
+    dietAdvice="Strict diet, low carbs, high protein, consult nutritionist.";
+    exercise="Supervised exercise, mix of cardio and strength.";
+  }
+
+  let ageAdvice=(age<18)?"Focus on growth-supporting nutrition and regular activity.":
+                (age<40)?"Maintain active lifestyle and balanced nutrition.":
+                "Include joint-friendly exercise and nutrient-dense foods.";
+  let genderAdvice=(gender=="male")?"Focus on protein & strength training.":"Include calcium-rich foods and moderate strength training.";
 
   const resultDiv=document.getElementById('calorieResult');
   resultDiv.innerHTML="";
@@ -160,10 +181,13 @@ function calculateCalories(){
     {icon:'fa-bread-slice',title:'Carbs',val:carbs.toFixed(2)+' g'},
     {icon:'fa-heart-pulse',title:'BMI',val:bmi},
     {icon:'fa-apple-alt',title:'Diet Advice',val:dietAdvice},
-    {icon:'fa-dumbbell',title:'Exercise',val:exercise}
+    {icon:'fa-dumbbell',title:'Exercise',val:exercise},
+    {icon:'fa-calendar-days',title:'Age Advice',val:ageAdvice},
+    {icon:'fa-venus-mars',title:'Gender Advice',val:genderAdvice}
   ];
   items.forEach(it=>{
-    const card=document.createElement('div'); card.className='calorie-card animate';
+    const card=document.createElement('div'); 
+    card.className='calorie-card animate';
     card.innerHTML=`<i class="fa-solid ${it.icon}"></i><p>${it.title}</p><p>${it.val}</p>`;
     resultDiv.appendChild(card);
   });

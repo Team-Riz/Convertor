@@ -18,7 +18,7 @@ header h1{display:flex;gap:10px;align-items:center;font-size:1.4rem;margin:0;}
 .search-bar{display:flex;gap:6px;align-items:center}
 .search-bar input{
   padding:8px 10px;border-radius:8px;border:1px solid var(--input-border);
-  background:var(--input-bg);color:var(--text-color);width:240px;
+  background:var(--input-bg);color:var(--text-color);width:260px;
 }
 .search-bar button,#modeToggle{
   padding:8px 12px;border:none;border-radius:8px;background:var(--button-bg);
@@ -43,23 +43,24 @@ main{display:flex;justify-content:center;padding:20px}
 .tab-page.active{display:block;}
 
 .converters{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:20px;max-width:1200px;width:100%;
 }
 
 /* Converter cards */
 .converter{
   background:var(--card-bg);padding:16px;border-radius:14px;position:relative;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .15s, box-shadow .3s;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .15s, box-shadow .3s, border .2s;
+  border:1px solid transparent;
 }
 .converter:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,.25); }
 .converter h3{display:flex;gap:10px;align-items:center;margin:0 0 10px;font-size:1.1rem;}
 .converter input,.converter select{
-  width:100%;padding:8px;border-radius:8px;margin:6px 0;
+  width:100%;padding:10px;border-radius:10px;margin:6px 0;
   border:1px solid var(--input-border);background:var(--input-bg);color:var(--text-color);
 }
 .converter button{
-  width:100%;padding:10px;border:none;border-radius:8px;background:var(--button-bg);
+  width:100%;padding:10px;border:none;border-radius:10px;background:var(--button-bg);
   color:var(--button-text);cursor:pointer;transition:background .3s;
 }
 .converter button:hover{ background:var(--button-hover); }
@@ -68,20 +69,20 @@ main{display:flex;justify-content:center;padding:20px}
 .unit-select span{font-weight:700;font-size:1.2rem}
 
 .result{
-  background:var(--result-bg);color:var(--result-text);padding:10px;border-radius:10px;
-  text-align:center;font-weight:700;margin-top:8px;min-height:40px;display:flex;align-items:center;justify-content:center;
+  background:var(--result-bg);color:var(--result-text);padding:12px;border-radius:10px;
+  text-align:center;font-weight:700;margin-top:8px;min-height:44px;display:flex;align-items:center;justify-content:center;
 }
-.small-note{font-size:.85rem;opacity:.8;margin-top:6px}
+.small-note{font-size:.85rem;opacity:.85;margin:6px 0 0}
 
 .ad-placeholder{
   border:1px dashed var(--ad-border);color:var(--ad-text);
-  border-radius:10px;text-align:center;padding:10px;margin-top:10px;
+  border-radius:10px;text-align:center;padding:10px;margin-top:12px;
 }
 
 .fly-icon{position:absolute;right:14px;top:12px;font-size:18px;color:gold;opacity:0;transition:all .8s ease}
 
 /* Highlight on search */
-.converter.highlight{ transform:scale(1.04); border:2px solid var(--button-bg); }
+.converter.highlight{ transform:scale(1.04); border:1px solid var(--button-bg); }
 
 /* Footer */
 footer{
@@ -89,14 +90,14 @@ footer{
   margin-top:20px;
 }
 
-/* ========== LIGHT THEME VARS ========== */
+/* ========== LIGHT THEME VARS (darker palette) ========== */
 :root{
-  --bg-color:#0f172a;             /* dark blue base with gradient overlay via cards */
+  --bg-color:#0f172a;
   --text-color:#e5e7eb;
   --header-bg:#1f2937;
   --header-text:#fff;
-  --input-bg:#111827;
-  --input-border:#374151;
+  --input-bg:#0b1220;
+  --input-border:#253046;
   --button-bg:#2563eb;
   --button-text:#fff;
   --button-hover:#1e40af;
@@ -105,8 +106,8 @@ footer{
   --result-text:#facc15;
   --footer-bg:#111827;
   --footer-text:#fff;
-  --ad-border:#374151;
-  --ad-text:#9ca3af;
+  --ad-border:#253046;
+  --ad-text:#cbd5e1;
 
   --tabs-bg:#0b1220;
   --tab-btn:#0b1220;
@@ -115,7 +116,7 @@ footer{
   --tab-active-text:#ffffff;
 }
 
-/* ========== DARK THEME VARS (even darker) ========== */
+/* ========== DARK THEME VARS (even darker + neon) ========== */
 body.dark-mode{
   --bg-color:#0a0f1e;
   --text-color:#eaeaf2;

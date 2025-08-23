@@ -119,14 +119,25 @@ function convertTime() {
 }
 
 // ------------------------
-// CURRENCY (static example)
+// LIVE CURRENCY
 // ------------------------
-const currencyRates = { USD:1, QAR:3.64, PKR:278, EUR:0.93 };
-function convertCurrency() {
+async function convertCurrency() {
     let val = parseFloat(document.getElementById('currencyValue').value);
     let from = document.getElementById('currencyFrom').value;
     let to = document.getElementById('currencyTo').value;
-    let result = val*currencyRates[from]/currencyRates[to];
-    document.getElementById('currencyResult').innerText = result.toFixed(2)+' '+to;
-    animateFly('currencyFly');
+
+    try {
+        const response = await fetch(`https://v6.exchangerate-api.com/v6/latest/${from}`);
+        const data = await response.json();
+        if (data.result === "success") {
+            const rate = data.conversion_rates[to];
+            const result = val * rate;
+            document.getElementById('currencyResult').innerText = result.toFixed(2)+' '+to;
+            animateFly('currencyFly');
+        } else {
+            document.getElementById('currencyResult').innerText = 'Currency conversion failed';
+        }
+    } catch (error) {
+        document.getElementById('currencyResult').innerText = 'Error fetching rates';
+    }
 }

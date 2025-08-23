@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multi Converter</title>
+<title>Multi Calculator & Converter</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #667eea, #764ba2);
         margin: 0;
-        padding: 20px;
+        padding: 30px;
         display: flex;
-        justify-content: center;
         flex-wrap: wrap;
-        gap: 20px;
+        justify-content: center;
+        gap: 25px;
     }
     .container {
         background: rgba(255,255,255,0.95);
@@ -22,6 +22,7 @@
         border-radius: 20px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         width: 300px;
+        min-width: 250px;
         text-align: center;
         color: #333;
     }
@@ -78,7 +79,7 @@
 
 <!-- Length Converter -->
 <div class="container">
-    <h2><i class="fas fa-ruler"></i> Length Converter</h2>
+    <h2><i class="fas fa-ruler"></i> Length</h2>
     <div class="input-group">
         <input type="number" id="lengthValue" placeholder="Enter value">
         <select id="lengthUnit">
@@ -94,7 +95,7 @@
 
 <!-- Weight Converter -->
 <div class="container">
-    <h2><i class="fas fa-weight-scale"></i> Weight Converter</h2>
+    <h2><i class="fas fa-weight-scale"></i> Weight</h2>
     <div class="input-group">
         <input type="number" id="weightValue" placeholder="Enter value">
         <select id="weightUnit">
@@ -110,7 +111,7 @@
 
 <!-- Temperature Converter -->
 <div class="container">
-    <h2><i class="fas fa-thermometer-half"></i> Temperature Converter</h2>
+    <h2><i class="fas fa-thermometer-half"></i> Temperature</h2>
     <div class="input-group">
         <input type="number" id="tempValue" placeholder="Enter value">
         <select id="tempUnit">
@@ -124,56 +125,117 @@
     <p id="tempResult"></p>
 </div>
 
+<!-- Volume Converter -->
+<div class="container">
+    <h2><i class="fas fa-glass-water"></i> Volume</h2>
+    <div class="input-group">
+        <input type="number" id="volumeValue" placeholder="Enter value">
+        <select id="volumeUnit">
+            <option value="l-ml">Liters → Milliliters</option>
+            <option value="ml-l">Milliliters → Liters</option>
+            <option value="gal-l">Gallons → Liters</option>
+            <option value="l-gal">Liters → Gallons</option>
+        </select>
+    </div>
+    <button onclick="convertVolume()"><i class="fas fa-calculator"></i> Convert</button>
+    <p id="volumeResult"></p>
+</div>
+
+<!-- Speed Converter -->
+<div class="container">
+    <h2><i class="fas fa-tachometer-alt"></i> Speed</h2>
+    <div class="input-group">
+        <input type="number" id="speedValue" placeholder="Enter value">
+        <select id="speedUnit">
+            <option value="kmh-ms">Km/h → m/s</option>
+            <option value="ms-kmh">m/s → Km/h</option>
+            <option value="mph-kmh">MPH → Km/h</option>
+            <option value="kmh-mph">Km/h → MPH</option>
+        </select>
+    </div>
+    <button onclick="convertSpeed()"><i class="fas fa-calculator"></i> Convert</button>
+    <p id="speedResult"></p>
+</div>
+
 <script>
 function convertLength() {
     const value = parseFloat(document.getElementById("lengthValue").value);
     const unit = document.getElementById("lengthUnit").value;
     let result = "";
-    if (isNaN(value)) {
-        result = "Please enter a number <i class='fas fa-exclamation-circle'></i>";
-    } else {
-        switch(unit) {
-            case "cm": result = (value / 100).toFixed(2) + " meters <i class='fas fa-check-circle'></i>"; break;
-            case "m": result = (value * 100).toFixed(2) + " cm <i class='fas fa-check-circle'></i>"; break;
-            case "km": result = (value * 1000).toFixed(2) + " meters <i class='fas fa-check-circle'></i>"; break;
-            case "m-km": result = (value / 1000).toFixed(2) + " km <i class='fas fa-check-circle'></i>"; break;
+    if(isNaN(value)){ result="Enter a number <i class='fas fa-exclamation-circle'></i>"; }
+    else{
+        switch(unit){
+            case "cm": result=(value/100).toFixed(2)+" m <i class='fas fa-check-circle'></i>"; break;
+            case "m": result=(value*100).toFixed(2)+" cm <i class='fas fa-check-circle'></i>"; break;
+            case "km": result=(value*1000).toFixed(2)+" m <i class='fas fa-check-circle'></i>"; break;
+            case "m-km": result=(value/1000).toFixed(2)+" km <i class='fas fa-check-circle'></i>"; break;
         }
     }
-    document.getElementById("lengthResult").innerHTML = result;
+    document.getElementById("lengthResult").innerHTML=result;
 }
 
 function convertWeight() {
-    const value = parseFloat(document.getElementById("weightValue").value);
-    const unit = document.getElementById("weightUnit").value;
-    let result = "";
-    if (isNaN(value)) {
-        result = "Please enter a number <i class='fas fa-exclamation-circle'></i>";
-    } else {
-        switch(unit) {
-            case "kg-g": result = (value * 1000).toFixed(2) + " grams <i class='fas fa-check-circle'></i>"; break;
-            case "g-kg": result = (value / 1000).toFixed(2) + " kg <i class='fas fa-check-circle'></i>"; break;
-            case "lb-kg": result = (value * 0.453592).toFixed(2) + " kg <i class='fas fa-check-circle'></i>"; break;
-            case "kg-lb": result = (value / 0.453592).toFixed(2) + " lbs <i class='fas fa-check-circle'></i>"; break;
+    const value=parseFloat(document.getElementById("weightValue").value);
+    const unit=document.getElementById("weightUnit").value;
+    let result="";
+    if(isNaN(value)){ result="Enter a number <i class='fas fa-exclamation-circle'></i>"; }
+    else{
+        switch(unit){
+            case "kg-g": result=(value*1000).toFixed(2)+" g <i class='fas fa-check-circle'></i>"; break;
+            case "g-kg": result=(value/1000).toFixed(2)+" kg <i class='fas fa-check-circle'></i>"; break;
+            case "lb-kg": result=(value*0.453592).toFixed(2)+" kg <i class='fas fa-check-circle'></i>"; break;
+            case "kg-lb": result=(value/0.453592).toFixed(2)+" lbs <i class='fas fa-check-circle'></i>"; break;
         }
     }
-    document.getElementById("weightResult").innerHTML = result;
+    document.getElementById("weightResult").innerHTML=result;
 }
 
 function convertTemp() {
-    const value = parseFloat(document.getElementById("tempValue").value);
-    const unit = document.getElementById("tempUnit").value;
-    let result = "";
-    if (isNaN(value)) {
-        result = "Please enter a number <i class='fas fa-exclamation-circle'></i>";
-    } else {
-        switch(unit) {
-            case "c-f": result = ((value * 9/5) + 32).toFixed(2) + " °F <i class='fas fa-check-circle'></i>"; break;
-            case "f-c": result = ((value - 32) * 5/9).toFixed(2) + " °C <i class='fas fa-check-circle'></i>"; break;
-            case "c-k": result = (value + 273.15).toFixed(2) + " K <i class='fas fa-check-circle'></i>"; break;
-            case "k-c": result = (value - 273.15).toFixed(2) + " °C <i class='fas fa-check-circle'></i>"; break;
+    const value=parseFloat(document.getElementById("tempValue").value);
+    const unit=document.getElementById("tempUnit").value;
+    let result="";
+    if(isNaN(value)){ result="Enter a number <i class='fas fa-exclamation-circle'></i>"; }
+    else{
+        switch(unit){
+            case "c-f": result=((value*9/5)+32).toFixed(2)+" °F <i class='fas fa-check-circle'></i>"; break;
+            case "f-c": result=((value-32)*5/9).toFixed(2)+" °C <i class='fas fa-check-circle'></i>"; break;
+            case "c-k": result=(value+273.15).toFixed(2)+" K <i class='fas fa-check-circle'></i>"; break;
+            case "k-c": result=(value-273.15).toFixed(2)+" °C <i class='fas fa-check-circle'></i>"; break;
         }
     }
-    document.getElementById("tempResult").innerHTML = result;
+    document.getElementById("tempResult").innerHTML=result;
+}
+
+function convertVolume() {
+    const value=parseFloat(document.getElementById("volumeValue").value);
+    const unit=document.getElementById("volumeUnit").value;
+    let result="";
+    if(isNaN(value)){ result="Enter a number <i class='fas fa-exclamation-circle'></i>"; }
+    else{
+        switch(unit){
+            case "l-ml": result=(value*1000).toFixed(2)+" ml <i class='fas fa-check-circle'></i>"; break;
+            case "ml-l": result=(value/1000).toFixed(2)+" l <i class='fas fa-check-circle'></i>"; break;
+            case "gal-l": result=(value*3.78541).toFixed(2)+" l <i class='fas fa-check-circle'></i>"; break;
+            case "l-gal": result=(value/3.78541).toFixed(2)+" gal <i class='fas fa-check-circle'></i>"; break;
+        }
+    }
+    document.getElementById("volumeResult").innerHTML=result;
+}
+
+function convertSpeed() {
+    const value=parseFloat(document.getElementById("speedValue").value);
+    const unit=document.getElementById("speedUnit").value;
+    let result="";
+    if(isNaN(value)){ result="Enter a number <i class='fas fa-exclamation-circle'></i>"; }
+    else{
+        switch(unit){
+            case "kmh-ms": result=(value/3.6).toFixed(2)+" m/s <i class='fas fa-check-circle'></i>"; break;
+            case "ms-kmh": result=(value*3.6).toFixed(2)+" km/h <i class='fas fa-check-circle'></i>"; break;
+            case "mph-kmh": result=(value*1.60934).toFixed(2)+" km/h <i class='fas fa-check-circle'></i>"; break;
+            case "kmh-mph": result=(value/1.60934).toFixed(2)+" mph <i class='fas fa-check-circle'></i>"; break;
+        }
+    }
+    document.getElementById("speedResult").innerHTML=result;
 }
 </script>
 

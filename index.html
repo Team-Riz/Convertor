@@ -6,6 +6,7 @@
 <title>Advanced All-in-One Converter</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -59,8 +60,9 @@
         <option value="1.725">Very Active</option>
       </select>
     </div>
-    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
+    <button id="calcCaloriesBtn"><i class="fa-solid fa-calculator"></i> Calculate</button>
     <div id="calorieResult" class="calorie-result"></div>
+    <canvas id="calorieChart" width="400" height="200"></canvas>
   </div>
 </div>
 

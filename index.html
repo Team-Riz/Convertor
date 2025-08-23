@@ -25,35 +25,33 @@
   <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- CONVERTERS -->
+<!-- ===== Converters Tab ===== -->
 <div id="tab-converters" class="tab-content active">
   <div id="converter-container" class="grid"></div>
 </div>
 
-<!-- CALORIES -->
+<!-- ===== Calories Tab ===== -->
 <div id="tab-calories" class="tab-content">
   <div class="calorie-form">
-    <div class="calorie-inputs">
-      <input type="number" id="age" placeholder="Age">
-      <input type="number" id="weight" placeholder="Weight (kg)">
-      <input type="number" id="height" placeholder="Height (cm)">
-      <select id="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-      <select id="activity">
-        <option value="1.2">Sedentary</option>
-        <option value="1.375">Lightly Active</option>
-        <option value="1.55">Moderately Active</option>
-        <option value="1.725">Very Active</option>
-      </select>
-    </div>
-    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
-    <div id="calorieResult" class="calorie-result"></div>
+    <input type="number" id="age" placeholder="Age">
+    <input type="number" id="weight" placeholder="Weight (kg)">
+    <input type="number" id="height" placeholder="Height (cm)">
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <select id="activity">
+      <option value="1.2">Sedentary</option>
+      <option value="1.375">Lightly Active</option>
+      <option value="1.55">Moderately Active</option>
+      <option value="1.725">Very Active</option>
+    </select>
+    <button id="calorieCalculate"><i class="fa-solid fa-calculator"></i> Calculate</button>
   </div>
+  <div id="calorieResult" class="calorie-grid"></div>
 </div>
 
-<!-- PDF TOOLS -->
+<!-- ===== PDF Tab ===== -->
 <div id="tab-pdf" class="tab-content">
   <div class="pdf-container">
     <input type="file" id="pdfInput" accept=".pdf">
@@ -65,10 +63,10 @@
   </div>
 </div>
 
-<!-- ABOUT -->
+<!-- ===== About Tab ===== -->
 <div id="tab-about" class="tab-content">
   <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and BMI, and convert PDF/Word files.</p>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
   <ul>
     <li>⚡ Fast & Interactive</li>
     <li>✅ Accurate & Bidirectional</li>

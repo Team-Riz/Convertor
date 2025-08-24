@@ -14,15 +14,14 @@ tabs.forEach(tab=>{
 const modeBtn=document.getElementById('modeToggle');
 modeBtn.addEventListener('click',()=>{
   document.body.classList.toggle('dark');
-  // Show the *next* action on the button
   if(document.body.classList.contains('dark')){
-    modeBtn.innerHTML='<i class="fa-solid fa-sun"></i> Light Mode';
-  } else {
     modeBtn.innerHTML='<i class="fa-solid fa-moon"></i> Dark Mode';
+  } else {
+    modeBtn.innerHTML='<i class="fa-solid fa-sun"></i> Light Mode';
   }
 });
 
-// ================== UNIT DATA (unchanged) ==================
+// ================== UNIT DATA ==================
 const unitsData={
   length:{meter:1,kilometer:1000,centimeter:0.01,mile:1609.34,yard:0.9144,inch:0.0254,foot:0.3048},
   weight:{kg:1,g:0.001,lb:0.453592,oz:0.0283495,ton:1000},
@@ -47,7 +46,7 @@ async function fetchCurrencyRates() {
 }
 fetchCurrencyRates();
 
-// ================== GENERATE CONVERTER CARDS (unchanged) ==================
+// ================== GENERATE CONVERTER CARDS ==================
 const converters=[
   {title:"Length", icon:"fa-ruler", units:Object.keys(unitsData.length)},
   {title:"Weight", icon:"fa-weight-scale", units:Object.keys(unitsData.weight)},
@@ -61,6 +60,7 @@ const converters=[
   {title:"Pressure", icon:"fa-gauge-high", units:Object.keys(unitsData.pressure)},
   {title:"Data Size", icon:"fa-database", units:Object.keys(unitsData.datasize)}
 ];
+
 const container=document.getElementById('converter-container');
 converters.forEach(conv=>{
   const card=document.createElement('div'); card.className="converter-card";
@@ -78,7 +78,7 @@ converters.forEach(conv=>{
   container.appendChild(card);
 });
 
-// Conversion logic (unchanged)
+// ================== CONVERSION FUNCTION ==================
 function convertValue(key,val,from,to){
   if(key==="temperature"){
     let c=0;
@@ -96,6 +96,8 @@ function convertValue(key,val,from,to){
     return (val*unitsData[key][from]/unitsData[key][to]).toFixed(2);
   }
 }
+
+// ================== ADD CALCULATION EVENTS ==================
 document.querySelectorAll('.converter-card').forEach((card,i)=>{
   const key=converters[i].title.toLowerCase();
   const btn=card.querySelector('.calc-btn');
@@ -104,6 +106,7 @@ document.querySelectorAll('.converter-card').forEach((card,i)=>{
   const toSel=card.querySelector('.to-unit');
   const resDiv=card.querySelector('.result');
   const icon=card.querySelector('.anim-icon');
+
   btn.addEventListener('click',()=>{
     const val=parseFloat(input.value);
     if(isNaN(val)){alert("Enter valid number"); return;}
@@ -115,7 +118,7 @@ document.querySelectorAll('.converter-card').forEach((card,i)=>{
   });
 });
 
-// ================== SEARCH (unchanged) ==================
+// ================== SEARCH ==================
 document.getElementById('searchBtn').addEventListener('click',()=>{
   const q=document.getElementById('searchInput').value.toLowerCase();
   document.querySelectorAll('.converter-card').forEach(card=>{
@@ -126,9 +129,8 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== HEALTH & NUTRITION ==================
+// ================== CALORIES ==================
 document.getElementById('calorieBtn').addEventListener('click', calculateCalories);
-
 function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
   const weight=parseFloat(document.getElementById('weight').value);
@@ -136,209 +138,107 @@ function calculateCalories(){
   const gender=document.getElementById('gender').value;
   const activity=parseFloat(document.getElementById('activity').value);
   if(!age||!weight||!height){alert("Enter all values"); return;}
-
-  // BMR (Mifflin-St Jeor)
-  const bmr=(gender==="male")? (10*weight + 6.25*height - 5*age + 5)
-                            : (10*weight + 6.25*height - 5*age - 161);
-
-  const tdee=bmr*activity; // maintenance calories
-  // Macro suggestions (per day)
-  const proteinG = (weight*1.8);      // ~1.6–2.2 g/kg → show range below
-  const fatG     = (weight*0.8);      // ~0.6–1.0 g/kg
-  const carbsG   = (tdee - (proteinG*4 + fatG*9))/4;
-
-  // BMI and status
-  const bmi=weight/((height/100)**2);
-  let bmiStatus="";
-  if(bmi<18.5) bmiStatus="Underweight";
-  else if(bmi<24.9) bmiStatus="Normal";
-  else if(bmi<29.9) bmiStatus="Overweight";
-  else bmiStatus="Obese";
-
-  // Ideal weight range from BMI 18.5–24.9
-  const h2=(height/100)**2;
-  const idealMin=(18.5*h2);
-  const idealMax=(24.9*h2);
-
-  // Water intake (~35 ml/kg)
-  const waterLiters=(weight*0.035);
-
-  // Age/Gender advice
-  let adviceAge="";
-  if(age<18) adviceAge="Prioritize balanced growth (consult guardian/doctor for plans).";
-  else if(age<=35) adviceAge="Build consistency: strength + cardio, high-protein diet.";
-  else if(age<=50) adviceAge="Focus on recovery, mobility, protein, and fiber.";
-  else adviceAge="Heart-friendly diet, light resistance training, and daily walks.";
-  const advice = `${gender==='male'?'Male':'Female'} • ${bmiStatus}. ${adviceAge}`;
+  let bmr=(gender=="male")?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
+  let calories=bmr*activity;
+  let protein=weight*1.5;
+  let fat=weight*0.8;
+  let carbs=(calories-(protein*4+fat*9))/4;
+  let bmi=weight/((height/100)**2);
 
   const resultDiv=document.getElementById('calorieResult');
   resultDiv.innerHTML="";
 
   const cards=[
-    {title:"BMR", value:`${bmr.toFixed(0)} kcal`, sub:"Basal Metabolic Rate", color:"#ffab91", icon:"fa-bed"},
-    {title:"TDEE (Maintain)", value:`${tdee.toFixed(0)} kcal`, sub:"Daily calories to maintain weight", color:"#ff7043", icon:"fa-gauge"},
-    {title:"Cut (≈ -500 kcal)", value:`${Math.max(tdee-500,1200).toFixed(0)} kcal`, sub:"Approx. 0.5 kg / week", color:"#ef9a9a", icon:"fa-down-long"},
-    {title:"Bulk (≈ +300 kcal)", value:`${(tdee+300).toFixed(0)} kcal`, sub:"Lean muscle gain target", color:"#a5d6a7", icon:"fa-up-long"},
-    {title:"Protein (day)", value:`${proteinG.toFixed(0)} g`, sub:`Range: ${(weight*1.6).toFixed(0)}–${(weight*2.2).toFixed(0)} g`, color:"#66bb6a", icon:"fa-drumstick-bite"},
-    {title:"Fat (day)", value:`${fatG.toFixed(0)} g`, sub:`Range: ${(weight*0.6).toFixed(0)}–${(weight*1.0).toFixed(0)} g`, color:"#ffee58", icon:"fa-oil-can"},
-    {title:"Carbs (day)", value:`${Math.max(0,carbsG).toFixed(0)} g`, sub:"Remainder after protein & fat", color:"#42a5f5", icon:"fa-bread-slice"},
-    {title:"BMI", value:`${bmi.toFixed(1)} (${bmiStatus})`, sub:`Ideal weight: ${idealMin.toFixed(1)}–${idealMax.toFixed(1)} kg`, color:"#ab47bc", icon:"fa-scale-balanced"},
-    {title:"Water", value:`${waterLiters.toFixed(1)} L`, sub:"~35 ml per kg body weight", color:"#80deea", icon:"fa-droplet"},
-    {title:"Advice", value:advice, sub:"Personalized by age, gender & BMI", color:"#ffa726", icon:"fa-heart-pulse"}
+    {title:"Calories", value:calories.toFixed(2)+" kcal", color:"#ff7043", icon:"fa-fire"},
+    {title:"Protein", value:protein.toFixed(2)+" g", color:"#66bb6a", icon:"fa-drumstick-bite"},
+    {title:"Fat", value:fat.toFixed(2)+" g", color:"#ffee58", icon:"fa-oil-can"},
+    {title:"Carbs", value:carbs.toFixed(2)+" g", color:"#42a5f5", icon:"fa-bread-slice"},
+    {title:"BMI", value:bmi.toFixed(1), color:"#ab47bc", icon:"fa-weight"},
+    {title:"Advice", value:`${gender==='male'?'Male':'Female'} age ${age} advice: maintain healthy lifestyle`, color:"#ffa726", icon:"fa-heart-pulse"}
   ];
 
-  cards.forEach((c,i)=>{
-    const div=document.createElement('div');
-    div.className="calorie-card";
-    div.style.animationDelay=`${i*0.08}s`;
-    div.innerHTML=`
-      <h4><i class="fa-solid ${c.icon}"></i> ${c.title}</h4>
-      <p>${c.value}</p>
-      ${c.sub?`<small>${c.sub}</small>`:""}
-      <svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="12" fill="${c.color}"/></svg>`;
+  cards.forEach(c=>{
+    const div=document.createElement('div'); div.className="calorie-card";
+    div.innerHTML=`<h4>${c.title}</h4><p>${c.value}</p><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="12" fill="${c.color}"/></svg>`;
     resultDiv.appendChild(div);
   });
-
-  // Save latest TDEE for food summary progress
-  window.__LAST_TDEE__ = tdee;
 }
 
-// ================== FOOD CALORIES CALCULATOR ==================
-const foodsDB = {
-  "boiled rice":       {kcal:130, protein:2.4, carbs:28.0, fat:0.3},
-  "chicken breast":    {kcal:165, protein:31.0, carbs:0.0,  fat:3.6},
-  "beef (lean)":       {kcal:200, protein:26.0, carbs:0.0,  fat:10.0},
-  "egg (whole)":       {kcal:155, protein:13.0, carbs:1.1,  fat:11.0},
-  "milk (whole)":      {kcal:61,  protein:3.2, carbs:4.8,  fat:3.3},
-  "apple":             {kcal:52,  protein:0.3, carbs:14.0, fat:0.2},
-  "banana":            {kcal:89,  protein:1.1, carbs:23.0, fat:0.3},
-  "oats":              {kcal:389, protein:16.9,carbs:66.3, fat:6.9},
-  "almonds":           {kcal:579, protein:21.2,carbs:21.6, fat:49.9},
-  "peanut butter":     {kcal:588, protein:25.0,carbs:20.0, fat:50.0},
-  "salmon":            {kcal:208, protein:20.0,carbs:0.0,  fat:13.0},
-  "tuna (canned)":     {kcal:132, protein:29.0,carbs:0.0,  fat:1.0},
-  "potato (boiled)":   {kcal:87,  protein:1.9, carbs:20.0, fat:0.1},
-  "sweet potato":      {kcal:86,  protein:1.6, carbs:20.0, fat:0.1},
-  "broccoli":          {kcal:34,  protein:2.8, carbs:7.0,  fat:0.4},
-  "white bread":       {kcal:265, protein:9.0, carbs:49.0, fat:3.2},
-  "brown bread":       {kcal:252, protein:9.0, carbs:41.0, fat:3.5},
-  "chapati (roti)":    {kcal:297, protein:9.6, carbs:56.0, fat:4.0},
-  "biryani (chicken)": {kcal:215, protein:9.0, carbs:28.0, fat:7.0},
-  "shawarma (chicken)":{"kcal":240,"protein":14.0,"carbs":20.0,"fat":12.0}
+// ================== FOOD CALORIES ==================
+const foodData = {
+  "Apple":52, "Banana":89, "Orange":47, "Broccoli":34, "Carrot":41,
+  "Potato":77, "Rice":130, "Wheat Bread":265, "Chicken Breast":165,
+  "Beef":250, "Egg":155, "Milk":42, "Cheese":402, "Yogurt":59,
+  "Almonds":579, "Peanuts":567, "Salmon":208, "Tuna":132, "Shrimp":99,
+  "Avocado":160, "Butter":717, "Olive Oil":884, "Tomato":18, "Cucumber":16,
+  "Spinach":23, "Lentils":116, "Chickpeas":164, "Oats":389
+  // Add hundreds more here
 };
 
-// Populate datalist
-const foodListEl = document.getElementById('foodList');
-Object.keys(foodsDB).sort().forEach(name=>{
-  const opt=document.createElement('option'); opt.value=name; foodListEl.appendChild(opt);
+const foodSelect=document.getElementById('foodSelect');
+function populateFoodSelect(){
+  foodSelect.innerHTML="";
+  Object.keys(foodData).forEach(f=>{
+    const opt=document.createElement('option');
+    opt.value=f; opt.innerText=f;
+    foodSelect.appendChild(opt);
+  });
+}
+populateFoodSelect();
+
+document.getElementById('foodSearch').addEventListener('input',(e)=>{
+  const q=e.target.value.toLowerCase();
+  const filtered = Object.keys(foodData).filter(f=>f.toLowerCase().includes(q));
+  foodSelect.innerHTML="";
+  filtered.forEach(f=>{
+    const opt=document.createElement('option'); opt.value=f; opt.innerText=f;
+    foodSelect.appendChild(opt);
+  });
 });
 
-const foodTbody=document.getElementById('foodTbody');
-const foodSearch=document.getElementById('foodSearch');
-const foodGram=document.getElementById('foodGram');
-const addFoodBtn=document.getElementById('addFoodBtn');
-let foodLog=[];
+document.getElementById('foodCalcBtn').addEventListener('click',()=>{
+  const food=foodSelect.value;
+  const qty=parseFloat(document.getElementById('foodQty').value);
+  if(!food || isNaN(qty)){alert("Select food and enter quantity"); return;}
+  const calPer100=foodData[food];
+  const totalCal=(calPer100*qty/100).toFixed(2);
 
-addFoodBtn.addEventListener('click', addFoodRow);
-foodSearch.addEventListener('keydown', e=>{ if(e.key==='Enter') addFoodRow(); });
-foodGram.addEventListener('keydown', e=>{ if(e.key==='Enter') addFoodRow(); });
+  const resultDiv=document.getElementById('calorieResult');
+  const div=document.createElement('div'); div.className="calorie-card";
+  div.innerHTML=`<h4>${food} Calories</h4><p>${totalCal} kcal</p><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="12" fill="#ff7043"/></svg>`;
+  resultDiv.appendChild(div);
+});
 
-function addFoodRow(){
-  const name=(foodSearch.value||"").trim().toLowerCase();
-  const grams=parseFloat(foodGram.value);
-  if(!name || isNaN(grams) || grams<=0){
-    alert('Select a food and enter grams > 0');
-    return;
-  }
-  const base = foodsDB[name];
-  if(!base){
-    // allow custom food with kcal only (per 100g)
-    const customKcal = prompt('Food not in list. Enter kcal per 100g for "'+name+'":', '100');
-    const kcal100 = parseFloat(customKcal);
-    if(isNaN(kcal100)){ alert('Invalid kcal'); return; }
-    foodLog.push({name, grams, kcal: kcal100*grams/100, protein:0, carbs:0, fat:0});
-  } else {
-    foodLog.push({
-      name, grams,
-      kcal: base.kcal*grams/100,
-      protein: base.protein*grams/100,
-      carbs: base.carbs*grams/100,
-      fat: base.fat*grams/100
-    });
-  }
-  foodSearch.value=""; foodGram.value="";
-  renderFoodTable();
-}
-
-function renderFoodTable(){
-  foodTbody.innerHTML="";
-  let totG=0, totK=0, totP=0, totC=0, totF=0;
-
-  foodLog.forEach((row,idx)=>{
-    totG += row.grams;
-    totK += row.kcal;
-    totP += row.protein;
-    totC += row.carbs;
-    totF += row.fat;
-
-    const tr=document.createElement('tr');
-    tr.innerHTML=`
-      <td style="text-transform:capitalize">${row.name}</td>
-      <td>${row.grams.toFixed(0)}</td>
-      <td>${row.kcal.toFixed(0)}</td>
-      <td>${row.protein.toFixed(1)}</td>
-      <td>${row.carbs.toFixed(1)}</td>
-      <td>${row.fat.toFixed(1)}</td>
-      <td><button class="food-row-remove" data-idx="${idx}"><i class="fa-solid fa-trash"></i></button></td>
-    `;
-    foodTbody.appendChild(tr);
+// ================== EXPORT CSV ==================
+document.getElementById('exportCSVBtn').addEventListener('click',()=>{
+  const rows = [];
+  document.querySelectorAll('#calorieResult .calorie-card').forEach(card=>{
+    const title = card.querySelector('h4').innerText;
+    const value = card.querySelector('p').innerText;
+    rows.push([title, value]);
   });
+  if(rows.length===0){alert("No data to export"); return;}
+  let csvContent = "data:text/csv;charset=utf-8,Title,Value\n";
+  rows.forEach(r=>{csvContent+=r.join(",")+"\n";});
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "calorie_results.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
 
-  // Totals
-  document.getElementById('totG').innerText = totG.toFixed(0);
-  document.getElementById('totKcal').innerText = totK.toFixed(0);
-  document.getElementById('totP').innerText = totP.toFixed(1);
-  document.getElementById('totC').innerText = totC.toFixed(1);
-  document.getElementById('totF').innerText = totF.toFixed(1);
+// ================== PDF ↔ WORD ==================
+document.getElementById('pdfBtn').addEventListener('click',()=>{
+  const file=document.getElementById('pdfInput').files[0];
+  if(!file){alert("Select a PDF file"); return;}
+  // For demo, we just notify
+  document.getElementById('pdfWordResult').innerText="PDF → Word conversion is not supported locally in browser. Use server-side API.";
+});
 
-  // Remove listeners
-  document.querySelectorAll('.food-row-remove').forEach(btn=>{
-    btn.addEventListener('click', e=>{
-      const idx=parseInt(e.currentTarget.dataset.idx);
-      foodLog.splice(idx,1);
-      renderFoodTable();
-    });
-  });
-
-  // Summary vs TDEE
-  const tdee = window.__LAST_TDEE__;
-  const summaryEl = document.getElementById('foodSummary');
-  if(tdee){
-    const pct = Math.min(100, Math.round((totK / tdee) * 100));
-    summaryEl.innerHTML = `
-      <strong>Daily Progress:</strong> ${totK.toFixed(0)} / ${tdee.toFixed(0)} kcal (${pct}%)
-      <div style="margin-top:8px; width:100%; height:10px; border-radius:8px; background:#e3f2fd; overflow:hidden;">
-        <div style="height:100%; width:${pct}%; background:#42a5f5;"></div>
-      </div>
-    `;
-  } else {
-    summaryEl.innerHTML = `Tip: Calculate your <strong>TDEE</strong> above to see progress versus your daily target.`;
-  }
-}
-
-// ================== PDF TOOLS ==================
-function convertPdfToWord(){
-  const el=document.getElementById('pdfWordResult');
-  el.classList.remove('muted');
-  el.textContent="Conversion failed. Make sure it is a readable PDF.";
-}
-function convertWordToPdf(){
-  const el=document.getElementById('wordPdfResult');
-  el.classList.remove('muted');
-  el.textContent="Conversion failed. Make sure it is a readable Word file.";
-}
-
-// ================== Small animation keyframe ==================
-const style = document.createElement('style');
-style.innerHTML = `@keyframes spin {from{transform:rotate(0)} to{transform:rotate(360deg)}}`;
-document.head.appendChild(style);
+document.getElementById('wordBtn').addEventListener('click',()=>{
+  const file=document.getElementById('wordInput').files[0];
+  if(!file){alert("Select a Word file"); return;}
+  document.getElementById('wordPdfResult').innerText="Word → PDF conversion is not supported locally in browser. Use server-side API.";
+});

@@ -128,7 +128,7 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES (original estimator kept) ==================
+// ================== CALORIES (unchanged) ==================
 document.getElementById('calorieBtn').addEventListener('click', calculateCalories);
 function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
@@ -163,10 +163,8 @@ function calculateCalories(){
   });
 }
 
-// ================== NUTRITION: Food DB (expanded) ==================
-// Structure: per 100g kcal (unless serving_g provided, then 'serving' uses serving_g)
+// ================== NUTRITION: Food DB + CSV (same as before) ==================
 const FOOD_DB = [
-  // Fruits & Veg
   {name:"Apple", per100g:52, serving_g:182, category:"Fruits"},
   {name:"Banana", per100g:89, serving_g:118, category:"Fruits"},
   {name:"Orange", per100g:47, serving_g:131, category:"Fruits"},
@@ -186,8 +184,6 @@ const FOOD_DB = [
   {name:"Sweet Potato (baked)", per100g:90, serving_g:130, category:"Vegetables"},
   {name:"Onion", per100g:40, serving_g:110, category:"Vegetables"},
   {name:"Eggplant (grilled)", per100g:35, serving_g:100, category:"Vegetables"},
-
-  // Proteins & Staples
   {name:"Chicken Breast (grilled)", per100g:165, serving_g:120, category:"Protein"},
   {name:"Chicken Thigh (grilled)", per100g:209, serving_g:120, category:"Protein"},
   {name:"Beef (lean, grilled)", per100g:250, serving_g:120, category:"Protein"},
@@ -209,8 +205,6 @@ const FOOD_DB = [
   {name:"Pasta (cooked)", per100g:157, serving_g:140, category:"Grains"},
   {name:"Bread (white slice)", per100g:265, serving_g:25, category:"Grains"},
   {name:"Bread (brown slice)", per100g:247, serving_g:25, category:"Grains"},
-
-  // Arabic / Indian dishes
   {name:"Chicken Biryani", per100g:179, serving_g:250, category:"Meals"},
   {name:"Mutton Biryani", per100g:205, serving_g:250, category:"Meals"},
   {name:"Beef Biryani", per100g:210, serving_g:250, category:"Meals"},
@@ -236,8 +230,6 @@ const FOOD_DB = [
   {name:"Aloo Gobi", per100g:120, serving_g:200, category:"Meals"},
   {name:"Palak Paneer", per100g:190, serving_g:200, category:"Meals"},
   {name:"Baqala (Foul Medames)", per100g:110, serving_g:180, category:"Meals"},
-
-  // Fast food & snacks
   {name:"Burger (beef, single)", per100g:250, serving_g:200, category:"Fast Food"},
   {name:"Cheeseburger", per100g:280, serving_g:200, category:"Fast Food"},
   {name:"Chicken Burger", per100g:240, serving_g:200, category:"Fast Food"},
@@ -254,8 +246,6 @@ const FOOD_DB = [
   {name:"Mixed Nuts (roasted)", per100g:607, serving_g:28, category:"Snacks"},
   {name:"Chocolate Bar (milk)", per100g:535, serving_g:45, category:"Snacks"},
   {name:"Biscuits (digestive)", per100g:475, serving_g:25, category:"Snacks"},
-
-  // Breakfast & dairy
   {name:"Oatmeal (cooked)", per100g:68, serving_g:234, category:"Breakfast"},
   {name:"Cornflakes", per100g:357, serving_g:30, category:"Breakfast"},
   {name:"Pancake (plain)", per100g:227, serving_g:80, category:"Breakfast"},
@@ -265,8 +255,6 @@ const FOOD_DB = [
   {name:"Laban / Ayran", per100g:43, serving_g:250, category:"Dairy"},
   {name:"Cheddar Cheese", per100g:403, serving_g:28, category:"Dairy"},
   {name:"Butter", per100g:717, serving_g:14, category:"Dairy"},
-
-  // Beverages & sweets
   {name:"Karak Tea (sweet)", per100g:80, serving_g:200, category:"Beverage"},
   {name:"Milk Tea (sweet)", per100g:60, serving_g:220, category:"Beverage"},
   {name:"Black Tea (no sugar)", per100g:1, serving_g:240, category:"Beverage"},
@@ -282,17 +270,13 @@ const FOOD_DB = [
   {name:"Ice Cream (vanilla)", per100g:207, serving_g:66, category:"Dessert"},
 ];
 
-// Build select with options (grouped by category in label)
 const foodSelect = document.getElementById('foodSelect');
 function populateFoodSelect() {
   const sorted = [...FOOD_DB].sort((a,b)=> a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-  foodSelect.innerHTML = sorted.map(f => {
-    return `<option value="${f.name}">${f.name} — ${f.category}</option>`;
-  }).join('');
+  foodSelect.innerHTML = sorted.map(f => `<option value="${f.name}">${f.name} — ${f.category}</option>`).join('');
 }
 populateFoodSelect();
 
-// Search assist
 const foodSearch = document.getElementById('foodSearch');
 foodSearch.addEventListener('input', ()=>{
   const q = foodSearch.value.toLowerCase();
@@ -301,7 +285,6 @@ foodSearch.addEventListener('input', ()=>{
   if(!foodSelect.value && filtered[0]) foodSelect.value = filtered[0].name;
 });
 
-// Add food rows
 const foodTbody = document.getElementById('foodTbody');
 const grandTotalCell = document.getElementById('grandTotalCell');
 let foodRows = [];
@@ -320,7 +303,7 @@ document.getElementById('addFoodBtn').addEventListener('click', ()=>{
     perLabel = `${item.per100g} per 100g`;
     totalKcal = (item.per100g * (qty/100));
   } else {
-    const servingG = item.serving_g || 100; // fallback if not provided
+    const servingG = item.serving_g || 100;
     const kcalPerServing = item.per100g * (servingG/100);
     perLabel = `${Math.round(kcalPerServing)} per serving (~${servingG}g)`;
     totalKcal = kcalPerServing * qty;
@@ -344,7 +327,6 @@ function drawFoodTable(){
     </tr>
   `).join('');
 
-  // bind delete buttons
   document.querySelectorAll('.delRowBtn').forEach(btn=>{
     btn.addEventListener('click',(e)=>{
       const tr = e.target.closest('tr');
@@ -354,12 +336,10 @@ function drawFoodTable(){
     });
   });
 
-  // grand total
   const total = foodRows.reduce((s,r)=> s + r.total, 0);
   grandTotalCell.textContent = total;
 }
 
-// Clear list
 document.getElementById('clearFoodBtn').addEventListener('click', ()=>{
   if(confirm('Clear all foods?')) {
     foodRows = [];
@@ -367,16 +347,11 @@ document.getElementById('clearFoodBtn').addEventListener('click', ()=>{
   }
 });
 
-// CSV Export
 document.getElementById('downloadCsvBtn').addEventListener('click', ()=>{
   if(foodRows.length === 0){ alert('No items to export.'); return; }
   const header = ['Food','Quantity','Unit','Kcal Per Unit','Total Kcal'];
   const rows = foodRows.map(r => [r.name, r.qty, r.unit, r.perLabel, r.total]);
-  const csv = [header, ...rows].map(line => line.map(cell => {
-    const s = String(cell).replace(/"/g,'""');
-    return `"${s}"`;
-  }).join(',')).join('\r\n');
-
+  const csv = [header, ...rows].map(line => line.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\r\n');
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -388,71 +363,151 @@ document.getElementById('downloadCsvBtn').addEventListener('click', ()=>{
   URL.revokeObjectURL(url);
 });
 
-// ================== PDF TOOLS ==================
-// Replace PDF→Word with client-side conversion using PDF.js + docx
-const pdfInput = document.getElementById('pdfInput');
-const pdfToWordBtn = document.getElementById('pdfToWordBtn');
-const pdfWordResult = document.getElementById('pdfWordResult');
+// ================== YOUTUBE TOOLS ==================
+const ytFetchBtn = document.getElementById('ytFetchBtn');
+const ytUrlInput = document.getElementById('ytUrl');
+const ytResult = document.getElementById('ytResult');
+const ytIdText = document.getElementById('ytIdText');
+const thumbGrid = document.getElementById('thumbGrid');
+const ytTitleWrap = document.getElementById('ytTitleWrap');
+const buildLinksBtn = document.getElementById('buildLinksBtn');
+const clipStart = document.getElementById('clipStart');
+const clipEnd = document.getElementById('clipEnd');
+const watchLink = document.getElementById('watchLink');
+const watchOpen = document.getElementById('watchOpen');
+const embedLink = document.getElementById('embedLink');
+const embedOpen = document.getElementById('embedOpen');
 
-pdfToWordBtn.addEventListener('click', async ()=>{
-  const file = pdfInput.files && pdfInput.files[0];
-  if(!file){ pdfWordResult.textContent = "Please select a PDF first."; return; }
-
-  pdfWordResult.textContent = "Reading PDF and preparing Word file...";
-
+function parseYouTubeId(url){
   try {
-    const arrayBuf = await file.arrayBuffer();
+    // direct ID
+    if(/^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
 
-    // Load PDF with pdf.js
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuf }).promise;
-    const totalPages = pdf.numPages;
-
-    // Build DOCX
-    const { Document, Packer, Paragraph } = docx;
-    const doc = new Document({
-      sections: [{ properties: {}, children: [] }]
-    });
-
-    for(let p=1; p<=totalPages; p++){
-      const page = await pdf.getPage(p);
-      const content = await page.getTextContent();
-      const pageText = content.items.map(i => i.str).join(' ');
-      // Add page header and text
-      doc.sections[0].children.push(
-        new Paragraph({ text: `Page ${p}/${totalPages}`, spacing:{after:200} }),
-      );
-      // Split long text into smaller paragraphs
-      pageText.split(/(?<=\.)\s+/).forEach(chunk=>{
-        if(chunk.trim()){
-          doc.sections[0].children.push(new Paragraph(chunk.trim()));
-        }
-      });
-      if(p < totalPages){
-        doc.sections[0].children.push(new Paragraph('')); // spacer
-      }
+    const u = new URL(url);
+    if(u.hostname.includes('youtu.be')) {
+      return u.pathname.slice(1).split('/')[0];
     }
+    if(u.searchParams.get('v')) {
+      return u.searchParams.get('v');
+    }
+    const m = u.pathname.match(/\/embed\/([a-zA-Z0-9_-]{11})/);
+    if(m) return m[1];
+  } catch(e) {}
+  return null;
+}
 
-    const blob = await Packer.toBlob(doc);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = file.name.replace(/\.pdf$/i,'') + '.docx';
-    a.textContent = 'Download Word File';
-    a.className = 'download-btn-like';
-    pdfWordResult.innerHTML = '';
-    pdfWordResult.appendChild(a);
+function buildThumbCard(label, url){
+  return `
+    <div class="thumb-card">
+      <img src="${url}" alt="${label}" onerror="this.closest('.thumb-card').style.display='none'">
+      <div class="thumb-actions">
+        <a href="${url}" download>Download</a>
+        <a href="${url}" target="_blank">Open</a>
+      </div>
+    </div>
+  `;
+}
 
-    // Clean up url after some time
-    setTimeout(()=>URL.revokeObjectURL(url), 60000);
+async function tryFetchTitle(oembedUrl){
+  try {
+    const res = await fetch(oembedUrl);
+    if(!res.ok) return null;
+    const json = await res.json();
+    if(json && json.title) return json.title;
+  } catch(e){ /* CORS may block; ignore */ }
+  return null;
+}
 
-  } catch(err){
-    console.error(err);
-    pdfWordResult.textContent = "Conversion failed. Make sure it is a readable PDF.";
+ytFetchBtn.addEventListener('click', async ()=>{
+  const raw = ytUrlInput.value.trim();
+  const id = parseYouTubeId(raw);
+  if(!id){ alert('Please paste a valid YouTube URL or 11-char video ID.'); return; }
+
+  ytIdText.textContent = id;
+  ytResult.classList.remove('yt-hidden');
+
+  // Thumbnails
+  const base = `https://img.youtube.com/vi/${id}`;
+  const thumbs = [
+    {label:'maxresdefault', url:`${base}/maxresdefault.jpg`},
+    {label:'sddefault',     url:`${base}/sddefault.jpg`},
+    {label:'hqdefault',     url:`${base}/hqdefault.jpg`},
+    {label:'mqdefault',     url:`${base}/mqdefault.jpg`},
+    {label:'default',       url:`${base}/default.jpg`}
+  ];
+  thumbGrid.innerHTML = thumbs.map(t => buildThumbCard(t.label, t.url)).join('');
+
+  // Title via oEmbed (may be blocked by CORS; best-effort)
+  ytTitleWrap.innerHTML = '';
+  const oe = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`;
+  const title = await tryFetchTitle(oe);
+  if(title){
+    ytTitleWrap.innerHTML = `<strong>Title:</strong> ${title}`;
   }
+
+  // Reset links & QR
+  watchLink.value = `https://www.youtube.com/watch?v=${id}`;
+  watchOpen.href = watchLink.value;
+  embedLink.value = `https://www.youtube.com/embed/${id}`;
+  embedOpen.href = embedLink.value;
+  renderQR(watchLink.value);
 });
 
-// Word→PDF (client-side not supported)
-document.getElementById('wordToPdfBtn').addEventListener('click', ()=>{
-  const div = document.getElementById('wordPdfResult');
-  div.textContent = "Word → PDF is not supported locally in the browser.";
+function toSeconds(s){
+  if(!s) return null;
+  if(/^\d+$/.test(s)) return parseInt(s,10);
+  const parts = s.split(':').map(n=>parseInt(n,10));
+  if(parts.some(isNaN)) return null;
+  if(parts.length === 3) return parts[0]*3600 + parts[1]*60 + parts[2];
+  if(parts.length === 2) return parts[0]*60 + parts[1];
+  if(parts.length === 1) return parts[0];
+  return null;
+}
+
+function renderQR(text){
+  const box = document.getElementById('qrcode');
+  box.innerHTML = '';
+  new QRCode(box, {
+    text,
+    width: 170,
+    height: 170,
+  });
+}
+
+buildLinksBtn.addEventListener('click', ()=>{
+  const id = ytIdText.textContent.trim();
+  if(!id){ alert('Fetch a video first.'); return; }
+
+  const s = toSeconds(clipStart.value.trim());
+  const e = toSeconds(clipEnd.value.trim());
+
+  // Watch link: supports start param via t= (end not supported on watch)
+  const wl = new URL(`https://www.youtube.com/watch?v=${id}`);
+  if(Number.isInteger(s) && s >= 0) wl.searchParams.set('t', String(s));
+  watchLink.value = wl.toString();
+  watchOpen.href = wl.toString();
+
+  // Embed link: supports start & end
+  const el = new URL(`https://www.youtube.com/embed/${id}`);
+  if(Number.isInteger(s) && s >= 0) el.searchParams.set('start', String(s));
+  if(Number.isInteger(e) && e >= 0) el.searchParams.set('end', String(e));
+  el.searchParams.set('autoplay', '1');
+  embedLink.value = el.toString();
+  embedOpen.href = el.toString();
+
+  renderQR(watchLink.value);
+});
+
+// Copy buttons
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  const selector = btn.getAttribute('data-copy');
+  const input = document.querySelector(selector);
+  if(!input) return;
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand('copy');
+  btn.textContent = 'Copied!';
+  setTimeout(()=>{ btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy'; }, 1200);
 });

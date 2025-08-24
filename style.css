@@ -60,6 +60,7 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
 .pdf-container button:hover {background:#388e3c; transform:translateY(-2px);}
 #pdfWordResult, #wordPdfResult {margin-top:10px; font-weight:bold; color:#0d47a1;}
+.sandbox-toggle {display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:0.95rem; color:#2e7d32;}
 
 /* ===== ADS ===== */
 .ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}

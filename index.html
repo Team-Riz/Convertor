@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Advanced All-in-One Converter</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All-in-One Converter & Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
 <header>
-  <h1><i class="fas fa-sun"></i> Advanced Converter</h1>
+  <h1><i class="fa-solid fa-toolbox"></i> Utility App</h1>
   <div class="header-right">
-    <input type="text" placeholder="Search converters..." id="searchInput">
+    <input type="text" id="searchInput" placeholder="Search converters...">
     <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-    <button id="modeToggle"><i class="fa-solid fa-moon"></i> Dark Mode</button>
+    <button id="modeToggle"><i class="fa-solid fa-sun"></i> Light Mode</button>
   </div>
 </header>
 
 <div class="tab-nav">
-  <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
-  <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-bolt"></i> Nutrition &amp; Calories</button>
-  <button class="tab-btn" data-tab="tab-youtube"><i class="fa-brands fa-youtube"></i> YouTube Tools</button>
-  <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
+  <button class="tab-btn active" data-tab="convertersTab"><i class="fa-solid fa-ruler"></i> Converters</button>
+  <button class="tab-btn" data-tab="calorieTab"><i class="fa-solid fa-fire"></i> Calorie</button>
+  <button class="tab-btn" data-tab="nutritionTab"><i class="fa-solid fa-database"></i> Nutrition</button>
+  <button class="tab-btn" data-tab="youtubeTab"><i class="fa-brands fa-youtube"></i> YouTube</button>
+  <button class="tab-btn" data-tab="aboutTab"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- ============== CONVERTERS (unchanged) ============== -->
-<div id="tab-converters" class="tab-content active">
+<!-- ===== TAB CONTENTS ===== -->
+<div class="tab-content active" id="convertersTab">
   <div id="converter-container" class="grid"></div>
 </div>
 
-<!-- ============== NUTRITION & CALORIES (unchanged visuals) ============== -->
-<div id="tab-calories" class="tab-content">
+<div class="tab-content" id="calorieTab">
   <div class="calorie-form">
     <input type="number" id="age" placeholder="Age">
     <input type="number" id="weight" placeholder="Weight (kg)">
@@ -40,131 +40,103 @@
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
-    <select id="activity">
-      <option value="1.2">Sedentary</option>
-      <option value="1.375">Lightly Active</option>
-      <option value="1.55">Moderately Active</option>
-      <option value="1.725">Very Active</option>
-    </select>
+    <input type="number" id="activity" placeholder="Activity multiplier (e.g., 1.2)">
     <button id="calorieBtn"><i class="fa-solid fa-calculator"></i> Calculate</button>
   </div>
   <div id="calorieResult" class="calorie-result-grid"></div>
+</div>
 
-  <!-- Food Calories Calculator -->
+<div class="tab-content" id="nutritionTab">
   <div class="nutrition-wrapper">
-    <h3 class="nutrition-heading"><i class="fa-solid fa-utensils"></i> Food Calories Calculator</h3>
-
-    <div class="nutrition-controls">
-      <div class="nutrition-row">
-        <input id="foodSearch" type="text" placeholder="Search food (e.g., chicken biryani, apple, karak tea)"/>
-        <select id="foodSelect"></select>
-      </div>
-      <div class="nutrition-row">
-        <input id="foodQty" type="number" min="1" step="1" value="1" placeholder="Quantity"/>
-        <select id="foodUnit">
-          <option value="serving">serving</option>
-          <option value="g">grams</option>
-        </select>
-        <button id="addFoodBtn"><i class="fa-solid fa-plus"></i> Add</button>
-      </div>
+    <h3 class="nutrition-heading">Nutrition Tracker</h3>
+    <div class="nutrition-controls nutrition-row">
+      <select id="foodSelect"></select>
+      <input type="number" id="foodQty" placeholder="Qty">
+      <select id="foodUnit">
+        <option value="g">g</option>
+        <option value="serving">Serving</option>
+      </select>
+      <button id="addFoodBtn">Add</button>
     </div>
-
     <div class="nutrition-table-wrap">
-      <table class="nutrition-table" id="foodTable">
+      <table class="nutrition-table">
         <thead>
           <tr>
             <th>Food</th>
             <th>Qty</th>
             <th>Unit</th>
-            <th>kcal / 100g (or per serving)</th>
-            <th>Total kcal</th>
-            <th></th>
+            <th>Kcal/Unit</th>
+            <th>Total Kcal</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody id="foodTbody"></tbody>
         <tfoot>
           <tr>
-            <td colspan="4" style="text-align:right;font-weight:bold;">Grand Total:</td>
-            <td id="grandTotalCell" style="font-weight:bold;">0</td>
+            <td colspan="4"><strong>Grand Total</strong></td>
+            <td id="grandTotalCell">0</td>
             <td></td>
           </tr>
         </tfoot>
       </table>
     </div>
-
     <div class="nutrition-actions">
-      <button id="downloadCsvBtn"><i class="fa-solid fa-file-csv"></i> Download CSV</button>
-      <button id="clearFoodBtn" class="danger"><i class="fa-solid fa-broom"></i> Clear</button>
+      <button id="clearFoodBtn" class="danger">Clear All</button>
+      <button id="downloadCsvBtn">Export CSV</button>
     </div>
   </div>
 </div>
 
-<!-- ============== YOUTUBE TOOLS (new) ============== -->
-<div id="tab-youtube" class="tab-content">
+<div class="tab-content" id="youtubeTab">
   <div class="media-container">
-    <h3 style="margin-top:0"><i class="fa-brands fa-youtube"></i> YouTube Tools</h3>
-    <p class="small-note">
-      Paste any YouTube link to view & download thumbnails and generate shareable clip links (start/end).<br>
-      <strong>Note:</strong> This tool does <em>not</em> download videos and respects YouTube’s Terms of Service.
-    </p>
-
-    <input type="text" id="ytUrl" placeholder="Paste YouTube URL (e.g., https://youtu.be/VIDEOID or https://www.youtube.com/watch?v=VIDEOID)">
-    <button id="ytFetchBtn"><i class="fa-solid fa-link"></i> Fetch</button>
-
-    <div id="ytResult" class="yt-hidden">
+    <input type="text" id="ytUrl" placeholder="Paste YouTube URL or ID">
+    <button id="ytFetchBtn">Fetch Video</button>
+    <div class="yt-hidden" id="ytResult">
+      <p>Video ID: <span id="ytIdText"></span></p>
       <div class="yt-meta">
-        <div><strong>Video ID:</strong> <span id="ytIdText">—</span></div>
-        <div id="ytTitleWrap" class="small-note"></div>
+        <div id="ytTitleWrap"></div>
+        <div id="thumbGrid" class="thumb-grid"></div>
       </div>
-
-      <h4>Thumbnails</h4>
-      <div class="thumb-grid" id="thumbGrid"></div>
-
-      <h4>Create Clip Link</h4>
       <div class="clip-form">
-        <input type="text" id="clipStart" placeholder="Start time (e.g., 1:23 or 83)">
-        <input type="text" id="clipEnd" placeholder="End time (optional, e.g., 2:45 or 165)">
-        <button id="buildLinksBtn"><i class="fa-solid fa-wand-magic-sparkles"></i> Build Links</button>
+        <input type="text" id="clipStart" placeholder="Start (hh:mm:ss)">
+        <input type="text" id="clipEnd" placeholder="End (hh:mm:ss)">
+        <button id="buildLinksBtn">Build Links</button>
       </div>
-
       <div class="clip-links">
         <div>
-          <label>Watch Link (start only):</label>
-          <input type="text" id="watchLink" readonly>
-          <button data-copy="#watchLink" class="copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
-          <a id="watchOpen" target="_blank" class="open-btn">Open</a>
+          <input type="text" id="watchLink">
+          <a href="#" target="_blank" id="watchOpen" class="open-btn">Open</a>
+          <button class="copy-btn" data-copy="#watchLink"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
         <div>
-          <label>Embed Link (start &amp; end):</label>
-          <input type="text" id="embedLink" readonly>
-          <button data-copy="#embedLink" class="copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
-          <a id="embedOpen" target="_blank" class="open-btn">Open</a>
+          <input type="text" id="embedLink">
+          <a href="#" target="_blank" id="embedOpen" class="open-btn">Open</a>
+          <button class="copy-btn" data-copy="#embedLink"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
       </div>
-
-      <h4>QR Code</h4>
       <div id="qrcode" class="qr-box"></div>
     </div>
   </div>
 </div>
 
-<!-- ============== ABOUT (unchanged) ============== -->
-<div id="tab-about" class="tab-content">
-  <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and use YouTube utilities.</p>
-  <ul>
-    <li>⚡ Fast & Interactive</li>
-    <li>✅ Accurate & Bidirectional</li>
-    <li>💻 Works on all devices</li>
-    <li>🌐 Free & Always Online</li>
-  </ul>
-  <div class="ads">Google Ads Placeholder</div>
+<div class="tab-content" id="aboutTab">
+  <div class="about-wrapper">
+    <div class="about-header"><i class="fa-solid fa-info-circle"></i> About This App</div>
+    <div class="about-content">
+      <p>This app combines unit converters, calorie calculators, nutrition database, and YouTube tools into a single interface with live updates and interactive features.</p>
+      <div class="about-features">
+        <div class="feature-card"><i class="fa-solid fa-ruler"></i> Length & Measurement Converters</div>
+        <div class="feature-card"><i class="fa-solid fa-fire"></i> Calorie & Nutrition Tracking</div>
+        <div class="feature-card"><i class="fa-solid fa-database"></i> Extensive Food Database</div>
+        <div class="feature-card"><i class="fa-brands fa-youtube"></i> YouTube Video Tools</div>
+        <div class="feature-card"><i class="fa-solid fa-moon"></i> Dark & Light Mode Toggle</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Optional libs used by YouTube tab -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<div class="ads">Your ad space here</div>
 
-<!-- Converters & Nutrition remain the same logic file -->
 <script src="script.js"></script>
 </body>
 </html>

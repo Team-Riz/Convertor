@@ -31,11 +31,7 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .tab-content.active {display:block;}
 @keyframes fadeIn {0%{opacity:0;}100%{opacity:1;}}
 
-.section-title{
-  display:flex; align-items:center; gap:10px; margin:10px 0 12px; color:#0d47a1;
-}
-
-/* ===== CONVERTER CARDS (unchanged visuals) ===== */
+/* ===== CONVERTER CARDS ===== */
 .grid {display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1rem;}
 .converter-card {background:linear-gradient(145deg,#fff,#e3f2fd); padding:20px; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:0.3s; position:relative; overflow:hidden;}
 .converter-card:hover {transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.25);}
@@ -48,152 +44,22 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .result.show {animation: pop 0.3s;}
 @keyframes pop {0%{transform:scale(0.8);opacity:0;}50%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
 
-/* ===== HEALTH & NUTRITION FORM ===== */
-.calorie-form input, .calorie-form select, .calorie-form button {
-  width:100%;
-  padding:12px;
-  margin-bottom:12px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:1rem;
-}
-.calorie-form button {
-  background:#ff5722;
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
-  position:relative;
-  overflow:hidden;
-}
-.calorie-form button:hover {background:#e64a19; transform:scale(1.02);}
-.calorie-form button::after {
-  content:"";
-  position:absolute;
-  width:120%;
-  height:120%;
-  top:-10%;
-  left:-10%;
-  background:rgba(255,255,255,0.3);
-  transform:scale(0);
-  border-radius:50%;
-  transition:transform 0.4s ease;
-}
-.calorie-form button:active::after { transform:scale(1); }
+/* ===== CALORIES FORM ===== */
+.calorie-form input, .calorie-form select, .calorie-form button,
+.food-calorie-form input, .food-calorie-form select, .food-calorie-form button {width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ccc;}
+.calorie-form button, .food-calorie-form button, .export-btn {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
+.calorie-form button:hover, .food-calorie-form button:hover, .export-btn:hover {background:#e64a19; transform:translateY(-2px);}
+.calorie-result-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; margin-top:15px;}
+.calorie-card {background:linear-gradient(145deg,#fff3e0,#ffe0b2); padding:15px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:0.3s; position:relative; overflow:hidden;}
+.calorie-card h4 {margin:0 0 10px; color:#ff5722;}
+.calorie-card p {margin:5px 0; font-weight:bold; color:#bf360c;}
+.calorie-card svg {position:absolute; top:10px; right:10px; width:30px; height:30px;}
 
-/* ===== HEALTH RESULTS ===== */
-.calorie-result-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:15px;
-  margin-top:15px;
-}
-.calorie-card {
-  background:linear-gradient(145deg,#fff3e0,#ffe0b2);
-  padding:15px;
-  border-radius:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
-  transition:0.4s;
-  position:relative;
-  overflow:hidden;
-  transform:scale(0.95);
-  opacity:0;
-  animation:fadeUp 0.5s ease forwards;
-}
-.calorie-card:hover { transform:scale(1.05); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
-@keyframes fadeUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
-.calorie-card h4 {margin:0 0 10px; color:#ff5722; font-size:1.05rem; display:flex; align-items:center; gap:8px;}
-.calorie-card p {margin:5px 0; font-weight:bold; color:#bf360c; font-size:1rem;}
-.calorie-card small {color:#7b4a1a;}
-.calorie-card svg { position:absolute; top:10px; right:10px; width:35px; height:35px; animation:pulse 2s infinite; }
-@keyframes pulse { 0%{transform:scale(1);opacity:0.7;} 50%{transform:scale(1.2);opacity:1;} 100%{transform:scale(1);opacity:0.7;} }
-
-.divider{ border:none; height:1px; background:linear-gradient(90deg, transparent, #90caf9, transparent); margin:24px 0; }
-
-/* ===== FOOD CALCULATOR ===== */
-.food-section{
-  background:linear-gradient(145deg,#f7fff1,#e8f5e9);
-  border:1px solid #c5e1a5;
-  border-radius:14px;
-  padding:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
-.food-controls{
-  display:grid;
-  grid-template-columns: 1fr 160px 140px;
-  gap:10px;
-  margin-bottom:12px;
-}
-.food-controls button{
-  background:#43a047; color:#fff; border:none; border-radius:10px; padding:10px; cursor:pointer; transition:.25s;
-}
-.food-controls button:hover{ background:#2e7d32; transform:translateY(-1px); }
-
-.food-table-wrap{ overflow-x:auto; }
-.food-table{
-  width:100%;
-  border-collapse:separate;
-  border-spacing:0;
-  overflow:hidden;
-  border-radius:10px;
-  box-shadow:0 4px 14px rgba(0,0,0,0.08);
-}
-.food-table thead th{
-  background:#a5d6a7;
-  color:#1b5e20;
-  padding:10px;
-  text-align:left;
-  font-weight:700;
-}
-.food-table tbody td, .food-table tfoot th{
-  background:#fff;
-  padding:10px;
-  border-bottom:1px solid #eee;
-}
-.food-table tfoot th{
-  background:#e8f5e9;
-  font-weight:800;
-}
-.food-row-remove{
-  background:#ef5350; color:#fff; border:none; border-radius:8px; padding:6px 10px; cursor:pointer; transition:.2s;
-}
-.food-row-remove:hover{ background:#c62828; }
-
-.food-summary{
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  background:linear-gradient(145deg,#fff,#e3f2fd);
-  border:1px solid #bbdefb;
-  color:#0d47a1;
-  box-shadow:0 6px 16px rgba(0,0,0,0.06);
-}
-
-/* ===== PDF TOOLS – polished colors ===== */
-.pdf-container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:16px;
-  background:linear-gradient(145deg,#f3f7ff,#eaf5ff);
-  border:1px solid #bbdefb;
-  border-radius:14px;
-  padding:16px;
-  box-shadow:0 8px 22px rgba(0,0,0,0.08);
-}
-.pdf-card{
-  background:linear-gradient(145deg,#ffffff,#f1f8ff);
-  border:1px solid #cfe8ff;
-  border-radius:12px;
-  padding:14px;
-  box-shadow:0 6px 16px rgba(0,0,0,0.08);
-}
-.pdf-card h3{ margin:0 0 8px; color:#1565c0; display:flex; align-items:center; gap:8px; }
+/* ===== PDF TOOLS ===== */
 .pdf-container input, .pdf-container button {display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;}
-.pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s; border:none;}
+.pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
 .pdf-container button:hover {background:#388e3c; transform:translateY(-2px);}
-.pdf-result{ padding:10px; border-radius:8px; }
-.pdf-result.muted{ color:#607d8b; }
+#pdfWordResult, #wordPdfResult {margin-top:10px; font-weight:bold; color:#0d47a1;}
 
 /* ===== ADS ===== */
 .ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}
@@ -207,10 +73,4 @@ body.dark .converter-card input, body.dark .converter-card select {background:#2
 body.dark .converter-card button {background:#0d47a1;}
 body.dark .converter-card .result {background:rgba(13,71,161,0.2); color:#bbdefb;}
 body.dark .calorie-card {background:#263238; color:#fff;}
-body.dark .food-section{ background:linear-gradient(145deg,#1b2a1b,#102610); border-color:#2e7d32; }
-body.dark .food-table thead th{ background:#1b5e20; color:#e8f5e9; }
-body.dark .food-table tbody td{ background:#1f1f1f; color:#e0e0e0; border-bottom-color:#333; }
-body.dark .food-table tfoot th{ background:#102610; color:#c8e6c9; }
-body.dark .food-summary{ background:linear-gradient(145deg,#1a1a1a,#0d47a1); border-color:#1565c0; color:#e3f2fd; }
-body.dark .pdf-container{ background:linear-gradient(145deg,#0f1b2d,#0a1423); border-color:#0d47a1; }
-body.dark .pdf-card{ background:#121a29; border-color:#0d47a1; }
+body.dark .calorie-card p {color:#fff;}

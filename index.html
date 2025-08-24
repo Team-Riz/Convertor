@@ -20,20 +20,20 @@
 
 <div class="tab-nav">
   <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
-  <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-heart-pulse"></i> Health &amp; Nutrition</button>
+  <button class="tab-btn" data-tab="tab-nutrition"><i class="fa-solid fa-bolt"></i> Nutrition & Calories</button>
   <button class="tab-btn" data-tab="tab-pdf"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
   <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- Converters (unchanged) -->
+<!-- ================= CONVERTERS TAB ================= -->
 <div id="tab-converters" class="tab-content active">
   <div id="converter-container" class="grid"></div>
 </div>
 
-<!-- Health & Nutrition -->
-<div id="tab-calories" class="tab-content">
-  <h2 class="section-title"><i class="fa-solid fa-calculator"></i> Daily Needs Calculator</h2>
+<!-- ================= NUTRITION & CALORIES TAB ================= -->
+<div id="tab-nutrition" class="tab-content">
   <div class="calorie-form">
+    <h3>Personal Daily Calories</h3>
     <input type="number" id="age" placeholder="Age">
     <input type="number" id="weight" placeholder="Weight (kg)">
     <input type="number" id="height" placeholder="Height (cm)">
@@ -47,78 +47,39 @@
       <option value="1.55">Moderately Active</option>
       <option value="1.725">Very Active</option>
     </select>
-    <button id="calorieBtn" class="ripple"><i class="fa-solid fa-calculator"></i> Calculate</button>
+    <button id="calorieBtn"><i class="fa-solid fa-calculator"></i> Calculate</button>
   </div>
+
+  <div class="food-calorie-form">
+    <h3>Food Calories Calculator</h3>
+    <input type="text" id="foodSearch" placeholder="Search food...">
+    <select id="foodSelect"></select>
+    <input type="number" id="foodQty" placeholder="Quantity (grams)">
+    <button id="foodCalcBtn"><i class="fa-solid fa-utensils"></i> Calculate Food Calories</button>
+  </div>
+
   <div id="calorieResult" class="calorie-result-grid"></div>
-
-  <hr class="divider">
-
-  <h2 class="section-title"><i class="fa-solid fa-bowl-food"></i> Food Calories Calculator</h2>
-  <div class="food-section">
-    <div class="food-controls">
-      <input type="text" id="foodSearch" list="foodList" placeholder="Search food (e.g., rice, chicken breast, apple)">
-      <datalist id="foodList"></datalist>
-      <input type="number" id="foodGram" placeholder="Amount (g)" min="1">
-      <button id="addFoodBtn"><i class="fa-solid fa-plus"></i> Add</button>
-    </div>
-
-    <div class="food-table-wrap">
-      <table class="food-table">
-        <thead>
-          <tr>
-            <th>Food</th>
-            <th>Amount (g)</th>
-            <th>Kcal</th>
-            <th>Protein (g)</th>
-            <th>Carbs (g)</th>
-            <th>Fat (g)</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="foodTbody"></tbody>
-        <tfoot>
-          <tr>
-            <th>Total</th>
-            <th id="totG">0</th>
-            <th id="totKcal">0</th>
-            <th id="totP">0</th>
-            <th id="totC">0</th>
-            <th id="totF">0</th>
-            <th></th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-
-    <div id="foodSummary" class="food-summary"></div>
-  </div>
+  <button id="exportCSVBtn" class="export-btn"><i class="fa-solid fa-file-csv"></i> Export to CSV</button>
 </div>
 
-<!-- PDF Tools -->
+<!-- ================= PDF TAB ================= -->
 <div id="tab-pdf" class="tab-content">
   <div class="pdf-container">
-    <h2 class="section-title"><i class="fa-solid fa-file-circle-check"></i> Convert Your Documents</h2>
+    <h3>PDF ↔ Word Converter</h3>
+    <input type="file" id="pdfInput" accept=".pdf">
+    <button id="pdfBtn"><i class="fa-solid fa-file-pdf"></i> Convert PDF → Word</button>
+    <div id="pdfWordResult"></div>
 
-    <div class="pdf-card">
-      <h3><i class="fa-solid fa-file-arrow-down"></i> PDF → Word</h3>
-      <input type="file" id="pdfInput" accept=".pdf">
-      <button onclick="convertPdfToWord()"><i class="fa-solid fa-right-left"></i> Convert PDF → Word</button>
-      <div id="pdfWordResult" class="pdf-result muted">No file converted yet.</div>
-    </div>
-
-    <div class="pdf-card">
-      <h3><i class="fa-solid fa-file-export"></i> Word → PDF</h3>
-      <input type="file" id="wordInput" accept=".doc,.docx">
-      <button onclick="convertWordToPdf()"><i class="fa-solid fa-right-left"></i> Convert Word → PDF</button>
-      <div id="wordPdfResult" class="pdf-result muted">No file converted yet.</div>
-    </div>
+    <input type="file" id="wordInput" accept=".doc,.docx">
+    <button id="wordBtn"><i class="fa-solid fa-file-word"></i> Convert Word → PDF</button>
+    <div id="wordPdfResult"></div>
   </div>
 </div>
 
-<!-- About -->
+<!-- ================= ABOUT TAB ================= -->
 <div id="tab-about" class="tab-content">
   <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories, food calories, and convert PDF/Word files.</p>
   <ul>
     <li>⚡ Fast & Interactive</li>
     <li>✅ Accurate & Bidirectional</li>

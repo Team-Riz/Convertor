@@ -44,23 +44,41 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .result.show {animation: pop 0.3s;}
 @keyframes pop {0%{transform:scale(0.8);opacity:0;}50%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
 
-/* ===== CALORIES FORM ===== */
-.calorie-form input, .calorie-form select, .calorie-form button,
-.food-calorie-form input, .food-calorie-form select, .food-calorie-form button {width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ccc;}
-.calorie-form button, .food-calorie-form button, .export-btn {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
-.calorie-form button:hover, .food-calorie-form button:hover, .export-btn:hover {background:#e64a19; transform:translateY(-2px);}
+/* ===== CALORIES / NUTRITION ===== */
+.calorie-form input, .calorie-form select, .calorie-form button {width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ccc;}
+.calorie-form button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
+.calorie-form button:hover {background:#e64a19; transform:translateY(-2px);}
 .calorie-result-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; margin-top:15px;}
 .calorie-card {background:linear-gradient(145deg,#fff3e0,#ffe0b2); padding:15px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:0.3s; position:relative; overflow:hidden;}
 .calorie-card h4 {margin:0 0 10px; color:#ff5722;}
 .calorie-card p {margin:5px 0; font-weight:bold; color:#bf360c;}
 .calorie-card svg {position:absolute; top:10px; right:10px; width:30px; height:30px;}
 
-/* ===== PDF TOOLS ===== */
+/* NEW nutrition block uses the same overall look */
+.nutrition-wrapper {margin-top:20px;}
+.nutrition-heading {color:#ff5722; margin-bottom:10px;}
+.nutrition-controls {display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:10px;}
+.nutrition-row {display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px;}
+.nutrition-row:first-child {grid-template-columns:2fr 2fr;}
+.nutrition-row input, .nutrition-row select, .nutrition-row button {padding:10px; border-radius:8px; border:1px solid #ccc;}
+.nutrition-row button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
+.nutrition-row button:hover {background:#e64a19; transform:translateY(-2px);}
+
+.nutrition-table-wrap {overflow:auto; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); background:#fff;}
+.nutrition-table {width:100%; border-collapse:collapse;}
+.nutrition-table th, .nutrition-table td {padding:12px; border-bottom:1px solid #eee; text-align:left;}
+.nutrition-table th {background:#fff3e0; color:#bf360c;}
+.nutrition-actions {margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;}
+.nutrition-actions button {padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:bold;}
+.nutrition-actions button#downloadCsvBtn {background:#4caf50; color:#fff;}
+.nutrition-actions button#downloadCsvBtn:hover {background:#388e3c;}
+.nutrition-actions button.danger {background:#ef5350; color:#fff;}
+.nutrition-actions button.danger:hover {background:#d32f2f;}
+
+/* ===== PDF TOOLS (unchanged visuals) ===== */
 .pdf-container input, .pdf-container button {display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;}
 .pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
 .pdf-container button:hover {background:#388e3c; transform:translateY(-2px);}
-#pdfWordResult, #wordPdfResult {margin-top:10px; font-weight:bold; color:#0d47a1;}
-.sandbox-toggle {display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:0.95rem; color:#2e7d32;}
 
 /* ===== ADS ===== */
 .ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}
@@ -74,4 +92,7 @@ body.dark .converter-card input, body.dark .converter-card select {background:#2
 body.dark .converter-card button {background:#0d47a1;}
 body.dark .converter-card .result {background:rgba(13,71,161,0.2); color:#bbdefb;}
 body.dark .calorie-card {background:#263238; color:#fff;}
-body.dark .calorie-card p {color:#fff;}
+body.dark .nutrition-table-wrap {background:#1e1e1e;}
+body.dark .nutrition-table th {background:#3b3b3b; color:#fff;}
+body.dark .nutrition-row input, body.dark .nutrition-row select {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
+body.dark .nutrition-row button {background:#0d47a1;}

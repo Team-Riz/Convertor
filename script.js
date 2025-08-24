@@ -46,7 +46,7 @@ async function fetchCurrencyRates() {
 }
 fetchCurrencyRates();
 
-// ================== GENERATE CONVERTER CARDS ==================
+// ================== GENERATE CONVERTER CARDS (unchanged visuals) ==================
 const converters=[
   {title:"Length", icon:"fa-ruler", units:Object.keys(unitsData.length)},
   {title:"Weight", icon:"fa-weight-scale", units:Object.keys(unitsData.weight)},
@@ -129,7 +129,7 @@ document.getElementById('searchBtn').addEventListener('click',()=>{
   });
 });
 
-// ================== CALORIES ==================
+// ================== CALORIES (personal) ==================
 document.getElementById('calorieBtn').addEventListener('click', calculateCalories);
 function calculateCalories(){
   const age=parseFloat(document.getElementById('age').value);
@@ -164,21 +164,44 @@ function calculateCalories(){
   });
 }
 
-// ================== FOOD CALORIES ==================
+// ================== FOOD CALORIES (expanded dataset) ==================
+// kcal per 100g (approx). Large but trimmed to keep file size reasonable.
+// You can add more items by appending to this object.
 const foodData = {
-  "Apple":52, "Banana":89, "Orange":47, "Broccoli":34, "Carrot":41,
-  "Potato":77, "Rice":130, "Wheat Bread":265, "Chicken Breast":165,
-  "Beef":250, "Egg":155, "Milk":42, "Cheese":402, "Yogurt":59,
-  "Almonds":579, "Peanuts":567, "Salmon":208, "Tuna":132, "Shrimp":99,
-  "Avocado":160, "Butter":717, "Olive Oil":884, "Tomato":18, "Cucumber":16,
-  "Spinach":23, "Lentils":116, "Chickpeas":164, "Oats":389
-  // Add hundreds more here
+  // Fruits
+  "Apple":52,"Banana":89,"Orange":47,"Grapes":69,"Pear":57,"Peach":39,"Pineapple":50,"Mango":60,"Papaya":43,"Kiwi":61,"Strawberries":33,"Blueberries":57,"Raspberries":52,"Blackberries":43,"Cherry":63,"Watermelon":30,"Cantaloupe":34,"Honeydew":36,"Pomegranate":83,"Guava":68,"Lychee":66,"Apricot":48,"Plum":46,"Fig":74,"Dates":282,"Avocado":160,
+  // Vegetables
+  "Tomato":18,"Cucumber":16,"Carrot":41,"Onion":40,"Garlic":149,"Broccoli":34,"Cauliflower":25,"Spinach":23,"Kale":49,"Lettuce":15,"Bell Pepper":26,"Mushrooms":22,"Zucchini":17,"Eggplant":25,"Sweet Corn":86,"Green Peas":81,"Sweet Potato":86,"Potato":77,"Okra":33,"Beetroot":43,"Cabbage":25,"Asparagus":20,"Celery":16,"Pumpkin":26,
+  // Grains & Cereals
+  "White Rice (cooked)":130,"Brown Rice (cooked)":123,"Basmati Rice (cooked)":121,"Quinoa (cooked)":120,"Oats (dry)":389,"Oatmeal (cooked)":71,"Wheat Bread":265,"White Bread":266,"Multigrain Bread":250,"Pasta (cooked)":131,"Spaghetti (cooked)":158,"Noodles (cooked)":138,"Couscous (cooked)":112,"Barley (cooked)":123,"Cornflakes":357,"Granola":471,"Rice Cakes":387,"Tortilla (wheat)":313,"Chapati":297,"Paratha":330,
+  // Legumes & Pulses
+  "Lentils (boiled)":116,"Chickpeas (boiled)":164,"Kidney Beans (boiled)":127,"Black Beans (boiled)":132,"Pinto Beans (boiled)":143,"Green Gram/Moong (boiled)":105,"Soybeans (boiled)":173,"Split Peas (boiled)":118,"Hummus":166,"Falafel":333,
+  // Nuts & Seeds
+  "Almonds":579,"Peanuts":567,"Cashews":553,"Walnuts":654,"Pistachios":562,"Hazelnuts":628,"Macadamia":718,"Pecans":691,"Pine Nuts":673,"Chia Seeds":486,"Flax Seeds":534,"Pumpkin Seeds":559,"Sesame Seeds":573,"Sunflower Seeds":584,"Coconut (fresh)":354,"Peanut Butter":588,"Almond Butter":614,"Tahini":595,
+  // Dairy & Eggs
+  "Milk (whole)":61,"Milk (skimmed)":34,"Yogurt (plain)":59,"Greek Yogurt":97,"Cheddar Cheese":403,"Mozzarella":300,"Paneer":321,"Butter":717,"Ghee":900,"Ice Cream":207,"Egg (whole)":155,"Egg White":52,"Egg Yolk":322,
+  // Meats & Fish
+  "Chicken Breast (roasted)":165,"Chicken Thigh (roasted)":209,"Chicken Wings (fried)":290,"Turkey (roasted)":189,"Beef (lean grilled)":250,"Mutton (cooked)":294,"Lamb Chop (grilled)":282,"Pork Loin (roasted)":242,"Bacon":541,"Sausage":301,"Ham":145,"Salami":336,
+  "Salmon":208,"Tuna (in water)":132,"Sardines (in oil)":208,"Mackerel":205,"Tilapia":129,"Shrimp (boiled)":99,"Crab":97,"Lobster":89,"Cod":82,
+  // Oils & Fats
+  "Olive Oil":884,"Canola Oil":884,"Vegetable Oil":884,"Coconut Oil":892,"Mayonnaise":680,"Margarine":717,
+  // Sweets & Snacks
+  "Sugar":387,"Honey":304,"Jam":278,"Chocolate (dark)":546,"Chocolate (milk)":535,"Candy":394,"Cookies":502,"Cake (sponge)":297,"Doughnut":452,"Muffin":377,"Croissant":406,"Brownie":466,"Ice Lolly":95,"Popcorn (air-popped)":387,"Chips (potato)":536,"Nachos/Tortilla Chips":489,"Pretzels":380,"Biscuits (plain)":430,
+  // Beverages
+  "Black Coffee":2,"Latte (whole milk)":66,"Tea (plain)":1,"Orange Juice":45,"Apple Juice":46,"Cola":42,"Energy Drink":45,"Lemonade":40,"Milkshake":112,"Beer":43,"Red Wine":85,"White Wine":82,
+  // Breakfast & Common Dishes
+  "Idli":58,"Dosa (plain)":168,"Sambar":60,"Upma":110,"Poha":130,"Paratha (aloo)":260,"Biryani (chicken)":173,"Biryani (veg)":154,"Pulao (veg)":151,"Fried Rice (egg)":163,"Fried Rice (chicken)":168,"Kebab (seekh)":250,"Shawarma (chicken)":183,"Burger (beef)":295,"Burger (chicken)":263,"Pizza (cheese)":266,"Pizza (pepperoni)":298,"Pasta Alfredo":220,"Pasta Arrabbiata":140,"Mac & Cheese":164,"Lasagna":135,"Sandwich (egg)":200,"Sandwich (chicken)":230,"Sandwich (veg)":160,"French Fries":312,"Mashed Potato":88,"Garlic Bread":350,
+  // Sauces & Condiments
+  "Ketchup":112,"Mustard":66,"Soy Sauce":53,"Barbecue Sauce":150,"Hot Sauce":10,"Chutney (mint)":70,"Chutney (tamarind)":180,"Pickle (mixed)":120,
+  // More fruits/veg for coverage
+  "Dragon Fruit":60,"Star Fruit":31,"Jackfruit":95,"Custard Apple":94,"Durian":147,"Persimmon":81,"Nectarine":44,"Cranberries":46,"Prunes":240,"Raisins":299,
+  "Arugula":25,"Bok Choy":13,"Brussels Sprouts":43,"Leeks":61,"Turnip":28,"Radish":16,"Yam":118,"Lotus Root":74
 };
 
 const foodSelect=document.getElementById('foodSelect');
-function populateFoodSelect(){
+function populateFoodSelect(list=Object.keys(foodData)){
   foodSelect.innerHTML="";
-  Object.keys(foodData).forEach(f=>{
+  list.forEach(f=>{
     const opt=document.createElement('option');
     opt.value=f; opt.innerText=f;
     foodSelect.appendChild(opt);
@@ -189,11 +212,7 @@ populateFoodSelect();
 document.getElementById('foodSearch').addEventListener('input',(e)=>{
   const q=e.target.value.toLowerCase();
   const filtered = Object.keys(foodData).filter(f=>f.toLowerCase().includes(q));
-  foodSelect.innerHTML="";
-  filtered.forEach(f=>{
-    const opt=document.createElement('option'); opt.value=f; opt.innerText=f;
-    foodSelect.appendChild(opt);
-  });
+  populateFoodSelect(filtered);
 });
 
 document.getElementById('foodCalcBtn').addEventListener('click',()=>{
@@ -213,8 +232,8 @@ document.getElementById('foodCalcBtn').addEventListener('click',()=>{
 document.getElementById('exportCSVBtn').addEventListener('click',()=>{
   const rows = [];
   document.querySelectorAll('#calorieResult .calorie-card').forEach(card=>{
-    const title = card.querySelector('h4').innerText;
-    const value = card.querySelector('p').innerText;
+    const title = card.querySelector('h4').innerText.replace(/,/g,';');
+    const value = card.querySelector('p').innerText.replace(/,/g,';');
     rows.push([title, value]);
   });
   if(rows.length===0){alert("No data to export"); return;}
@@ -229,16 +248,165 @@ document.getElementById('exportCSVBtn').addEventListener('click',()=>{
   document.body.removeChild(link);
 });
 
-// ================== PDF ↔ WORD ==================
-document.getElementById('pdfBtn').addEventListener('click',()=>{
-  const file=document.getElementById('pdfInput').files[0];
-  if(!file){alert("Select a PDF file"); return;}
-  // For demo, we just notify
-  document.getElementById('pdfWordResult').innerText="PDF → Word conversion is not supported locally in browser. Use server-side API.";
-});
+// ================== CLOUDCONVERT PDF ↔ WORD ==================
+const apiKeyInput = document.getElementById('ccApiKey');
+const sandboxCheckbox = document.getElementById('useSandbox');
 
-document.getElementById('wordBtn').addEventListener('click',()=>{
-  const file=document.getElementById('wordInput').files[0];
-  if(!file){alert("Select a Word file"); return;}
-  document.getElementById('wordPdfResult').innerText="Word → PDF conversion is not supported locally in browser. Use server-side API.";
-});
+const ccBase = () => sandboxCheckbox.checked
+  ? 'https://api.sandbox.cloudconvert.com/v2'
+  : 'https://api.cloudconvert.com/v2';
+
+async function ccCreateJob(spec, apiKey){
+  const res = await fetch(`${ccBase()}/jobs`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(spec)
+  });
+  if(!res.ok){
+    const errText = await res.text();
+    throw new Error(`Job create failed: ${res.status} ${errText}`);
+  }
+  return res.json();
+}
+
+async function ccUploadToS3(uploadForm, file){
+  const formData = new FormData();
+  Object.entries(uploadForm.parameters).forEach(([k,v])=>formData.append(k,v));
+  formData.append('file', file);
+  const up = await fetch(uploadForm.url, { method: 'POST', body: formData });
+  if(!(up.status===201 || up.ok)) throw new Error(`Upload failed: ${up.status}`);
+}
+
+async function ccPollForExport(apiKey, jobId, onProgress){
+  // Poll job until export/url is finished; return download URLs
+  for(let i=0;i<90;i++){ // ~3 minutes (90 * 2s)
+    const res = await fetch(`${ccBase()}/jobs/${jobId}`, {
+      headers: { 'Authorization': `Bearer ${apiKey}` }
+    });
+    if(!res.ok) throw new Error(`Polling failed: ${res.status}`);
+    const job = await res.json();
+    const tasks = job.data?.tasks || [];
+    const conv = tasks.find(t=>t.operation==='convert');
+    if(onProgress && conv?.status) onProgress(conv.status, conv.percent ?? 0);
+
+    const exp = tasks.find(t=>t.operation==='export/url' && t.status==='finished');
+    if(exp && exp.result && Array.isArray(exp.result.files) && exp.result.files.length){
+      return exp.result.files.map(f=>f.url);
+    }
+    const failedTask = tasks.find(t=>t.status==='error');
+    if(failedTask) throw new Error(failedTask.message || 'Conversion error');
+    await new Promise(r=>setTimeout(r,2000));
+  }
+  throw new Error('Timed out waiting for conversion.');
+}
+
+async function convertPdfToWord(){
+  const apiKey = apiKeyInput.value.trim();
+  if(!apiKey){ alert('Enter CloudConvert API Key'); return; }
+  const file = document.getElementById('pdfInput').files[0];
+  if(!file){ alert('Select a PDF file'); return; }
+  const out = document.getElementById('pdfWordResult');
+  out.innerText = 'Creating job...';
+
+  try{
+    // 1) Create job
+    const spec = {
+      tasks: {
+        'import-1': { operation: 'import/upload' },
+        'pdftoword': {
+          operation: 'convert',
+          input_format: 'pdf',
+          output_format: 'docx',
+          engine: 'pdftron-pdf2word',
+          input: ['import-1'],
+          images_ocr: true
+        },
+        'export-1': { operation: 'export/url', input: ['pdftoword'], inline: false }
+      },
+      tag: 'webapp'
+    };
+    const jobResp = await ccCreateJob(spec, apiKey);
+    const jobId = jobResp.data.id;
+    const importTask = jobResp.data.tasks.find(t=>t.name==='import-1' || t.operation==='import/upload');
+    if(!importTask?.result?.form) throw new Error('Upload form missing from job response.');
+
+    out.innerText = 'Uploading file...';
+    // 2) Upload
+    await ccUploadToS3(importTask.result.form, file);
+
+    out.innerText = 'Converting (this may take a moment)...';
+    // 3) Poll for export URLs
+    const urls = await ccPollForExport(apiKey, jobId, (status, pct)=>{
+      out.innerText = `Converting... (${status}${pct?` ${pct}%`:''})`;
+    });
+
+    // 4) Download
+    const a = document.createElement('a');
+    a.href = urls[0];
+    a.download = file.name.replace(/\.pdf$/i,'.docx');
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    out.innerText = 'Done! Your download should start automatically.';
+  }catch(err){
+    console.error(err);
+    document.getElementById('pdfWordResult').innerText = `Conversion failed: ${err.message}`;
+  }
+}
+
+async function convertWordToPdf(){
+  const apiKey = apiKeyInput.value.trim();
+  if(!apiKey){ alert('Enter CloudConvert API Key'); return; }
+  const file = document.getElementById('wordInput').files[0];
+  if(!file){ alert('Select a Word file'); return; }
+  const out = document.getElementById('wordPdfResult');
+  out.innerText = 'Creating job...';
+
+  try{
+    // 1) Create job
+    const spec = {
+      tasks: {
+        'import-1': { operation: 'import/upload' },
+        'doctopdf': {
+          operation: 'convert',
+          input_format: file.name.toLowerCase().endsWith('.doc') ? 'doc' : 'docx',
+          output_format: 'pdf',
+          input: ['import-1']
+        },
+        'export-1': { operation: 'export/url', input: ['doctopdf'], inline: false }
+      },
+      tag: 'webapp'
+    };
+    const jobResp = await ccCreateJob(spec, apiKey);
+    const jobId = jobResp.data.id;
+    const importTask = jobResp.data.tasks.find(t=>t.name==='import-1' || t.operation==='import/upload');
+    if(!importTask?.result?.form) throw new Error('Upload form missing from job response.');
+
+    out.innerText = 'Uploading file...';
+    // 2) Upload
+    await ccUploadToS3(importTask.result.form, file);
+
+    out.innerText = 'Converting...';
+    // 3) Poll
+    const urls = await ccPollForExport(apiKey, jobId);
+
+    // 4) Download
+    const a = document.createElement('a');
+    a.href = urls[0];
+    a.download = file.name.replace(/\.(docx?|rtf)$/i,'.pdf');
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    out.innerText = 'Done! Your download should start automatically.';
+  }catch(err){
+    console.error(err);
+    document.getElementById('wordPdfResult').innerText = `Conversion failed: ${err.message}`;
+  }
+}
+
+// Buttons
+document.getElementById('pdfBtn').addEventListener('click', convertPdfToWord);
+document.getElementById('wordBtn').addEventListener('click', convertWordToPdf);

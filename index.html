@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Advanced All-in-One Converter</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -25,7 +25,7 @@
   <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- ================= CONVERTERS TAB ================= -->
+<!-- ================= CONVERTERS TAB (unchanged) ================= -->
 <div id="tab-converters" class="tab-content active">
   <div id="converter-container" class="grid"></div>
 </div>
@@ -66,6 +66,14 @@
 <div id="tab-pdf" class="tab-content">
   <div class="pdf-container">
     <h3>PDF ↔ Word Converter</h3>
+
+    <!-- Small addition: API key + sandbox toggle -->
+    <input type="password" id="ccApiKey" placeholder="CloudConvert API Key (required)">
+    <label class="sandbox-toggle">
+      <input type="checkbox" id="useSandbox">
+      Use Sandbox API (testing)
+    </label>
+
     <input type="file" id="pdfInput" accept=".pdf">
     <button id="pdfBtn"><i class="fa-solid fa-file-pdf"></i> Convert PDF → Word</button>
     <div id="pdfWordResult"></div>

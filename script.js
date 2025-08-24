@@ -1,122 +1,82 @@
-/* ===== TAB NAVIGATION ===== */
+// ================== TAB CONTROL ==================
 const tabs = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
+const contents = document.querySelectorAll('.tab-content');
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    contents.forEach(c=>c.classList.remove('active'));
+    document.getElementById(tab.dataset.tab).classList.add('active');
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const target = tab.dataset.tab;
-        tabContents.forEach(tc => tc.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
-    });
+    // Trigger About cards animation if About tab
+    if(tab.dataset.tab==="tabAbout"){
+      document.querySelectorAll('.about-card').forEach((c,i)=>{
+        setTimeout(()=>{ c.classList.add('show'); }, i*200);
+      });
+    }
+  });
 });
 
-/* ===== UNIVERSAL CONVERTER FUNCTION ===== */
-function setupConverter(cardId, calculateFn) {
-    const card = document.getElementById(cardId);
-    const btn = card.querySelector('button');
-    const resultEl = card.querySelector('.result');
+// ================== DARK/LIGHT MODE ==================
+const modeBtn = document.getElementById('modeToggle');
+modeBtn.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  if(document.body.classList.contains('dark')){
+    modeBtn.innerHTML='<i class="fa-solid fa-moon"></i> Dark Mode';
+  } else {
+    modeBtn.innerHTML='<i class="fa-solid fa-sun"></i> Light Mode';
+  }
+});
 
-    btn.addEventListener('click', () => {
-        const result = calculateFn(card);
-        resultEl.textContent = result;
-        resultEl.classList.add('show');
-        setTimeout(() => resultEl.classList.remove('show'), 800);
-    });
+// ================== UNIT DATA ==================
+const unitsData = {
+  length:{meter:1,kilometer:1000,centimeter:0.01,mile:1609.34,yard:0.9144,inch:0.0254,foot:0.3048},
+  weight:{kg:1,g:0.001,lb:0.453592,oz:0.0283495,ton:1000},
+  temperature:{celsius:"c",fahrenheit:"f",kelvin:"k"},
+  volume:{liter:1,milliliter:0.001,gallon:3.78541,quart:0.946353,pint:0.473176,cup:0.24}
+};
+
+// ================== GENERATE CONVERTER CARDS ==================
+const converterContainer = document.getElementById('converter-container');
+for(let type in unitsData){
+  const card = document.createElement('div');
+  card.classList.add('converter-card');
+  card.innerHTML=`
+    <h3>${type.charAt(0).toUpperCase()+type.slice(1)} Converter</h3>
+    <input type="number" placeholder="Enter value" class="inputVal">
+    <select class="fromUnit"></select>
+    <select class="toUnit"></select>
+    <button>Convert</button>
+    <div class="result"></div>
+  `;
+  converterContainer.appendChild(card);
+
+  const input = card.querySelector('.inputVal');
+  const from = card.querySelector('.fromUnit');
+  const to = card.querySelector('.toUnit');
+  const resultDiv = card.querySelector('.result');
+  for(let u in unitsData[type]){
+    const opt1 = document.createElement('option'); opt1.value=u; opt1.textContent=u; from.appendChild(opt1);
+    const opt2 = document.createElement('option'); opt2.value=u; opt2.textContent=u; to.appendChild(opt2);
+  }
+
+  card.querySelector('button').addEventListener('click',()=>{
+    let val=parseFloat(input.value);
+    if(type==="temperature"){
+      let res;
+      if(from.value==="celsius"){
+        res = to.value==="fahrenheit"?val*9/5+32:to.value==="kelvin"?val+273.15:val;
+      } else if(from.value==="fahrenheit"){
+        res = to.value==="celsius"? (val-32)*5/9 : to.value==="kelvin"? (val-32)*5/9+273.15:val;
+      } else{
+        res = to.value==="celsius"? val-273.15: to.value==="fahrenheit"? (val-273.15)*9/5+32:val;
+      }
+      resultDiv.textContent=res.toFixed(2);
+    } else {
+      let res = val * unitsData[type][from.value] / unitsData[type][to.value];
+      resultDiv.textContent=res.toFixed(4);
+    }
+    resultDiv.classList.add('show');
+    setTimeout(()=>resultDiv.classList.remove('show'),1000);
+  });
 }
-
-/* ===== EXAMPLE LENGTH CONVERTER ===== */
-setupConverter('lengthCard', (card) => {
-    const val = parseFloat(card.querySelector('input').value);
-    const from = card.querySelector('select[name="from"]').value;
-    const to = card.querySelector('select[name="to"]').value;
-    if (isNaN(val)) return 'Enter a number';
-    const m = {m:1, cm:0.01, km:1000, ft:0.3048}[from];
-    const m2 = {m:1, cm:0.01, km:1000, ft:0.3048}[to];
-    return (val*m/m2).toFixed(4);
-});
-
-/* ===== CALORIE CALCULATOR ===== */
-const calorieForm = document.querySelector('.calorie-form');
-const calorieGrid = document.querySelector('.calorie-result-grid');
-
-if(calorieForm){
-    calorieForm.addEventListener('submit', e => {
-        e.preventDefault();
-        const name = calorieForm.querySelector('input[name="food"]').value;
-        const cal = calorieForm.querySelector('input[name="calories"]').value;
-        if(!name || !cal) return;
-        const card = document.createElement('div');
-        card.className = 'calorie-card';
-        card.innerHTML = `<h4>${name}</h4><p>${cal} kcal</p>`;
-        calorieGrid.appendChild(card);
-        calorieForm.reset();
-    });
-}
-
-/* ===== NUTRITION TABLE ===== */
-const nutritionTableBody = document.querySelector('#nutritionTable tbody');
-const addNutritionBtn = document.getElementById('addNutritionBtn');
-const downloadCsvBtn = document.getElementById('downloadCsvBtn');
-
-addNutritionBtn?.addEventListener('click', () => {
-    const name = document.querySelector('#nutritionName').value;
-    const cal = document.querySelector('#nutritionCal').value;
-    if(!name || !cal) return;
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${name}</td><td>${cal}</td><td><button class="danger">Delete</button></td>`;
-    nutritionTableBody.appendChild(row);
-    row.querySelector('button').addEventListener('click', () => row.remove());
-    document.querySelector('#nutritionName').value='';
-    document.querySelector('#nutritionCal').value='';
-});
-
-downloadCsvBtn?.addEventListener('click', () => {
-    let csv = 'Name,Calories\n';
-    nutritionTableBody.querySelectorAll('tr').forEach(tr=>{
-        const cols = tr.querySelectorAll('td');
-        csv += `${cols[0].textContent},${cols[1].textContent}\n`;
-    });
-    const blob = new Blob([csv], {type:'text/csv'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'nutrition.csv';
-    a.click();
-    URL.revokeObjectURL(url);
-});
-
-/* ===== YOUTUBE / MEDIA TOOLS ===== */
-const mediaContainer = document.querySelector('.media-container');
-if(mediaContainer){
-    const btns = mediaContainer.querySelectorAll('button');
-    btns.forEach(btn => {
-        btn.addEventListener('click', ()=>{
-            alert(`${btn.textContent} functionality placeholder`);
-        });
-    });
-}
-
-/* ===== DARK / LIGHT MODE TOGGLE ===== */
-const darkToggle = document.getElementById('darkToggle');
-darkToggle?.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-});
-
-/* ===== ABOUT TAB SCROLL ANIMATIONS ===== */
-const featureCards = document.querySelectorAll('.feature-card');
-function showFeaturesOnScroll() {
-    const triggerBottom = window.innerHeight * 0.85;
-    featureCards.forEach(card => {
-        const cardTop = card.getBoundingClientRect().top;
-        if(cardTop < triggerBottom){
-            card.classList.add('visible');
-        }
-    });
-}
-window.addEventListener('scroll', showFeaturesOnScroll);
-showFeaturesOnScroll(); // trigger on page load
-
-/* ===== UTILITY: SETUP OTHER CONVERTERS HERE ===== */
-// Example: weightCard, speedCard, etc.

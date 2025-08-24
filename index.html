@@ -3,34 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced All-in-One Converter</title>
+<title>Universal Toolset</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
 <header>
-  <h1><i class="fas fa-sun"></i> Advanced Converter</h1>
+  <h1><i class="fa-solid fa-toolbox"></i> Universal Tools</h1>
   <div class="header-right">
-    <input type="text" placeholder="Search converters..." id="searchInput">
+    <input type="text" id="searchInput" placeholder="Search converters...">
     <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-    <button id="modeToggle"><i class="fa-solid fa-moon"></i> Dark Mode</button>
+    <button id="modeToggle"><i class="fa-solid fa-sun"></i> Light Mode</button>
   </div>
 </header>
 
 <div class="tab-nav">
-  <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
-  <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-bolt"></i> Calories</button>
-  <button class="tab-btn" data-tab="tab-pdf"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
-  <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
+  <button class="tab-btn active" data-tab="tabConverters"><i class="fa-solid fa-ruler"></i> Converters</button>
+  <button class="tab-btn" data-tab="tabCalories"><i class="fa-solid fa-fire"></i> Calories</button>
+  <button class="tab-btn" data-tab="tabNutrition"><i class="fa-solid fa-apple-whole"></i> Nutrition</button>
+  <button class="tab-btn" data-tab="tabYouTube"><i class="fa-brands fa-youtube"></i> YouTube Tools</button>
+  <button class="tab-btn" data-tab="tabAbout"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<div id="tab-converters" class="tab-content active">
+<!-- ================== TABS ================== -->
+<div class="tab-content active" id="tabConverters">
   <div id="converter-container" class="grid"></div>
 </div>
 
-<div id="tab-calories" class="tab-content">
-  <div class="calorie-form">
+<div class="tab-content" id="tabCalories">
+  <form class="calorie-form">
     <input type="number" id="age" placeholder="Age">
     <input type="number" id="weight" placeholder="Weight (kg)">
     <input type="number" id="height" placeholder="Height (cm)">
@@ -38,40 +40,84 @@
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
-    <select id="activity">
-      <option value="1.2">Sedentary</option>
-      <option value="1.375">Lightly Active</option>
-      <option value="1.55">Moderately Active</option>
-      <option value="1.725">Very Active</option>
-    </select>
-    <button onclick="calculateCalories()"><i class="fa-solid fa-calculator"></i> Calculate</button>
-    <div id="calorieResult" class="calorie-result"></div>
+    <input type="number" id="activity" placeholder="Activity multiplier (1-2)">
+    <button type="button" id="calorieBtn">Calculate</button>
+  </form>
+  <div id="calorieResult" class="calorie-result-grid"></div>
+</div>
+
+<div class="tab-content" id="tabNutrition">
+  <div class="nutrition-wrapper">
+    <h3 class="nutrition-heading">Nutrition Tracker</h3>
+    <div class="nutrition-controls nutrition-row">
+      <select id="foodSelect"></select>
+      <input type="number" id="foodQty" placeholder="Quantity">
+      <select id="foodUnit">
+        <option value="g">g</option>
+        <option value="serving">Serving</option>
+      </select>
+      <button id="addFoodBtn">Add</button>
+    </div>
+    <div class="nutrition-table-wrap">
+      <table class="nutrition-table">
+        <thead>
+          <tr>
+            <th>Food</th><th>Quantity</th><th>Unit</th><th>Kcal/Unit</th><th>Total Kcal</th><th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="foodTbody"></tbody>
+        <tfoot>
+          <tr><td colspan="4">Grand Total</td><td id="grandTotalCell">0</td><td></td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="nutrition-actions">
+      <button id="clearFoodBtn" class="danger">Clear All</button>
+      <button id="downloadCsvBtn">Export CSV</button>
+    </div>
   </div>
 </div>
 
-<div id="tab-pdf" class="tab-content">
-  <div class="pdf-container">
-    <input type="file" id="pdfInput" accept=".pdf">
-    <button onclick="convertPdfToWord()">Convert PDF → Word</button>
-    <div id="pdfWordResult"></div>
-    <input type="file" id="wordInput" accept=".doc,.docx">
-    <button onclick="convertWordToPdf()">Convert Word → PDF</button>
-    <div id="wordPdfResult"></div>
+<div class="tab-content" id="tabYouTube">
+  <div class="media-container">
+    <input type="text" id="ytUrl" placeholder="Paste YouTube URL or ID">
+    <button id="ytFetchBtn">Fetch Video</button>
+    <div class="yt-meta yt-hidden" id="ytResult">
+      <div><strong>ID:</strong> <span id="ytIdText"></span></div>
+      <div id="ytTitleWrap"></div>
+      <div id="thumbGrid" class="thumb-grid"></div>
+    </div>
+    <div class="clip-form">
+      <input type="text" id="clipStart" placeholder="Start (hh:mm:ss)">
+      <input type="text" id="clipEnd" placeholder="End (hh:mm:ss)">
+      <button id="buildLinksBtn">Build Links</button>
+    </div>
+    <div class="clip-links">
+      <div><input type="text" id="watchLink"><a id="watchOpen" href="#" class="open-btn">Open</a></div>
+      <div><input type="text" id="embedLink"><a id="embedOpen" href="#" class="open-btn">Open</a></div>
+      <div class="qr-box" id="qrcode"></div>
+    </div>
   </div>
 </div>
 
-<div id="tab-about" class="tab-content">
-  <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
-  <ul>
-    <li>⚡ Fast & Interactive</li>
-    <li>✅ Accurate & Bidirectional</li>
-    <li>💻 Works on all devices</li>
-    <li>🌐 Free & Always Online</li>
-  </ul>
-  <div class="ads">Google Ads Placeholder</div>
+<div class="tab-content" id="tabAbout">
+  <div class="about-grid">
+    <div class="about-card">
+      <h3><i class="fa-solid fa-rocket"></i> Fast & Reliable</h3>
+      <p>Our tools are designed to work instantly in your browser without any delays.</p>
+    </div>
+    <div class="about-card">
+      <h3><i class="fa-solid fa-shield-alt"></i> Secure</h3>
+      <p>Your data is never stored. Everything runs locally and securely.</p>
+    </div>
+    <div class="about-card">
+      <h3><i class="fa-solid fa-paintbrush"></i> Modern UI</h3>
+      <p>Clean, colorful, and responsive interface for all devices.</p>
+    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
 </html>

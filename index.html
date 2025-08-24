@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Advanced All-in-One Converter</title>
-<link rel="stylesheet" href="style.css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced All-in-One Converter</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -20,20 +20,20 @@
 
 <div class="tab-nav">
   <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
-  <button class="tab-btn" data-tab="tab-nutrition"><i class="fa-solid fa-bolt"></i> Nutrition & Calories</button>
+  <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-bolt"></i> Nutrition &amp; Calories</button>
   <button class="tab-btn" data-tab="tab-pdf"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
   <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- ================= CONVERTERS TAB (unchanged) ================= -->
+<!-- ============== CONVERTERS ============== -->
 <div id="tab-converters" class="tab-content active">
   <div id="converter-container" class="grid"></div>
 </div>
 
-<!-- ================= NUTRITION & CALORIES TAB ================= -->
-<div id="tab-nutrition" class="tab-content">
+<!-- ============== NUTRITION & CALORIES ============== -->
+<div id="tab-calories" class="tab-content">
+  <!-- Original Calorie Estimator -->
   <div class="calorie-form">
-    <h3>Personal Daily Calories</h3>
     <input type="number" id="age" placeholder="Age">
     <input type="number" id="weight" placeholder="Weight (kg)">
     <input type="number" id="height" placeholder="Height (cm)">
@@ -49,45 +49,74 @@
     </select>
     <button id="calorieBtn"><i class="fa-solid fa-calculator"></i> Calculate</button>
   </div>
-
-  <div class="food-calorie-form">
-    <h3>Food Calories Calculator</h3>
-    <input type="text" id="foodSearch" placeholder="Search food...">
-    <select id="foodSelect"></select>
-    <input type="number" id="foodQty" placeholder="Quantity (grams)">
-    <button id="foodCalcBtn"><i class="fa-solid fa-utensils"></i> Calculate Food Calories</button>
-  </div>
-
   <div id="calorieResult" class="calorie-result-grid"></div>
-  <button id="exportCSVBtn" class="export-btn"><i class="fa-solid fa-file-csv"></i> Export to CSV</button>
+
+  <!-- Food Calories Calculator (NEW) -->
+  <div class="nutrition-wrapper">
+    <h3 class="nutrition-heading"><i class="fa-solid fa-utensils"></i> Food Calories Calculator</h3>
+
+    <div class="nutrition-controls">
+      <div class="nutrition-row">
+        <input id="foodSearch" type="text" placeholder="Search food (e.g., chicken biryani, apple, karak tea)"/>
+        <select id="foodSelect"></select>
+      </div>
+      <div class="nutrition-row">
+        <input id="foodQty" type="number" min="1" step="1" value="1" placeholder="Quantity"/>
+        <select id="foodUnit">
+          <option value="serving">serving</option>
+          <option value="g">grams</option>
+        </select>
+        <button id="addFoodBtn"><i class="fa-solid fa-plus"></i> Add</button>
+      </div>
+    </div>
+
+    <div class="nutrition-table-wrap">
+      <table class="nutrition-table" id="foodTable">
+        <thead>
+          <tr>
+            <th>Food</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>kcal / 100g (or per serving)</th>
+            <th>Total kcal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="foodTbody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" style="text-align:right;font-weight:bold;">Grand Total:</td>
+            <td id="grandTotalCell" style="font-weight:bold;">0</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="nutrition-actions">
+      <button id="downloadCsvBtn"><i class="fa-solid fa-file-csv"></i> Download CSV</button>
+      <button id="clearFoodBtn" class="danger"><i class="fa-solid fa-broom"></i> Clear</button>
+    </div>
+  </div>
 </div>
 
-<!-- ================= PDF TAB ================= -->
+<!-- ============== PDF TOOLS ============== -->
 <div id="tab-pdf" class="tab-content">
   <div class="pdf-container">
-    <h3>PDF ↔ Word Converter</h3>
-
-    <!-- Small addition: API key + sandbox toggle -->
-    <input type="password" id="ccApiKey" placeholder="CloudConvert API Key (required)">
-    <label class="sandbox-toggle">
-      <input type="checkbox" id="useSandbox">
-      Use Sandbox API (testing)
-    </label>
-
     <input type="file" id="pdfInput" accept=".pdf">
-    <button id="pdfBtn"><i class="fa-solid fa-file-pdf"></i> Convert PDF → Word</button>
+    <button id="pdfToWordBtn">Convert PDF → Word</button>
     <div id="pdfWordResult"></div>
 
     <input type="file" id="wordInput" accept=".doc,.docx">
-    <button id="wordBtn"><i class="fa-solid fa-file-word"></i> Convert Word → PDF</button>
+    <button id="wordToPdfBtn" title="Client-side Word → PDF is not supported">Convert Word → PDF</button>
     <div id="wordPdfResult"></div>
   </div>
 </div>
 
-<!-- ================= ABOUT TAB ================= -->
+<!-- ============== ABOUT ============== -->
 <div id="tab-about" class="tab-content">
   <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories, food calories, and convert PDF/Word files.</p>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
   <ul>
     <li>⚡ Fast & Interactive</li>
     <li>✅ Accurate & Bidirectional</li>
@@ -96,6 +125,11 @@
   </ul>
   <div class="ads">Google Ads Placeholder</div>
 </div>
+
+<!-- Libraries for PDF→Word (client-side) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.worker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.min.js"></script>
 
 <script src="script.js"></script>
 </body>

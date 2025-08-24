@@ -21,18 +21,17 @@
 <div class="tab-nav">
   <button class="tab-btn active" data-tab="tab-converters"><i class="fa-solid fa-arrows-alt"></i> Converters</button>
   <button class="tab-btn" data-tab="tab-calories"><i class="fa-solid fa-bolt"></i> Nutrition &amp; Calories</button>
-  <button class="tab-btn" data-tab="tab-pdf"><i class="fa-solid fa-file-pdf"></i> PDF Tools</button>
+  <button class="tab-btn" data-tab="tab-youtube"><i class="fa-brands fa-youtube"></i> YouTube Tools</button>
   <button class="tab-btn" data-tab="tab-about"><i class="fa-solid fa-info-circle"></i> About</button>
 </div>
 
-<!-- ============== CONVERTERS ============== -->
+<!-- ============== CONVERTERS (unchanged) ============== -->
 <div id="tab-converters" class="tab-content active">
   <div id="converter-container" class="grid"></div>
 </div>
 
-<!-- ============== NUTRITION & CALORIES ============== -->
+<!-- ============== NUTRITION & CALORIES (unchanged visuals) ============== -->
 <div id="tab-calories" class="tab-content">
-  <!-- Original Calorie Estimator -->
   <div class="calorie-form">
     <input type="number" id="age" placeholder="Age">
     <input type="number" id="weight" placeholder="Weight (kg)">
@@ -51,7 +50,7 @@
   </div>
   <div id="calorieResult" class="calorie-result-grid"></div>
 
-  <!-- Food Calories Calculator (NEW) -->
+  <!-- Food Calories Calculator -->
   <div class="nutrition-wrapper">
     <h3 class="nutrition-heading"><i class="fa-solid fa-utensils"></i> Food Calories Calculator</h3>
 
@@ -100,23 +99,59 @@
   </div>
 </div>
 
-<!-- ============== PDF TOOLS ============== -->
-<div id="tab-pdf" class="tab-content">
-  <div class="pdf-container">
-    <input type="file" id="pdfInput" accept=".pdf">
-    <button id="pdfToWordBtn">Convert PDF → Word</button>
-    <div id="pdfWordResult"></div>
+<!-- ============== YOUTUBE TOOLS (new) ============== -->
+<div id="tab-youtube" class="tab-content">
+  <div class="media-container">
+    <h3 style="margin-top:0"><i class="fa-brands fa-youtube"></i> YouTube Tools</h3>
+    <p class="small-note">
+      Paste any YouTube link to view & download thumbnails and generate shareable clip links (start/end).<br>
+      <strong>Note:</strong> This tool does <em>not</em> download videos and respects YouTube’s Terms of Service.
+    </p>
 
-    <input type="file" id="wordInput" accept=".doc,.docx">
-    <button id="wordToPdfBtn" title="Client-side Word → PDF is not supported">Convert Word → PDF</button>
-    <div id="wordPdfResult"></div>
+    <input type="text" id="ytUrl" placeholder="Paste YouTube URL (e.g., https://youtu.be/VIDEOID or https://www.youtube.com/watch?v=VIDEOID)">
+    <button id="ytFetchBtn"><i class="fa-solid fa-link"></i> Fetch</button>
+
+    <div id="ytResult" class="yt-hidden">
+      <div class="yt-meta">
+        <div><strong>Video ID:</strong> <span id="ytIdText">—</span></div>
+        <div id="ytTitleWrap" class="small-note"></div>
+      </div>
+
+      <h4>Thumbnails</h4>
+      <div class="thumb-grid" id="thumbGrid"></div>
+
+      <h4>Create Clip Link</h4>
+      <div class="clip-form">
+        <input type="text" id="clipStart" placeholder="Start time (e.g., 1:23 or 83)">
+        <input type="text" id="clipEnd" placeholder="End time (optional, e.g., 2:45 or 165)">
+        <button id="buildLinksBtn"><i class="fa-solid fa-wand-magic-sparkles"></i> Build Links</button>
+      </div>
+
+      <div class="clip-links">
+        <div>
+          <label>Watch Link (start only):</label>
+          <input type="text" id="watchLink" readonly>
+          <button data-copy="#watchLink" class="copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a id="watchOpen" target="_blank" class="open-btn">Open</a>
+        </div>
+        <div>
+          <label>Embed Link (start &amp; end):</label>
+          <input type="text" id="embedLink" readonly>
+          <button data-copy="#embedLink" class="copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a id="embedOpen" target="_blank" class="open-btn">Open</a>
+        </div>
+      </div>
+
+      <h4>QR Code</h4>
+      <div id="qrcode" class="qr-box"></div>
+    </div>
   </div>
 </div>
 
-<!-- ============== ABOUT ============== -->
+<!-- ============== ABOUT (unchanged) ============== -->
 <div id="tab-about" class="tab-content">
   <h2>About This Page</h2>
-  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and convert PDF/Word files.</p>
+  <p>This tool provides advanced conversions for <strong>length, weight, temperature, volume, speed, area, time, currency, energy, pressure, and data size</strong>. You can also calculate your daily calories and use YouTube utilities.</p>
   <ul>
     <li>⚡ Fast & Interactive</li>
     <li>✅ Accurate & Bidirectional</li>
@@ -126,11 +161,10 @@
   <div class="ads">Google Ads Placeholder</div>
 </div>
 
-<!-- Libraries for PDF→Word (client-side) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.worker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.min.js"></script>
+<!-- Optional libs used by YouTube tab -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<!-- Converters & Nutrition remain the same logic file -->
 <script src="script.js"></script>
 </body>
 </html>

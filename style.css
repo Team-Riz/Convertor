@@ -44,67 +44,24 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .result.show {animation: pop 0.3s;}
 @keyframes pop {0%{transform:scale(0.8);opacity:0;}50%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
 
-/* ===== CALORIES / NUTRITION ===== */
+/* ===== CALORIES FORM ===== */
 .calorie-form input, .calorie-form select, .calorie-form button {width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ccc;}
 .calorie-form button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
 .calorie-form button:hover {background:#e64a19; transform:translateY(-2px);}
-.calorie-result-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; margin-top:15px;}
-.calorie-card {background:linear-gradient(145deg,#fff3e0,#ffe0b2); padding:15px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:0.3s; position:relative; overflow:hidden;}
-.calorie-card h4 {margin:0 0 10px; color:#ff5722;}
-.calorie-card p {margin:5px 0; font-weight:bold; color:#bf360c;}
-.calorie-card svg {position:absolute; top:10px; right:10px; width:30px; height:30px;}
+.calorie-result {margin-top:15px; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;}
+.cal-card {background:rgba(255,87,34,0.1); border-radius:12px; padding:12px; text-align:center; transition:0.3s; position:relative;}
+.cal-card:hover {transform:translateY(-3px); box-shadow:0 6px 15px rgba(0,0,0,0.15);}
+.cal-card h4 {margin-bottom:6px; color:#ff5722;}
+.cal-icon {width:40px; height:40px; margin-bottom:6px; animation: bounce 1s infinite;}
+@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
 
-/* NEW nutrition block */
-.nutrition-wrapper {margin-top:20px;}
-.nutrition-heading {color:#ff5722; margin-bottom:10px;}
-.nutrition-controls {display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:10px;}
-.nutrition-row {display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px;}
-.nutrition-row:first-child {grid-template-columns:2fr 2fr;}
-.nutrition-row input, .nutrition-row select, .nutrition-row button {padding:10px; border-radius:8px; border:1px solid #ccc;}
-.nutrition-row button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
-.nutrition-row button:hover {background:#e64a19; transform:translateY(-2px);}
-.nutrition-table-wrap {overflow:auto; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); background:#fff;}
-.nutrition-table {width:100%; border-collapse:collapse;}
-.nutrition-table th, .nutrition-table td {padding:12px; border-bottom:1px solid #eee; text-align:left;}
-.nutrition-table th {background:#fff3e0; color:#bf360c;}
-.nutrition-actions {margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;}
-.nutrition-actions button {padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:bold;}
-.nutrition-actions button#downloadCsvBtn {background:#4caf50; color:#fff;}
-.nutrition-actions button#downloadCsvBtn:hover {background:#388e3c;}
-.nutrition-actions button.danger {background:#ef5350; color:#fff;}
-.nutrition-actions button.danger:hover {background:#d32f2f;}
-
-/* ===== MEDIA / YOUTUBE TOOLS ===== */
-.media-container input, .media-container button {
-  display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;
-}
-.media-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
-.media-container button:hover {background:#388e3c; transform:translateY(-2px);}
-.small-note {font-size:0.9rem; color:#555; margin:8px 0;}
-.yt-hidden {display:none;}
-.yt-meta {display:flex; gap:15px; flex-wrap:wrap; margin:10px 0;}
-.thumb-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:10px;}
-.thumb-card {background:#fff; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); overflow:hidden; display:flex; flex-direction:column;}
-.thumb-card img {width:100%; display:block;}
-.thumb-card .thumb-actions {display:flex; gap:8px; padding:8px; border-top:1px solid #eee;}
-.thumb-card a {flex:1; text-align:center; padding:8px; background:#2196f3; color:#fff; border-radius:8px; text-decoration:none; font-weight:bold;}
-.thumb-card a:hover {background:#1976d2;}
-.clip-form {display:grid; grid-template-columns:1fr 1fr auto; gap:10px; margin:10px 0;}
-.clip-links > div {display:grid; grid-template-columns:1fr auto auto; gap:8px; align-items:center; margin-bottom:8px;}
-.copy-btn, .open-btn {padding:10px 12px; border-radius:8px; border:none; background:#2196f3; color:#fff; text-decoration:none; font-weight:bold; display:inline-block; text-align:center;}
-.copy-btn:hover, .open-btn:hover {background:#1976d2;}
-.qr-box {width:180px; height:180px; padding:8px; background:#fff; border-radius:10px; box-shadow:0 5px 10px rgba(0,0,0,0.1);}
+/* ===== PDF TOOLS ===== */
+.pdf-container input, .pdf-container button {display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;}
+.pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
+.pdf-container button:hover {background:#388e3c; transform:translateY(-2px);}
 
 /* ===== ADS ===== */
 .ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}
-
-/* ===== ABOUT TAB ===== */
-.about-wrapper {padding:20px; max-width:900px; margin:0 auto;}
-.about-header {font-size:1.5rem; font-weight:bold; margin-bottom:10px; display:flex; align-items:center; gap:10px;}
-.about-content p {line-height:1.6; margin-bottom:20px;}
-.about-features {display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;}
-.feature-card {background:#fff; border-radius:12px; padding:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); display:flex; align-items:center; gap:10px; font-weight:bold; transition:0.3s; opacity:0; transform:translateY(30px);}
-.feature-card.visible {opacity:1; transform:translateY(0); transition:0.6s ease-in-out;}
 
 /* ===== DARK MODE ===== */
 body.dark {background:linear-gradient(135deg,#0d0d0d,#1a1a1a); color:#f1f1f1;}
@@ -114,10 +71,4 @@ body.dark .converter-card {background:#1e1e1e; border:1px solid #333;}
 body.dark .converter-card input, body.dark .converter-card select {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
 body.dark .converter-card button {background:#0d47a1;}
 body.dark .converter-card .result {background:rgba(13,71,161,0.2); color:#bbdefb;}
-body.dark .calorie-card {background:#263238; color:#fff;}
-body.dark .nutrition-table-wrap {background:#1e1e1e;}
-body.dark .nutrition-table th {background:#3b3b3b; color:#fff;}
-body.dark .nutrition-row input, body.dark .nutrition-row select {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
-body.dark .nutrition-row button {background:#0d47a1;}
-body.dark .media-container input {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
-body.dark .media-container button {background:#0d47a1;}
+body.dark .cal-card {background:rgba(13,71,161,0.2);}

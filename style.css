@@ -63,7 +63,6 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .nutrition-row input, .nutrition-row select, .nutrition-row button {padding:10px; border-radius:8px; border:1px solid #ccc;}
 .nutrition-row button {background:#ff5722; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
 .nutrition-row button:hover {background:#e64a19; transform:translateY(-2px);}
-
 .nutrition-table-wrap {overflow:auto; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); background:#fff;}
 .nutrition-table {width:100%; border-collapse:collapse;}
 .nutrition-table th, .nutrition-table td {padding:12px; border-bottom:1px solid #eee; text-align:left;}
@@ -98,6 +97,14 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 
 /* ===== ADS ===== */
 .ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}
+
+/* ===== ABOUT TAB ===== */
+.about-wrapper {padding:20px; max-width:900px; margin:0 auto;}
+.about-header {font-size:1.5rem; font-weight:bold; margin-bottom:10px; display:flex; align-items:center; gap:10px;}
+.about-content p {line-height:1.6; margin-bottom:20px;}
+.about-features {display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;}
+.feature-card {background:#fff; border-radius:12px; padding:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); display:flex; align-items:center; gap:10px; font-weight:bold; transition:0.3s; opacity:0; transform:translateY(30px);}
+.feature-card.visible {opacity:1; transform:translateY(0); transition:0.6s ease-in-out;}
 
 /* ===== DARK MODE ===== */
 body.dark {background:linear-gradient(135deg,#0d0d0d,#1a1a1a); color:#f1f1f1;}

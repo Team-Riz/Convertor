@@ -54,7 +54,7 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .calorie-card p {margin:5px 0; font-weight:bold; color:#bf360c;}
 .calorie-card svg {position:absolute; top:10px; right:10px; width:30px; height:30px;}
 
-/* NEW nutrition block uses the same overall look */
+/* NEW nutrition block */
 .nutrition-wrapper {margin-top:20px;}
 .nutrition-heading {color:#ff5722; margin-bottom:10px;}
 .nutrition-controls {display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:10px;}
@@ -75,10 +75,26 @@ header h1 {font-size:1.6rem; display:flex; align-items:center; gap:10px;}
 .nutrition-actions button.danger {background:#ef5350; color:#fff;}
 .nutrition-actions button.danger:hover {background:#d32f2f;}
 
-/* ===== PDF TOOLS (unchanged visuals) ===== */
-.pdf-container input, .pdf-container button {display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;}
-.pdf-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
-.pdf-container button:hover {background:#388e3c; transform:translateY(-2px);}
+/* ===== MEDIA / YOUTUBE TOOLS ===== */
+.media-container input, .media-container button {
+  display:block; width:100%; margin-bottom:12px; padding:10px; border-radius:8px; border:1px solid #ccc;
+}
+.media-container button {background:#4caf50; color:#fff; cursor:pointer; font-weight:bold; transition:0.3s;}
+.media-container button:hover {background:#388e3c; transform:translateY(-2px);}
+.small-note {font-size:0.9rem; color:#555; margin:8px 0;}
+.yt-hidden {display:none;}
+.yt-meta {display:flex; gap:15px; flex-wrap:wrap; margin:10px 0;}
+.thumb-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:10px;}
+.thumb-card {background:#fff; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); overflow:hidden; display:flex; flex-direction:column;}
+.thumb-card img {width:100%; display:block;}
+.thumb-card .thumb-actions {display:flex; gap:8px; padding:8px; border-top:1px solid #eee;}
+.thumb-card a {flex:1; text-align:center; padding:8px; background:#2196f3; color:#fff; border-radius:8px; text-decoration:none; font-weight:bold;}
+.thumb-card a:hover {background:#1976d2;}
+.clip-form {display:grid; grid-template-columns:1fr 1fr auto; gap:10px; margin:10px 0;}
+.clip-links > div {display:grid; grid-template-columns:1fr auto auto; gap:8px; align-items:center; margin-bottom:8px;}
+.copy-btn, .open-btn {padding:10px 12px; border-radius:8px; border:none; background:#2196f3; color:#fff; text-decoration:none; font-weight:bold; display:inline-block; text-align:center;}
+.copy-btn:hover, .open-btn:hover {background:#1976d2;}
+.qr-box {width:180px; height:180px; padding:8px; background:#fff; border-radius:10px; box-shadow:0 5px 10px rgba(0,0,0,0.1);}
 
 /* ===== ADS ===== */
 .ads {background:#ddd; padding:1rem; text-align:center; margin-top:20px; border-radius:10px; font-weight:bold; color:#555;}
@@ -96,3 +112,5 @@ body.dark .nutrition-table-wrap {background:#1e1e1e;}
 body.dark .nutrition-table th {background:#3b3b3b; color:#fff;}
 body.dark .nutrition-row input, body.dark .nutrition-row select {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
 body.dark .nutrition-row button {background:#0d47a1;}
+body.dark .media-container input {background:#2c2c2c; color:#f1f1f1; border:1px solid #555;}
+body.dark .media-container button {background:#0d47a1;}
